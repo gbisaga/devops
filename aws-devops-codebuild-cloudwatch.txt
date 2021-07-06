@@ -1,0 +1,13 @@
+- Logs - Under CodeBuild > Logs - set up log groups - only trace of build after it's finished
+- Metrics
+  - Succeeded, failed, overall builds sum
+  - Duration
+  - E.g. too many failures, create an alarm
+  - too many failures
+  - too many overall builds - maybe there's a bug with the build process
+- Events - most important integration with CodeBuild - now Amazon EventBridge - two most important
+  - 1. How do you schedule events over time? Maybe run it every hour
+  - Rules - either an Event pattern or a Schedule
+  - Targets - e.g. CodeBuild project
+  - The basis for automation - Can build based on CodeBuild state changes
+  - More complex can use CodePipeline
