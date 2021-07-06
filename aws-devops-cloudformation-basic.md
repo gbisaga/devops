@@ -48,7 +48,7 @@ Delete a stack
 Parameters
 - Important for template reuse, and for parameters you can't determine ahead of time (e.g. key pair for an EC2 instance)
 - Ask yourself: Is this configuration likely to change in the future? 
-- Have types: string, number, CSV, List<Type>, AWS parameter
+- Have types: `string`, `number`, `CSV`, `List<Type>`, AWS parameter
 - AllowedValues or pattern, no echo (for secure parameters)
 - Use !Ref (or Fn::Ref) to reference a parameter (!Ref also references name/YAML key of resources)
 - Also pseudo-parameters built into CloudFormation - predefined AWS::AccountId, AWS::Region, etc.
@@ -81,14 +81,16 @@ Conditions:
 - Apply using `Condition: CreateProdResources` in a resource definition
 
 Intrinsic functions - KEY IDEA - MUST KNOW FOR EXAM
-- Fn::Ref - reference a parameter or physical ID of an underlying resource (i-3423ad98f)
-- Fn::GetAtt - get any of the attributes of a resource, not just its physical id - e.g. AvailabilityZone, PrivateIP
+- `Fn::Ref` - reference a parameter or physical ID of an underlying resource (i-3423ad98f)
+- `Fn::GetAtt` - get any of the attributes of a resource, not just its physical id - e.g. AvailabilityZone, PrivateIP
   - Important for example to specify the AZ of an EC2 value is the same as the AZ of its EC2 instance
-- Fn::FindInMap [ mapname, topkey, secondkey ]
-- Fn::ImportValue exportName
-- Fn::Join - join with a delimeter specified !Join [ ":", [ a, b, c ]] ==> a:b:c
-- Fn::Sub very handy - either name/value substitution or ${variableName} syntax: !Sub "hello ${name}"
-- For conditions: Fn::And, Fn::Equals, Fn::If, Fn::Not, Fn::Or
+- `Fn::FindInMap [ mapname, topkey, secondkey ]`
+- `Fn::ImportValue exportName`
+- `Fn::Join` - join with a delimiter specified \
+`!Join [ ":", [ a, b, c ]]` ==> `a:b:c`
+- Fn::Sub very handy - either name/value substitution or ${variableName} syntax: \
+`!Sub "hello ${name}"`
+- For conditions: `Fn::And`, `Fn::Equals`, `Fn::If`, `Fn::Not`, `Fn::Or`
 
 User data 
 - Need to pass entire script thru Base64
