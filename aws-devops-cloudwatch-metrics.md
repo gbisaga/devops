@@ -1,0 +1,56 @@
+CloudWatch metrics
+- All metrics from all services that expose them - thousands available in portal
+- Example: EC2 - per instance or aggregated metrics
+- Historically, two levels for standard metrics (e.g. EC2 CPU)
+  - Basic monitors - every five minutes
+  - Detailed monitoring - metrics come in every minute - additional charges
+- Also custom metrics with high resolution (down to a second)
+  - Seems like regular metrics now support this also
+  - High resolution metrics are charged per PutMetricData call
+  - Can specify high resolution alarms (10 or 30 seconds)
+- CloudWatch retention
+  - metrics can go back up to 15 months
+  - but not everything: starts to consolidate - <60 seconds for 3 hours, 60 seconds for 15 days, etc.
+- KEY IDEA Important metrics - important to know if you need to create a custom metric or automatically available
+  - EC2
+    - CPU utilization
+	- Disk read/writes in bytes or operations (instance store only - get it from EBS if an EBS disk)
+	- Network in/out (scaling on network)
+	- Status check failed
+	- CPU credit usage and balance (any T-type bursting)
+	- NO INFORMATION ABOUT MEMORY OR PROCESSES - can bring in with agent or custom metrics
+  - EBS
+    - Read/write bandwidth
+	- queue length (large = bad)
+	- time spent idle (high = good)
+	- read/write size
+	- burst balance for burstable volumes
+	- NO INFORMATION ABOUT DISK SPACE - custom metric
+  - ASG
+    - Min/max/desired
+	- Instances in service, transitioning
+	- Can also enable aggregated metrics for CPU etc for the instances in the ASG
+  - ALB
+    - Resonse time
+	- HTTP response categories (2xx, 3xx, etc.)
+	- Errors of various types (TLS)
+	- Connection counts
+	- Load capacity units (determines pricing)
+  - RDS - more information than EC2 (e.g. disk space) because it's a managed service
+    - CPU
+	- Connections
+	- Memory/disk
+	- IOPS, latency, etc.
+- Manually create dashboard with metrics or Create Automated Dashboard with most common metrics
+- Billing metrics (maybe us-east-1 only)
+
+Custom metrics
+- Standard resolution (1 minute granularity) or high resolution (>= 1 second)
+- Can define a value and up to 10 dimensions (i.e. other attributes)
+- Can publish metric with specific timestamps
+- Can publish statistic sets (min, min, etc.) instead of individual metric values - you do statistics first
+
+Exporting metrics - S3, elasticsearch, etc.
+- Doesn't do it natively
+- There's an API call get-metric-statistics - get back JSON document with timestamps, max, unit
+- Always think: how do I automate this? Create CloudWatch scheduled event -> target = Lambda call 
