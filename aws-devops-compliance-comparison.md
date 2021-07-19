@@ -1,0 +1,18 @@
+KEY IDEA Comparing Compliance solutions
+- AWS Config
+  - Ensure EC2 instance has proper AWS configuration (not open SSH port)
+  - Audit and compliance over time
+  - Automation and remediation with CloudWatch or directly
+- Inspector
+  - Will not launch instances (must exist) but it can install Inspector agent if SSM agent exists
+  - Security vulnerability scan within OS with agent
+  - Or outside network scanning
+- Systems Manager SSM
+  - Run automations, patches, commands, inventory at scale
+- Service Catalog
+  - Restrict how instances can be launched
+  - Make sure beginners don't make mistakes
+- Configuration Management tools
+  - SSM, OpsWorks, Ansible, Chef, Puppet, userdata
+  - Q: CloudFormation?
+  - Ensure EC2 instances have proper configuration files

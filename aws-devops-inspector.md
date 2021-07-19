@@ -1,0 +1,31 @@
+Amazon Inspector
+- Identify behavior of resources, analyze security issues
+- Install an agent on EC2, run assessments, analyze results... and build automations
+- Integrated with SSM to run commands to install the Inspector agent
+- Two setups
+  - Network assessments - Analyzes network, no agent required
+  - Host assessments - Requires Inspector agent, looks inside the host - gets deeper information
+- Can run them once or weekly
+- Defailed configuration
+  - Targets - which instances - by tag
+  - Service can install agent - installs the Inspector agent using SSM Agent (must be installed, instance must have IAM role that allows SSM > Run Command)
+  - Assessment template - a number of predefined rules packages - network reachability, security best practices
+  - How often to run assessment (creates CloudWatch scheduled rule to implement)
+- Inspector will never launch an EC2 instance
+- KEY IDEA Why instance might not show up? (1) Inspector agent not installed (2) SSM agent not installed to install it (3) No IAM role
+- After run, generates findings 
+  - View in UI or download report
+  - Use to improve security
+
+How to automate?
+- 1) Make the inspector a target for CloudWatch events
+  - the Inspector schedule option does exactly that, a timed event
+  - but could do it on some other trigger
+- 2) Assessment template has outgoing notification to SNS - CloudWatch did not include Inspector (might now)
+- 3) Remediate security findings automatically
+  - Install Inspector agent
+  - Configure assessment template to output notification to SNS
+  - Trigger a Lambda from SNS to do automatic remediation
+- 4) Use as the output of a golden AMI pipeline
+  - Run as soon as AMI is created by SSM automation
+  - Also do timed to make sure AMI is still secure
