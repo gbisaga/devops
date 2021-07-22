@@ -1,0 +1,34 @@
+AWS Data Protection
+- TLS for encryption in transit
+  - AWS Certificate Manager (ACM) to manage certificates
+  - Load Balancers
+    - ELB, ALB, NLB provide SSL termination
+    - Can have multiple certificates per ALB
+    - Optional encryption between ALB and EC2 instances (normally HTTP)
+  - CloudFront with SSL certificates
+  - All AWS services expose HTTPS
+  - You could (but SHOULDN'T) use plain HTTP API - everything else HTTPS
+- Encryption at rest
+  - S3 Encryption
+    - SSE-S3 Standard encryption using AWS' key
+	- SSE-KMS
+	- SSE-C - client side (AWS doesn't keep it, but encrypts with it)
+	- Client side encryption - AWS never sees the key
+	- Can set default encryption
+	- Can enforce encryption in S3 bucket policy
+	- Glacier encrypted by default
+  - For EBS, EFS, RDS, DynamoDB, ElastiCache, etc
+    - Either service encryption key or your own KMS key
+  - Category of data - very strong encryption and security requirements
+    - PHI - protected health info
+	- PII - personal identifying info
+
+Network Protection
+- Direct Connect - private, direct connection
+- Public Internet: Use VPN (on-premise to cloud)
+  - Site-to-site VPN w/ IPSec
+- Network ACL - stateless firewall at VPC level
+- WAF - web security rules against common exploits
+  - Deploy on CloudFront, ALB, API Gateway, or AWS AppSync (GraphQL APIs)
+- Security groups - stateful firewall on instance's underlying hypervisor
+- System firewalls - you can set up your own Linux or Windows firewall

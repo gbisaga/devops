@@ -51,6 +51,14 @@ Rollback/Redeploy - https://docs.aws.amazon.com/codedeploy/latest/userguide/depl
     - Can continue deployment ignoring alarms or if status unavailable
     - Then enable rollback when alarm trips
 
+Additional deployment behaviors
+- Option to not fail deployment if ApplicationStop lifecycle event fails (assuming it's not running anyway, ignore it)
+- Content options - if an incoming file from the application revision has same name - fail, overwrite, retain
+
+Deploy onto an ASG
+- See ASG section - re-deploys onto existing instances, and newly created ones
+- See asg-cicd document
+
 On-premise instances - https://docs.aws.amazon.com/codedeploy/latest/userguide/instances-on-premises.html
 - Create on-prem instance, register with CodeDeploy, and TAG IT (important)
   - KEY IDEA #1: Need to have the on-prem instance log in. Could use an IAM user, but you need a separate one for EACH on-prem instance.

@@ -33,3 +33,10 @@ Key/Value pair (KVP) - An event is a moment in time with multiple KVP
 
 sleuth.io - SaaS - automatically tracking your Accelerate metrics - either thru plugin integrations or with an API. Have 60 code pipelines on random build tool. Can meet dev teams where they are.
 - Accelerate metrics seem to be really important
+
+NR powerschool-<district> eg dallasisd - same application name across all the nodes
+- Events NR knows how to track
+- Plus "PS" events sent via perf capture
+
+Greg added perf capture NR instrumentation in 2017 - https://powerschoolgroup.atlassian.net/browse/INST-9301
+Greg's doc on adding NR - https://powerschoolgroup.atlassian.net/wiki/spaces/~greg.stavenow@powerschool.com/pages/4538246/PowerSchool+New+Relic+JVM+Monitor

@@ -1,0 +1,12 @@
+Domain 5 (incident and event response)
+- Lots of this in every other section
+- Troubleshoot and restore operations
+  - CloudWatch, CloudFormation, CodeDeploy rollbacks
+- Automate event management and alerting
+  - CloudWatch events+++, CloudWatch alarms, SNS
+- Automated healing - https://docs.aws.amazon.com/opsworks/latest/userguide/workinginstances-autohealing.html
+  - CloudFormation (triggered by an alarm)
+  - Beanstalk - keeps track of hosts
+  - OpsWorks - automatic host replacement, manages infrastructure if OpsWorks agent doesn't send heartbeats
+  - Autoscaling
+- KEY IDEA Questions on this!
