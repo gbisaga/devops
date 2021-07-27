@@ -1,0 +1,26 @@
+S3 - see developer course for more
+- Buckets can define events - don't need to enable anything in particular
+- Different than CloudWatch events
+  - KEY IDEA Can set up "events" to SNS, SQS, or Lambda
+  - Don't need to enable anything - for CloudWatch you also need to enable CloudTrail for the bucket to get the eveets
+  - PUT, POST, COPY, delete, multipart upload completed, etc
+- Bucket policy works together with IAM permissions - UNION of policies apply
+  - KEY IDEA Need bucket policy to allow CloudTrail access to the bucket
+- Can Replicate a bucket in same account or different, same or cross-region
+  - Entire bucket
+  - Or prefix or tags
+  - Can change storage class, change ownership
+  - Has to assign an IAM role
+  - Asynchronous replication
+  - NOTE Glacier doesn't replicate
+- Lifecycle rule - save same money
+  - Prefix, current and/or old versions
+  - E.g transition to glacier or standard-IA after 90 days
+  - Automatic delete objects after a period of time (expire)
+- Encryption
+  - Server-side encryption - None, AES (S3 key), or own KMS key (most common)
+  - Client-side encryption
+  - SSE-C - client provides the key
+- Access logs
+  - Put access logs into another bucket
+  - Query using Athena to visualize the data, look for bad requests

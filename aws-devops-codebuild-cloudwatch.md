@@ -1,7 +1,9 @@
 - Logs - Under CodeBuild > Logs - set up log groups - only trace of build after it's finished
-- Metrics
+  - CloudWatch logs
+  - S3
+- Metrics - can create a dashboard or create an alarm which triggers an event
   - Succeeded, failed, overall builds sum
-  - Duration
+  - Duration of each stage, CPU
   - E.g. too many failures, create an alarm
   - too many failures
   - too many overall builds - maybe there's a bug with the build process

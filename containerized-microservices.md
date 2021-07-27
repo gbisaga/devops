@@ -1,0 +1,34 @@
+Containerized Microservices Whitepaper
+- "Architectural and organizational approach to development - small, independent services via well-defined APIs"
+- Monolith - one big piece, all updated at once
+- Microservices
+  - Decoupled
+  - Single function - authenticating a user, shopping cart, checkout - smaller you break up the better
+  - Well-defined APIs - others don't need to know anything about the microservice
+  - 12-Factor app
+    - Isolate dependencies - don't share any dependencies
+	- Ephemeral - disposable, doesn't store state
+	- Scalability - scale out, concurrency - write to ensure
+- Organization structure
+  - Must have autonomous teams - developing, managing, monitoring
+  - Own microservice all the way to production to support
+- Product, not project
+  - For a project, you only do what you need to
+  - For a product, you need to do everything needed to make successful 
+    - delivery automation
+	- self-service (both users and developers, don't have to ask people for logs, etc.)
+	- continuously integrated - no big merges and feature jumps
+	- continuously delivery - always push it out, customer sees the value sooner
+- Smart endpoints, dumb pipes
+  - Don't overcomplicate the communication method (no ESB)
+- Decentralized governance
+  - Freedom to choose dependencies
+  - Freedom to choose build tools - they're the ones building and supporting the pipeline
+  - Freedom to choose data tools - use any database you want and best suited for your service
+  - No shared data sources - no schema coordination, etc.
+- Design for failure
+  - Disposable - can replace at any time
+  - Resiliency - Latency and timeouts expected
+  - Able to failover to another region
+  - Self-healing - in old days sys admins needed to go in manually - now often just kill the old one and start new ones
+  - Treats logs as event streams, isolated from the environment

@@ -13,6 +13,13 @@ CodePipeline is the definition of your CI and CD
   - Each stage can create artifacts, passed on via S3
   - Trigger starts > Source (CodeCommit) > Build (CodeBuild) > Deploy (CodeDeploy) - artifacts between Each
 
+Key principles of CI/CD
+- Automation - do the boring stuff, make sure it works in a "clean" environment
+- Everything as code (no manual adjustments) - including the pipeline itself
+- Test, test, test
+- Consistency
+- Integrate frequently - a lot safer, smaller sets of changes - finding the issue 
+
 Pipeline
 - KEY IDEA #1: Have to specify a repo and branch, so need one pipeline for each branch
 - KEY IDEA #2: Detection option, CloudWatch events (recommended, because it happens immediately) or CodePipeline to check periodically.
@@ -111,3 +118,25 @@ CodePipeline/CloudFormation actions
   - Clone pipeline with clone command
   - Use CloudFormation to create multiple (better!)
 - As DevOps always have to think: how do I scale this
+
+Security
+- User IAM security - to be able to invoke the pipeline
+- Pipeline has a service role (under Settings) 
+  - NOTE that users don't need these permissions, they only need to be able to invoke the pipeline
+- Manual approvals - Which IAM users or roles can approve
+- Artifacts - S3 key or own KMS key
+
+CodePipeline automations
+- Already integrated with sources like CodeCommit or GitHub
+- Notification rules
+  - Detail
+  - What are triggers for the notification
+    - actions, stages, pipeline
+	- started, succeeded, canceled, resumed, etc.
+	- also for manual approval
+- Custom Action provider
+  - Invoke Lambda
+  - Choose which artifact(s) to send
+- Triggering pipeline from other things in AWS
+  - CloudWatch/EventBridge event rule
+  - Scheduled (e.g. set up a weekly build) or based on source/patterns

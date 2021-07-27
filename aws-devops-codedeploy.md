@@ -4,11 +4,49 @@ Deploy code to EC2 instances - you can use ansible, chef, terraform, etc... but 
 - Application pulled from GitHub or S3 - source code+appspec.yml file 
 - Agent runs deployment instructions and report success/failure
 - If restart EC2, need to restart the agent
+- Deployment services
+  - CodeDeploy is usually the answer to deployment
+    - To EC2, On-prem, ECS, Lambda - most compute type
+	- Rolling, blue/green, canary
+    - Does complex orchestration for ECS, Lambda or ASG
+	- Integrates with CodePipeline and other CI/CD tools
+	- Can be complex but handles a lot
+  - ECS directly - very simple deployment to ECS and docker only
+    - Can do manual or automated deployment
+	- Only docker, includes fargate
+	- Rolling updates of tasks
+	- Circuit breaker only thru CLI/API/SDK (stop deployment, rollback if a deployment fails or times out)
+  - CloudFormation can deploy other infrastructure
+
+Deployment/Delivery Strategies (general)
+- All-at-once
+  - Typically just upgrading the software directly on running servers
+  - All users going to blue version, all switched over
+  - No redundant infrastructure
+  - Pro: fast deployment (instantly get latest version), cheapest (all infrastructure is reused)
+  - Con: downtime, hard to roll back
+- Rolling
+  - Choose a percent to shift at once - this many users get the changes, you can monitor for no errors
+  - Pro: limited blast radius (only impact limited amount of trafic), easier rollback
+  - Con: slower deployment, app must support multiple live versions - hard for legacy
+- Blue-Green (aka Red/Black)
+  - Build an identical environment
+    - For EC2 environments switch between them using DNS routing
+    - For ECS use two target groups, with two different ports (80 for blue, 8080 for green)
+  - All users point to blue, deploy to green, then shift over all users
+  - Pro: not multiple live versions, easy rollback (just shift the traffic back)
+- Canary
+  - Build an identical environment
+    - Select using DNS routing, feature toggles, user selection (internal users first, beta users next, then everybody)
+  - Like blue/green, but move certain number of users to new environment; can be percents, or specific users (internal first, then preferred customers, then all)
+  - Pro: limited blast, easy rollback
+  - Con: slow deploy (pauses for each canary step)
+  - A/B is similar, but not meant to be a fully release, just testing new features
 
 Define an Application
 - Each application defines the compute platform - EC2, Lambda, ECS
 - One or more Deployment Groups - groups instances to deploy to, often dev/test/prod
-- Deployment groups can specify different parameters like in-place vs blue/green, load balancer/ASG configs, rollback behavior, alerts, triggers
+- Deployment groups can specify different parameters like in-place vs blue/green, load balancer/ASG configs, rollback behavior, triggers, alarms (for when it fails)
 - Group instances by deployment group (dev/test/prod)
   - Flexibility, can have sub-groups
   - Chain into CodePipeline and use artifacts from there
@@ -23,6 +61,8 @@ So steps:
   - EC2/On-prem, lambda, or ECS
   - Create deployment group - for dev, test, prod
   - Deployment type - in-place or blue/green
+- Run deployments from the Deployment Groups
+  - Can override deployment configuration, rollback behavior
 
 appspec.yml
 - version, OS sections

@@ -1,0 +1,16 @@
+On-premise stragegy with AWS
+- See also DR document
+- Can download Amazon Linux 2 AMI as a .iso VM -> VMWare, VirtualBox, etc.
+- VM Import/Export to EC2 instances
+  - Migrate existing applications into EC2 
+  - Create DR stragegy for on-premise VMs
+  - Export back the VMs from EC2 to on-premise
+- AWS Application Discovery service
+  - Gather info about on-premise servers to plan a migration
+  - Utilization
+  - Track with AWS Migration hub
+- AWS Database Migration Service (DMS)
+  - Replication on-premise DB -> AWS, AWS->AWS, AWS->on-premise
+  - Works across various DB technologies (e.g. replicate Oracle->MySQL)
+- AWS Server Migration Service (SMS)
+  - Replicate volumes directly into AWS

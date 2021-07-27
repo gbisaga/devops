@@ -91,3 +91,5 @@ Aggregating old results vs retention
 - Peek season investigation - compare this year vs last year
 - https://docs.newrelic.com/docs/telemetry-data-platform/manage-data/manage-data-retention/
 - What is the required/appropriate event generation rate? Every msec is expensive, but 30 minutes is probably too slow. Probably want some guidance around these kinds of questions.
+
+New Relic One AWS observability workshop https://newrelic.awsworkshop.io/

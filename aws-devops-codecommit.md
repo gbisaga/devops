@@ -1,5 +1,32 @@
+Many Source Control strategies
+- Components
+  - Repository - centralized place, the big container
+  - Branch - collection of files with own history and lifecycle
+  - Commit - single change on a given branch
+  - Pull Request - merge one branch into another
+- Strategies
+  - Trunk-Based Development - commits directly to master, the only branch
+    - Master still always releasable
+    - Pro: very small changes
+	- Pro: Continuous code merges
+	- Pro: increate delivery
+	- Con: requires lots of testing - everything needs to be releasable at any time
+  - GitHub Flow
+    - Master still always releasable
+	- Pro: Short lived feature/bug branches - frequent
+	- Con: master not always up to date
+	- Con: larger changes to master
+  - GitFlow
+    - Pre: Master is always releasable
+	- Pro: Strict control
+	- Con: Master not always up to date
+	- Con: Large changes to master - if something broken, have to figure out what change caused it
+	- Con: Complicated merges
+  - Environmental branching - one long-lived branch for each environment - master/dev, test, prod
+    - Similar to GitFlow but worse - even more merging
+
 There are 3 ways you can hook up automation to CodeCommit activities:
-1. Notifications - SNS only - literal notification and not for taking action based on them
+1. Notifications - SNS (or AWS Chatbot - e.g. slack) only - literal notification and generally not for taking action based on them (old style)
     Comments
     On commits
     On pull requests
@@ -24,6 +51,7 @@ There are 3 ways you can hook up automation to CodeCommit activities:
 3. More flexible way - see blog below - is CloudWatch events (now called EventBridge) - CW is centerpiece of all devops automations
 - Specify a service name - here CodeCommit
 - Then event type - commonly CodeCommit Repository State Change
+- EventBridge also gives you source of any API call via CloudTrail
 - Targets - one or more - one could be CodeBuild project
 - Example on "AWS DevOps Blog" - Validating pull requests with AWS CodeBuild and Lambda
     https://aws.amazon.com/blogs/devops/validating-aws-codecommit-pull-requests-with-aws-codebuild-and-aws-lambda/
@@ -33,3 +61,13 @@ So, we can set up notifications, triggers, and CloudWatch Rules to kick off auto
 
 Lambda triggers - can create a trigger from the lambda side as well - e.g. to check for passwords being checked in, etc.
 
+Securing repo - Restricting access
+- Normally you need to give users CodeCommitPowerUser access 
+- Limit access using DENY rules for particular repos or branches - have e=DENY / a=codecommit:* / r=arn:...:RepoName
+- What if want to protect branch changes? Add another IAM DENY policy - nothing like S3 bucket policies
+  - Add policy denying write actions like GitPush, DeleteBranch, PutFile, etc.
+  - Add condition codecommit:References = refs/heads/master
+- What if you want to have approvers? Add Approval Rule Template
+  - Number of approvals, approval pool (user, role, ARN)
+  - Specify branch filters - which are protected branches
+  - Assign rule to specific repos

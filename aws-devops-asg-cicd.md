@@ -47,3 +47,7 @@ ASG deployment strategies with CodeDeploy
 - Rolling (1 LB, 1 ASG) - create new instances, then delete
 - Replace (1 LB, 2 ASG)- create new ASG with new instances but the same ALB; so at some points ALB points to both ASGs
 - Blue/Green (2 LB, two ASG, R53 change)
+  - KEY IDEA Use a weighted Rt53 record to the new ALB - Need to pre-warm the ALB, cannot receive all the load at once, or AWS can pre-warm for you
+- Read Blue/Green Deployments on AWS 
+  - https://aws.amazon.com/quickstart/architecture/blue-green-deployment/
+  - White Paper https://docs.aws.amazon.com/whitepapers/latest/blue-green-deployments/blue-green-deployments.pdf

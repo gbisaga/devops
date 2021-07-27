@@ -40,3 +40,4 @@ NR powerschool-<district> eg dallasisd - same application name across all the no
 
 Greg added perf capture NR instrumentation in 2017 - https://powerschoolgroup.atlassian.net/browse/INST-9301
 Greg's doc on adding NR - https://powerschoolgroup.atlassian.net/wiki/spaces/~greg.stavenow@powerschool.com/pages/4538246/PowerSchool+New+Relic+JVM+Monitor
+Onassis NR/SIS document - https://powerschoolgroup.atlassian.net/wiki/spaces/DevZone/pages/1312768/PowerSchool+SIS+NewRelic+Integration

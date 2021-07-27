@@ -59,6 +59,7 @@ How feature flagging lets you test in production
 Good, bad and ugly https://www.youtube.com/watch?v=r7VI5x2XKXw
 - Amazing, but can do really bad things - case studies
 - Knight Capital, a financial services firm - dropped by feature flags and deployments
+  - https://dougseven.com/2014/04/17/knightmare-a-devops-cautionary-tale/
   - PowerPeg and SMARS - PowerPeg code hadn't been used for 8 years, but decided to develop SMARS
   - SMARS tested fine in QA - deployed as a dark release... except one server still had the old code
   - Reused the PowerPeg feature toggle; so when they toggled it on, one server was running old software
@@ -117,4 +118,38 @@ Just talked with Flaten about this, and we both concur: yes to squashing, as lon
 - we want history, but the p4 branching model was essentially the same as if we squash; and
 - cherry picking
 - multiple commits for the same jira ticket
+ 
+Lyft - no external service - called "runtime"
+- github repo - client https://github.com/lyft/goruntime
+- uses locally managed flags - stored in a different repo
+- Q: How do you merge the code rollouts with the feature flag rollouts?
 
+Constant reading 
+- ok with disk-based
+- but maybe problems with incomplete cached items
+- also hard if you're deploying docker - how do you update the disk files?
+
+Front end and back end
+- can get back from back end (def backend features with frontend consequences)
+- but web frontend is its own docker container
+- frontend not doing SPAs from CloudFront - server side rendering for react apps - react JSX can be server side
+- even before server side rendering, everything is a node layer
+
+Naming convention?
+- Different types - boolean and percentages (mostly for percentage of rollout)
+- Data directory > Rides directory > { Default (irrespective of env), Dev, Prod, Staging }
+- Three categories: Flags, Kill switches, Parameters
+- File name is the name of the flag "enable_somefeature.percentage"
+
+Testing combinations?
+- If flags part of repo, you always test combinations
+- What if they interact with each other? General answer: don't
+
+Inline vs injection, etc.
+- Lots of solutions across different services
+- Working on one - abstracting if/else block with conditionally rendering components
+- Frontend - sometimes easier - 2 Angular <div>'s with if/else
+
+Experiment - data science, experiment 
+
+Monorepo - pull the whole thing?

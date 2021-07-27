@@ -64,7 +64,13 @@ All kinds of logs - KEY IDEA to understand options and distinctions
 - AWS managed logs
   - Load balancer access logs to S3
   - CloudTrail logs to S3 and CloudWatch logs
-  - VPC flow logs to S3 and CloudWatch logs
+  - VPC flow logs to S3 and CloudWatch logs - you can have multiple of these with different log line formats, filters, aggregation time
   - Route 53 access logs only to CloudWatch logs
   - S3 access logs to S3
   - CloudFront access logs to S3
+
+Example VPC flow log record (default, accept)
+${version} ${account-id} ${interface-id} ${srcaddr} ${dstaddr} ${srcport} ${dstport} ${protocol} ${packets} ${bytes} ${start} ${end} ${action} ${log-status}
+2 361854306654 eni-07bf794daa3063cb9 52.217.169.146 10.1.1.248 443 46184 6 15 5094 1627240405 1627240437 ACCEPT OK
+2 361854306654 eni-07bf794daa3063cb9 37.0.11.249 10.1.1.248 53644 22 6 2 80 1627240503 1627240557 ACCEPT OK
+2 361854306654 eni-07bf794daa3063cb9 10.1.1.248 37.0.11.249 22 53644 6 1 44 1627240503 1627240557 ACCEPT OK

@@ -12,6 +12,18 @@ Jenkins on AWS - white paper https://d1.awsstatic.com/whitepapers/DevOps/Jenkins
 - Master would be an EC2, with slaves in others, maybe in an ASG
 - Can have one master, or a multi-master setup - multi-masters share info using EFS
 
+KEY IDEA Differences with CodePipeline, how to choose
+- CodePipeline
+  - No managing server, just use the service (don't care about versions, OS, etc.)
+  - Built-in actions provided by AWS (source, test, etc) - make easier to interact with AWS services
+  - Can write custom actions
+  - IAM based authentication - manage same as other IAM-using services
+- Jenkins
+  - Self-managed infrastructure - master coordinates, slaves do the work like CodeBuild
+  - Lots of operational work
+  - Plugins - similar to CodePipeline actions
+  - You also have total control over OS or manual patching, running on-premise
+  
 Lots of Options
 - Use Jenkins as part of a stage in CodePipeline - replaces CodeBuild, take advantage of all the plugins
 - Use Jenkins instead of CodePipeline - Jenkins runs the whole pipeline: control (CodePipeline), build (CodeBuild), deploy (CodeDeploy)
