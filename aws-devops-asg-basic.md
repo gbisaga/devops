@@ -46,19 +46,21 @@ ASG + Load balancer integration
 - ALB has a security group (important for routing traffic to EC2)
 - Create ALB -> create a Target Group
   - Target Group can point to instances, IP, Lambdas
-  - TG specifies a health check endpoint - by default requires a 200, with default healthy/unhealthy thresholds, customizable
+  - TG specifies a health check endpoint - by default requires a 200, with default healthy/unhealthy thresholds, customizable.
 - KEY IDEA By itself, a TG cannot scale! It has to be linked to an ASG.
   - TG vs ASG: https://stackoverflow.com/questions/48529074/how-is-target-groups-different-from-auto-scaling-groups-in-aws
   - Classic LB: LB -> ASG
   - ALB: LB -> TG <- ASG <--- Note that the ASG points to the TG! I.e. the ASG knows to automatically add or remove its instances from the TG!
     - But NOTE: Only adds new ones if the ASG doesn't have the AddToLoadBalancer process suspended!
   - So it's possible to create a LB with a TG not linked to an ASG; but then the TG cannot scale, it's fixed to the instances you allocate
+- ELB can have access logs to S3 - disabled by default https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/access-log-collection.html
 - KEY IDEA There are health checks from both ASG and LB
   - LB health checks specify whether to send traffic
     - These operate by sending traffic to the instance
   - ASG health check decides whether to terminate instances; 
     - can be one of two types: either EC2 or ELB
     - EC2 health checks: ONLY check the instance's status, healthy as long as the instance is running
+    - If you want traffic-based or application checks, need to use the ELB health check
 	- ELB health checks: ASKS THE ELB whether IT considers the instance healthy
 	- For load-balanced instance, ELB health check is much more appropriate
 

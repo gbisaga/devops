@@ -15,3 +15,4 @@ Billing and Cost Management console
 - Set up report with Cost Allocation Tags item
 - AWS tags don't show up on resources themselves, they only show up in reports
 - KEY IDEA If you want to figure out your costs or control your budget by environment, use Cost Allocation Tags
+- Cost optimization pillars https://docs.aws.amazon.com/whitepapers/latest/cost-optimization-laying-the-foundation/cost-optimization-pillars.html

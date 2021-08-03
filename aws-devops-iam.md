@@ -1,0 +1,29 @@
+Services that support resource-based policies
+- AWS Lambda
+- AWS Serverless Application Repository
+- ECR
+- AWS Backup
+- EFS
+- S3 Glacier
+- S3
+- S3 Outpost
+- Cloud9
+- AWS CodeArtifact
+- CodeBuild
+- Secrets Manager
+- IAM (partial)
+- AWS Certificate Manager
+- KMS
+- Lex V2
+- CloudWatch logs
+- API Gateway
+- VPC (partial)
+- Elemental Media Store
+- ElasticSearch
+- Glue
+- EventBridge
+- EventBridge schemas
+- SNS
+- SQS
+- IoT (partial)
+- SES

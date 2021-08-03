@@ -38,9 +38,9 @@ Best way to test code? Probably CodeBuild, serverless, very little setup require
 buildspec.yml - https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html
 - Specify an "env" section with variables, parameter store or secrets manager (e.g. login password)
   -> What's the diff? Both can be encrypted, SM is always; PS is free, SM $0.40/secret + access fee; SM allows autorotation, autogeneration https://acloudguru.com/blog/engineering/an-inside-look-at-aws-secrets-manager-vs-parameter-store
-- Specify different phases: install, pre_build (e.g. login to ECR), build, post_build
+- Specify different phases -> These are the only ones install, pre_build (e.g. login to ECR), build, post_build
 - Install can specify the runtime version (e.g. node 10)
-- Each phase can have a finally block to cleanup
+- Each phase can have `commands` block, plus a `finally` block to cleanup
 - Specify artifacts to be uploaded (else lost in the docker container)
 - Purpose of pre-build - FAIL EARLY - so for example (docker example) don't wait until later when you might waste the time to do the build, only to fail on the ECR login.
 - Can create reports - `reports/SurefireReports:` element

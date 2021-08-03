@@ -71,6 +71,17 @@ Good, bad and ugly https://www.youtube.com/watch?v=r7VI5x2XKXw
   - Moved to trunk based development with feature flags - on startup, it reads the printer's model number
   - Moved to 2 days to see that a feature works through simulation and emulation
 
+NFR sub-items:
+- Feature flags must be named and 
+
+https://www.flagship.io/feature-flags-naming-conventions/
+https://launchdarkly.com/blog/best-practices-short-term-permanent-flags/
+
+Naming with "enable" or "disable"
+Isolated locations - leftnav, header - good. Inline hiding links can go crazy - special PS-HTML tag, or add name of feature flag
+UC "feature flag" service - documentation?
+Bad SIS example: "New Experience" - what is "new"?
+
 Rules around feature flags:
 - Rule 1: NEVER re-use a feature toggle.
 - Q: Why is dead code - a feature not used in 8 years - still in the codebase? Somebody might turn it back on! (Eliminate with trunk based development - just make a release that deletes it, and roll back)

@@ -61,6 +61,10 @@ So, we can set up notifications, triggers, and CloudWatch Rules to kick off auto
 
 Lambda triggers - can create a trigger from the lambda side as well - e.g. to check for passwords being checked in, etc.
 
+Basic access
+- CodeCommit is a REGIONAL service - use the region in the URL `ssh://git-codecommit.us-east-1.amazonaws.com/v1/repos/garytest1`
+- Can use HTTPS or SSH or local GRC URL (git helper)
+
 Securing repo - Restricting access
 - Normally you need to give users CodeCommitPowerUser access 
 - Limit access using DENY rules for particular repos or branches - have e=DENY / a=codecommit:* / r=arn:...:RepoName

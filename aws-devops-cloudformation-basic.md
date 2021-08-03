@@ -26,6 +26,14 @@ Introduction - Infrastructure as Code
 - Exam is about what features to use to do X operation, and read it
 - Can use 
 
+General info
+- CloudFormation vs Terraform https://medium.com/@cep21/after-using-both-i-regretted-switching-from-terraform-to-cloudformation-8a6b043ad97a
+- CloudFormation best practices http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/best-practices.html
+
+https://s3.amazonaws.com/media.whizlabs.com/learn/2020/03/20/ckeditor_30375.png
+https://whizlabs.com/learn/media/2019/01/22/questions_zu7s0t.png
+https://s3.amazonaws.com/media.whizlabs.com/learn/2019/01/22/questions_zu7s0t.png
+
 Create a stack
 - Upload template or S3
 - Can provide a role or use default for login
