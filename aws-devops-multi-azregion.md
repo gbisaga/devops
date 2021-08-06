@@ -1,6 +1,6 @@
 Multi-AZ
 - Sometimes must be enabled manually
-  - EFS, ELB, ASG, beanstalk: assign the AZ's (multiple AZs)
+  - EFS, ALB/NLB (attached to a VPC, can specify subset of AZs), ASG, beanstalk: assign the AZ's (multiple AZs)
   - RDS, ElastiCache: multi-AZ (synchronous standby DB for failover)
   - Aurora - data stored automatically across multi-AZ, but can have multi-AZ for DB (like RDS)
   - ElasticSearch (managed): multi-master
@@ -12,10 +12,10 @@ Multi-AZ
 - EBS - special case
   - Tied to a single AZ (obviously, it's just a disk)
   - How to make multi-AZ? Use automation!
-  - Create ASG with 1 min/max/desired - ASG is so a new EC2 will be automatically created
-  - Lifecycle hook for terminate: make snapshot in S3
-  - Lifecycle hook for start: copy snapshot, create EBS, create EC2 instance attached to it
-  - NOTE: pre-warm PIOPS (provisioned IOPS, "io 1") volumes, need to read entire volume once - pre-warm the blocks
+    - Create ASG with 1 min/max/desired - ASG is so a new EC2 will be automatically created
+    - Lifecycle hook for terminate: make snapshot in S3
+    - Lifecycle hook for start: copy snapshot, create EBS, create EC2 instance attached to it
+    - NOTE: for copy, pre-warm PIOPS (provisioned IOPS, "io 1") volumes, need to read entire volume once - pre-warm the blocks
 
 Multi-region services
 - New, sometimes need to manually implement - be creative with automation

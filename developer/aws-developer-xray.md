@@ -1,0 +1,49 @@
+XRay - revolutionary, underutilized - IMPORTANT FOR Exam
+- Old way - add logging, re-deploy
+- Log formats in CloudWatch and analytics are hard
+- Distributed services are really hard, no common view of whole application
+- XRay FTW! Visual analysis of your application
+- Troubleshoot performance bottlenecks
+- Undersand dependencies, find service issues across a request
+- Identify users that are impacted
+- Lambda, EB, ECS, ELB, API, EC2 instances (even onprem)
+- Uses tracing to follow a request:
+  Component added a "trace" > made up of "segments" > make of "sub segments"
+- Traces can have annotations
+- Trace: every request, sample of requests (% or rate)
+- IAM and KMS
+- Service map graphical
+
+How to enable?
+- 1) Code must import AWS xRay SDK
+  Very little code modification - bring it in - application SDK then capture AWS calls, HTTP requests, DB calls, Queue calls
+- 2) Install XRay daemon or enable XRay integration
+  Console has ssripts for EC2 or docker
+  Lambda alraeady runs the daemon for you if you enable it
+  ElasticBeanstalk has an .ebextensions/xray-daemon.config - option setting aws:elasticbeanstalk:xray: XRayEnabled: true
+  Needs IAM rights to write data to XRay - COMMON EXAM QUESTION - runs locally but not on EC2 -> EC2's Role doesn't have the policy
+
+XRay IMPORTANT FOR EXAM
+- XRay daemon/agent has config to send traces cross accounts
+  - Make sure IAM permissions correct - agent assumes role
+  - Central aaccount for all application tracing
+- End to end trace > all Segments collected together (each application or service sends)
+- Sampling - reduce amount of requests sent ot XRay, reduce costs - only 5% of traces sent
+- Two kinds of extra data with traces
+  - Annotations - K/V pairs used to index traces and use filters
+  - Metadata - also K/V pairs, but not indexed, not for searching
+- Code must be instrumented (interceptors, handlers) - like middleware in python or NodeJS/Express samples
+- IAM role must have permission to send traces
+- If not working - troubleshoot:
+  - NOTE: All require XRay imported in your code above
+  - from EC2/onprem
+    - has IAM role policy (AWSX-RayWriteOnlyAccess)
+    - XRay imported in your code
+    - Running the XRay daemon
+  - from Lambda
+    - has IAM role policy (AWSX-RayWriteOnlyAccess)
+  - from ElasticBeanstalk
+    - Config on EB console or use Beanstalk .ebextensions
+  - from ECS/EKS/Fargate (docker)
+    - Create docker image with daemon
+	- Port mappings and network settings correct

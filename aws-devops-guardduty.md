@@ -1,8 +1,8 @@
 GuardDuty
-- Intelligent threat discovery to protect AWS account against mailicious usage
+- Intelligent threat discovery to protect AWS account against malicious usage
 - ML algorithms, anomaly detection
 - No software to install
-- Input data
+- KEY IDEA Input data are CloudTrail, VPC flow logs, and DNS logs
   - CloudTrail logs - API calls, unauthorized deployments
   - VPC Flow Logs - unusual internal traffic, IP address
   - DNS logs - compromised EC2 instances

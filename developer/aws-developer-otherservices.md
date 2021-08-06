@@ -1,0 +1,35 @@
+Other AWS services
+- CloudFront - CDN caches regional content around the world - usually linked with S3. Increase read performance. Content delivered to 136 Points of Presence around the world.
+  - Popular with with S3 because S3 is regional
+  - Protect against DDoD
+  - Can have HTTPS, can use SSL to you application
+  - Supports videos/media through RTMP protocol (Real-Time Messaging Protocol)
+- Step functions - orchestrate Lambda or other services (EC2)
+  - implement state machine
+  - Has waits, human interaction
+  - Max execution time = 1 year
+  - Write in JSON, gives you a graphical output
+- SWF - Simple Workflow Service
+  - Similar to Step functions, but runs on EC2, not serverless
+  - Activity Step and Decisoin Step
+  - Built in human intervention step
+  - Recommendation: Use step functions instead, unless you:
+    - Need external signals to intervene, or 
+	- Use child processes that return values to parent processes
+- SES - Simple Email Service
+  - Send or receive emails
+    - Send using SMTP or AWS SDK
+	- Receive - integrate with S3, SNS, or Lambda
+  - Integrated with IAM allowing to send emails
+- Summary of Databases
+  - RDS: relational DBs, for OLTP - Postgres, MySQL, Oracle, or Aurora/Aurora Serverless. Provisioned.
+  - DynamoDB: managed, key value/document, serverless
+  - ElastiCache - in memory - redis or mecached
+  - Redshift - OLAP - data warehouse, data lake; analytics queries
+  - Neptune - graph datbase
+  - DMS - Database Migration Service - quickly load data into any DB
+  - ACM - AWS Certificate Manager - used to host public SSL certs in AWS. Either buy and upload your own (CLI), or have ACM provision and renew (free)
+    - Loads certs into Load Balancers (including EB), CloudFront, API Gateway
+    - SSL certs are a pain to renew and load; ACM very helpful
+	- Common - less cost in EC2, less complexity
+	- Automatically renewed by Amazon!

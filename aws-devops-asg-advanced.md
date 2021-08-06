@@ -1,4 +1,5 @@
 Advanced ASG topics and integrations
+- Can manually mark an instance to unhealthy with `aws autoscaling set-instance-health` - for example from a monitoring Lambda or from a script inside the instance itself. Then the ASG will destroy and recreate it.
 
 Suspended processes
 - KEY IDEA cause autoscaling processes to be suspended and resumed https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-suspend-resume-processes.html (important in exam)
@@ -35,8 +36,8 @@ KEY IDEA Autoscaling lifecycle hooks
   - CloudWatch events invoking a Lambda
 - To create : ASG > Lifecycle Hooks
   - Hook either on Pending or Terminate
-  - Heartbeat timeout in seconds, default action (PROCEED or ABANDON)
-  - Can have a notifification target ARN and role (for SQS or SNS)
+  - Heartbeat timeout in seconds, default action (PROCEED or ABANDON) -> default timeout = 1 hour
+  - Can have a notification target ARN and role (for SQS or SNS)
   - Better choice CloudWatch Event 
     - Service: Autoscaling, EventType: Launch and Terminate
 	- Optional: specific events and specific ASG launch templates
@@ -76,5 +77,5 @@ Monitoring
 - CloudWatch metrics
   - ASG related - min/max/desired, number of instances in each state, etc
   - EC2 group metrics - average CPU utilization, disk read/write, etc.
-- Notification to SNS topic (launch, terminate, fail to launch or terminate) or CloudWatch events - as usual CloudWatch more flexible
+- Notification to SQS or SNS (launch, terminate, fail to launch or terminate) or CloudWatch events - as usual CloudWatch more flexible
 - KEY IDEA No automatic ASG integration with CloudWatch logs - so use CloudWatch agent on EC2's WITH proper IAM role permission

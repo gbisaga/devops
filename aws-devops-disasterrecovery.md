@@ -16,22 +16,27 @@ Disaster Recovery
 
 DR Strategies
 - KEY IDEA Exam will give scenarios, you have to choose from these
-- Backup and Restore 
+- Backup and Restore (RPO in hours, RTO in 24 hours or less)
   - High RTO, everything recreated; also high RPO because making backups takes time
   - Examples
     - On-premise: AWS storage gateway or Snowball to send to S3 - in extreme cases RPO might be a week
 	- In cloud: regular snapshots into S3 of EBS, redshift, RDS, etc.
   - When you restore, recreate EC2s from AMIs, recreate RDS, etc
   - Lowest cost
-- Pilot Light - popular, critical systems kept running
+- Pilot Light - popular, critical systems kept running (RPO in minutes, RTO in hours)
   - Small version of the app always running in the cloud - critical core
   - Similar to Backup and Restore, but your most critical systems are already up
   - Example: Do live RDS replication to have the DB, but not running the EC2 instances
   - Lower RPO (less to backup), lower RTO (less to rebuild during recovery)
-- Warm Standby - full system up and running but at minimum size
+  - The difference between Pilot Light and Warm Standby can sometimes be difficult to understand.
+    - Both include an environment in your DR Region with copies of your primary region assets. 
+    - The distinction is that Pilot Light cannot process requests without additional action taken first, while Warm Standby can handle traffic (at reduced capacity levels) immediately
+      - Pilot Light will require you to turn on servers, possibly deploy additional (non-core) infrastructure, and scale up
+      - Warm Standby only requires you to scale up (everything is already deployed and running). Choose between these based on your RTO and RPO needs.
+- Warm Standby - full system up and running but at minimum size (RPO in seconds, RTO in minutes)
   - ASG with only one EC2 running - in recovery, scale up the ASG
   - More expensive since you have more infrastructure
-- Multi-site/Hot-site (aka active/active)
+- Multi-site/Hot-site - aka active/active (RPO near zero, RTO potentially zero)
   - Very low RTO, but very expensive
   - Duplicate system running, Route53 sends traffic to both
   - Cloud/replica version accesses same live database as on-premise instances

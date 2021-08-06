@@ -11,6 +11,7 @@ ASG
 - ASGs have a capacity with min/max/desired
   - Min and max are min/max instances possible
   - Desired is number of instances you want; scaling policies bump this number up or down and the ASG responds by creating/deleting instances to match
+  - Note they are immutable - to change, create a copy and use that (launch templates are versioned)
 
 Launch templates
 - Revolutionary way to define instances
@@ -23,6 +24,7 @@ Launch templates
 - Include only the parameters you want - AMI, instance type, key pair, security group, etc.
 - Define instance tags - can be passed on to EC2 and disks if you want
 - User data, etc.
+- Can specify % combination of on-demand and spot instances (not in launch configurations)
 
 Scheduled actions
 - Maybe you know patterns of when users will show up or not - scale in or out

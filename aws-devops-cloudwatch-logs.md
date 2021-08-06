@@ -40,8 +40,11 @@ Exporting logs
 CloudWatch logs subscription
 - KEY IDEA Do real-time processing of log events
 - Assigned at the log group level (like Metrics filters, expiration, etc.)
-- KEY IDEA 3 basic destinations: Lambda, Kinesis streams (not from console, CLI only), Kinesis firehouse (not from console, CLI only)
-- In UI can create to ElasticSearch (creates a Lambda behind the scenes)
+- KEY IDEA 3 (or 4) basic destinations:
+  - Lambda
+  - Kinesis streams (not from console, CLI only)
+  - Kinesis firehouse (not from console, CLI only)
+  - In UI can create to ElasticSearch (creates a Lambda behind the scenes)
 - Kinesis Data Firehose can go to S3, Splunk, ElasticSearch 
   - Need to give Firehose a role to write wherever it needs to write (S3, etc.)
   - Create a subscription filter from the CLI
@@ -58,7 +61,7 @@ All kinds of logs - KEY IDEA to understand options and distinctions
   - Inform you of system behavior
   - Also sent via CloudWatch unified agent
 - Access logs
-  - List indivdual requests from people
+  - List individual requests from people
   - On Load balancers, proxies, web servers
   - Based on user requests being made
 - AWS managed logs

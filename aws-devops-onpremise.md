@@ -9,9 +9,17 @@ On-premise stragegy with AWS
   - Gather info about on-premise servers to plan a migration
   - Utilization
   - Track with AWS Migration hub
+  - Three import methods: (1) upload manual CSV; (2) agentless Discovery connector (VMWare vCenter only); (3) agents on each VM or server
 - AWS Database Migration Service (DMS)
   - Replication on-premise DB -> AWS, AWS->AWS, AWS->on-premise
   - Works across various DB technologies (e.g. replicate Oracle->MySQL)
+  - Can enable validation (additional queries), validation rules (e.g. null same as space), "validate only" mode
+  - Lots of CloudWatch metrics, including validation counts
+  - Very similar to Attunity replicate:
+    - Requires an (EC2) replication instance
+    - Define endpoints and tasks
+    - Task refs endpoints and can be "Migrate existing data" (full load), "Replicate data changes only" (changes), or "Migrate existing data and Replicate ongoing changes" (both)
+    - Tasks can be running or stopped
 - AWS Server Migration Service (SMS)
   - Replicate volumes directly into AWS
   - Creates AMIs

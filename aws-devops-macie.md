@@ -1,11 +1,10 @@
 Amazon Macie
 - Data visibility security service for S3 data - Discover, Classify and protect sensitive and business-critical content
   - PII, name/SSN, addresses; private keys; facebook secrets; many others
-  - Also calls CloudTrail to see if anyone actually accessed the data
+  - Also calls CloudTrail looking for S3 events - e.g. see if anyone actually accessed the data
 - Requires an IAM Service Role
-  - Role created and managed by the service
-  - Used by the ssrvice
-  - Useful becuase you're giving the service permission to obtain more permissions if it needs them
+  - Role created, used and managed by the service
+  - Useful because you're giving the service permission to obtain more permissions if it needs them
 - AWS DevOps blog - sample to generate sensitive looking data
 - Integration - specify buckets to analyze
 - Enter custom queries to search thru the data, content types

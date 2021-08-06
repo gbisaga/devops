@@ -1,0 +1,14 @@
+Cognito - used to give users an identity. Several different products
+- Cognito user pools (CUP) - signin for app users, integrated with app gateway
+  - Can verify email/phone and add MFA
+  - (Confusing) can have federated identities with Facebook, Google, SAML - so do identity pools
+  - Sends back JWT, can be intgrated with API Gateway
+- Cognito federated identity pools (FIP) - can use user pools as identity provider
+  - Federated identity pools, direct access to AWS Resources from the client side
+  - Log into federated identity provider (or stay anonymous); get back temporary AWS credentials with a predefined IAM policy.
+  - Example: Provide temporary access to write to S3 using Facebook login
+  - App: (1) logs in with a federated identiry provider (FB, Google, CUP; (2) Authenticate to FIP, get back temporary AWS creds; (3) app acts on S3 using temporary IAM role attached to temp creds
+- Cognito sync - deprecated, replaced by app sync (maybe not on the exam)
+  - Store user prefs, config, state of app
+  - Cross device sync
+  - To work, need FIP, not CUP
