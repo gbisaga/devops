@@ -36,17 +36,21 @@ Scaling policies - now called Dynamic Scaling Policy
   - Simple scaling policy - add/remove N capacity units based on CloudWatch alarm - can have multiple policies (some up, some down)
   - Step scaling policy - specify one CloudWatch alarm w/ multiple steps ("add 1 when 40-70%", "add 2 when 70-90%", "add 3 over 90%")
   - Target tracking scaling - no explicit CloudWatch alarms, add or remove instances to maintain value of some metric like average CPU utilization (creates UP and DOWN alarms behind the scenes, so you can look at history of the alarm in CloudWatch)
-- KEY IDEA Default cooldown - # of seconds after a scaling activity before another one will start
+- KEY IDEA Default cooldown - # of seconds after any scaling activity before another one can start
   - I.e. how fast to scale in or out
+  - Avoids overshooting on scale in or out
   - Default of 300 sec typically good for production
+  - Applies ONLY to simple scaling policy
 - KEY IDEA Warmup time - how long before the metrics of a new instance will be considered for scaling policy - i.e. it takes this long for instance to start accepting traffic normally
+  - Applies only to step and target tracking
+  - Similar to cooldown in intent
 - Can disable scale-in - never terminates instances
 
 ASG + Load balancer integration
 - Don't need a LB with an ASG, but normally do if instances are going to handle traffic
   - So instances that do standalone batch processing (timed spot, handling SQS messages, etc.) might have ASG without an ALB
 - ALB has a security group (important for routing traffic to EC2)
-- Create ALB -> create a Target Group
+- Create ALB -> create a Target Group (not in classic)
   - Target Group can point to instances, IP, Lambdas
   - TG specifies a health check endpoint - by default requires a 200, with default healthy/unhealthy thresholds, customizable.
 - KEY IDEA By itself, a TG cannot scale! It has to be linked to an ASG.

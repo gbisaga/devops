@@ -20,8 +20,13 @@ Suspended processes
 
 KEY IDEA Troubleshooting instances in an ASG without impacting operations
 - Can do it live, perhaps with suspending some processes
-- Better option: DETACH the instance -> creates a new instance in the ASG -> replaces this instance in the TG -> but leaves the instance running
-- Best option: SET TO STANDBY -> removes this instance from the TG but leaves it in place for troubleshooting (option to add a new instance to TG) -> when done set back to InService; can also use for handling long-running actions e.g. after reading a request from SQS
+- Better option: DETACH the instance
+  - creates a new instance in the ASG
+  - replaces this instance in the TG, but leaves the instance running
+- Best option: SET TO STANDBY
+  - removes this instance from the TG but leaves it in place for troubleshooting (option to add a new instance to TG)
+  - when done set back to InService
+  - can also use for handling long-running actions e.g. after reading a request from SQS
 - Set Scale-in protection to certain instances - these instances will never be terminated even if desired capacity is reduced
 
 KEY IDEA Autoscaling lifecycle hooks
@@ -36,7 +41,9 @@ KEY IDEA Autoscaling lifecycle hooks
   - CloudWatch events invoking a Lambda
 - To create : ASG > Lifecycle Hooks
   - Hook either on Pending or Terminate
-  - Heartbeat timeout in seconds, default action (PROCEED or ABANDON) -> default timeout = 1 hour
+  - Heartbeat timeout in seconds
+    - what is default action after timeout (PROCEED or ABANDON)
+    - default timeout = 1 hour
   - Can have a notification target ARN and role (for SQS or SNS)
   - Better choice CloudWatch Event 
     - Service: Autoscaling, EventType: Launch and Terminate
@@ -70,7 +77,7 @@ SQS Integration
   - Need a custom CloudWatch metric for the #messages/#instances
   - DIVIDED by the number of instances
   - more complicated, based on backlog, etc.
-- KEY IDEA Want to protect the instance from termination while it's processing a message (OK but requires message to be handled again) - of if instance has a special role like Hadoop cluster master
+- KEY IDEA Want to protect the instance from termination while it's processing a message (requires message to be handled again) - or if instance has a special role like Hadoop cluster master
   - Protect from scale-in at beginning of processing, then remove protection at the end
 
 Monitoring 
