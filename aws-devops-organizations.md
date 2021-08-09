@@ -7,10 +7,10 @@ Multi-account - Organizations
 - Pricing benefits from aggregated usage - volume discount across all accounts
 - API to automate account creation
 - Organizations can be full (more modern) or only will billing controls (older)
-
+- Organization can see IAM accesses (including last-used info) - only from organization's master account
 Multi-account strategies - different options
 - Create multiple Accounts: per department, cost center, dev/test/prod, separate per-account service limits, isolated accounts for logging
-- Another option: single accoutn with multi-VPC
+- Another option: single account with multi-VPC
   - Not separate users, have access to all resources
 - Tagging standards for billing
 - Enable CloudTrail or CloudWatch logs being sent to central S3 account

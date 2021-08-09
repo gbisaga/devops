@@ -1,7 +1,7 @@
 OpsWorks - using Puppet and Chef to provision and configure infrastructure
 - "AWS OpsWorks is a configuration management service that helps you build and operate highly dynamic applications, and propagate changes instantly"
 - 3 options
-  - Chef Automate - not in exam
+  - Chef Automate - creates and uses a standalone server, not in exam
   - Puppet Enterprise - not in exam
   - Stacks - uses Chef cookbooks to deploy application
 - Sounds a lot like other tools - https://tutorialsdojo.com/elastic-beanstalk-vs-cloudformation-vs-opsworks-vs-codedeploy/
@@ -23,8 +23,7 @@ Stacks
     - Default is 24/7 type (always on)
     - Time-based - OpsWorks starts and stops instances based on a schedule, simplified cron-type UI
 	- Load-based - starts new instances based on layer metrics or up and down on CloudWatch alarms
-  - Note that this is NOT autoscaling - you have to predefine the specific instances you want. OpsWorks just
-    starts and stops them.
+  - Note that this is NOT autoscaling - you have to predefine the specific instances you want. OpsWorks just starts and stops them.
 - Apps specifies where an application comes from (e.g. github)
 - Deployments - can run specific Chef cookbooks remotely on one or all instances
 - Monitoring the layers

@@ -110,6 +110,8 @@ Custom action jobs with Lambda - https://docs.aws.amazon.com/codepipeline/latest
 - KEY IDEA #1: Hook up a Lambda function to do anything you want, but need more than basic permissions for its role - need CodePipeline access to write back the results PutJobSuccessResult, PutJobFailureResult
 - KEY IDEA #2: You need to pass back a continuationToken to CodePipeline, this tells CodePipeline where it triggered in its execution, where to continue operations
 
+Automated Integration API Testing https://aws.amazon.com/blogs/devops/automating-your-api-testing-with-aws-codebuild-aws-codepipeline-and-postman/
+
 CodePipeline/CloudFormation actions
 - Use CodePipeline to deploy CloudFormation
 - But can also create CodePipeline using CloudFormation - READ THESE EXAMPLES https://docs.aws.amazon.com/codepipeline/latest/userguide/tutorials-cloudformation.html
