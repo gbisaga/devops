@@ -1,7 +1,7 @@
-Advanced ASG topics and integrations
+# Advanced ASG topics and integrations
 - Can manually mark an instance to unhealthy with `aws autoscaling set-instance-health` - for example from a monitoring Lambda or from a script inside the instance itself. Then the ASG will destroy and recreate it.
 
-Suspended processes
+# Suspended processes
 - KEY IDEA cause autoscaling processes to be suspended and resumed https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-suspend-resume-processes.html (important in exam)
 - E.g. suspend "Launch" process - will not launch any new instances, even if you manually change the desired capacity
 - Use cases - Troubleshooting, allowing for temporarily skipping health checks (if you know it's healthy but it doesn't show that way)
@@ -18,7 +18,7 @@ Suspended processes
     - Note: if you resume the AddToLoadBalancer process, instances created while it was suspended NOT automatically added to the TG!
 	- Need to manually register the instances to the TG
 
-KEY IDEA Troubleshooting instances in an ASG without impacting operations
+# KEY IDEA Troubleshooting instances in an ASG without impacting operations
 - Can do it live, perhaps with suspending some processes
 - Better option: DETACH the instance
   - creates a new instance in the ASG
@@ -29,7 +29,7 @@ KEY IDEA Troubleshooting instances in an ASG without impacting operations
   - can also use for handling long-running actions e.g. after reading a request from SQS
 - Set Scale-in protection to certain instances - these instances will never be terminated even if desired capacity is reduced
 
-KEY IDEA Autoscaling lifecycle hooks
+# KEY IDEA Autoscaling lifecycle hooks
 - Gives control over instance creation and termination in an ASG
 - Normally ASG instances have states Pending -> InService -> Terminating -> Terminated (these show at instance lifecycle status)
 - Extra Pending and Terminated states - :Wait and :Proceed
@@ -56,7 +56,7 @@ KEY IDEA Autoscaling lifecycle hooks
   - Lifecycle hook -> CloudWatch event -> Lambda -> SSM Run Command
   - TODO https://github.com/aws-samples/aws-lambda-lifecycle-hooks-function
 
-Termination Policies
+# Termination Policies
 - Question: if there's an autoscaling action, which instance(s) are terminated first?
 - Several policy options (could specify more than one?)
   - KEY IDEA Default 
@@ -71,7 +71,7 @@ Termination Policies
   - OldestLaunchTemplate
   - AllocationStrategy - spot vs on-demand mix
 
-SQS Integration
+# SQS Integration
 - Common when you're setting up workers doing backend processing (image processing) with a SQS queue feeding it
 - Want to scale your ASG based on something more than number of messages in the queue 
   - Need a custom CloudWatch metric for the #messages/#instances
@@ -80,7 +80,7 @@ SQS Integration
 - KEY IDEA Want to protect the instance from termination while it's processing a message (requires message to be handled again) - or if instance has a special role like Hadoop cluster master
   - Protect from scale-in at beginning of processing, then remove protection at the end
 
-Monitoring 
+# Monitoring 
 - CloudWatch metrics
   - ASG related - min/max/desired, number of instances in each state, etc
   - EC2 group metrics - average CPU utilization, disk read/write, etc.

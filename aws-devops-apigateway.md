@@ -1,4 +1,4 @@
-Create an API - either REST or WebSocket
+### Create an API - either REST or WebSocket
 - REST - import swagger or OpenAPI or create your own
 - Endpoints
   - Regional - public, within whatever region
@@ -24,7 +24,7 @@ Create an API - either REST or WebSocket
 - Can create CloudWatch log integration
 - Can create authorizers - Cognito or Lambda
 
-Stage variables - like environment variables for the API Gateway stages
+### Stage variables - like environment variables for the API Gateway stages
 - Use lots of places
   - Lambda function ARN
   - HTTP endpoint
@@ -32,20 +32,20 @@ Stage variables - like environment variables for the API Gateway stages
   - Passed in "context" object in Lambda
 - Example: Set PROD stage variable to a Lambda PROD alias, then we can canary it v1 95/v2 5%; while the TEST stage variable points to a TEST stage alias, which is v2 100%
 
-API Gateway also has its own canary capability
+### API Gateway also has its own canary capability
 - Go to Stage Editor for PROD, create a canary
 - For that stage now there are two "paths" - the main one and the canary one
 - Then you "promote" the canary path to the main path for the stage
 - Notice that each stage can have its own canary
 
-Throttling - KEY IDEA there are three kinds of throttling with API Gateway
+### Throttling - KEY IDEA there are three kinds of throttling with API Gateway
 - 1) By default, 10k/sec avoid DDoS attacks
 - 2) Can also define usage plans for each API stage
-- Each method can have its own throttling
-- API keys can link to usage plan
+  - Each method can have its own throttling
+  - API keys can link to usage plan
 - 3) Lambdas also have throttling
 
-API Gateway can front-end Step Functions
+### API Gateway can front-end Step Functions
 - Could go thru a Lambda first
 - But can specify integration type = AWS Service
 - Can specify virtually ANY AWS service
