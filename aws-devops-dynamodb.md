@@ -1,4 +1,4 @@
-DynamoDB - Feature overview
+### DynamoDB - Feature overview
 - Create a table
   - KEY IDEA Need at least a unique primary key - the partition key - choose carefully. Great overview of it https://aws.amazon.com/blogs/database/choosing-the-right-dynamodb-partition-key/
   - Consider if also want a sort key (aka index)
@@ -32,7 +32,7 @@ DynamoDB - Feature overview
   - In a VPC
   - Settings like TTL, AZ preference, notifications, maintenance windows, etc.
 
-DynamoDB Streams
+### DynamoDB Streams
 - Track write, update, delete
 - KEY IDEA Under the covers, a DynamoDB Streams is a Kinesis Stream - 1MB/s write, 2MB/sec read per shard
 - Can choose only keys, only new data, only old data, both old/new data
@@ -42,22 +42,22 @@ DynamoDB Streams
 - NOTE no more than 2 readers (else it throttles) from a stream at once, and global tables also puts a reader on; so if you use Global Tables, you can only have one lambda hooked up
   - So if you want more, have single lambda write to an SNS topic and fan it out to as many as you want
 
-Global Tables
+### “Global” Tables
 - Replicate a table in another region
 - Don't have option to create a global table until you add a Stream to the table
 - Add as many regions as you want - great for low latency access in multiple reasons
 - This is two-way replication between regions
 - Table has to be empty before you enable multiple regions
 
-TTL
+### TTL
 - Create a TTL attribute (can be named anything you want)
 - Define that attribute as the table's TTL (seconds past 1970)
 - At time, deletes entry, sends a DELETE to the stream, forwards to other regions if global table
 
-Two common patterns for DynamoDB
-1. Build metadata index for S3
-   - Write a lot of items to S3 -> lambda -> puts metadata into DynamoDB table
-   - Create an API for object metadata
-     - Search by date, total storage for a customer, list of all objects with attribute or by date
-2. Hook up to Amazon ElasticSearch to get a better search capability
+### Two common patterns for DynamoDB
+- Build metadata index for S3
+  - Write a lot of items to S3 -> lambda -> puts metadata into DynamoDB table
+  - Create an API for object metadata
+    - Search by date, total storage for a customer, list of all objects with attribute or by date
+- Hook up to Amazon ElasticSearch to get a better search capability
    - DynamoDB -> stream -> lambda -> update ElasticSearch

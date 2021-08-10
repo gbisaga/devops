@@ -1,4 +1,4 @@
-WAF - Web Application Firewall
+### WAF - Web Application Firewall
 - Implements checks like OWASP Top 10 (SQL Injection, XSS, etc.)
 - Create Web ACLs - for each
   - Specify a CloudWatch metric (why??)
@@ -10,5 +10,5 @@ WAF - Web Application Firewall
   - Custom rules using pattern matching (query string looks like/not like this)
   - AWS Marketplace has rule sets like OWASP
 
-Shield - Managed DDoS protection
+### Shield - Managed DDoS protection
 - 
