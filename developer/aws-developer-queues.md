@@ -3,6 +3,8 @@ SQS - queues
 SNS - pub/sub
 Kinesis - streaming, big data
 
+Summary: https://campfirecode.medium.com/sqs-vs-sns-vs-kinesis-which-aws-messaging-service-to-use-1fa3aa6be97d
+
 SQS - scales from 1 to 10k messages/second
 - Default retention = 4 days, max = 14 days
 - No limit to how many messages - just have 

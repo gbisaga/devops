@@ -16,14 +16,14 @@
 
 ### DR Strategies
 - KEY IDEA Exam will give scenarios, you have to choose from these
-- Backup and Restore (RPO in hours, RTO in 24 hours or less)
+- RPO in hours, RTO in 24 hours or less: Backup and Restore
   - High RTO, everything recreated; also high RPO because making backups takes time
   - Examples
     - On-premise: AWS storage gateway or Snowball to send to S3 - in extreme cases RPO might be a week
 	- In cloud: regular snapshots into S3 of EBS, redshift, RDS, etc.
   - When you restore, recreate EC2s from AMIs, recreate RDS, etc
   - Lowest cost
-- Pilot Light - popular, critical systems kept running (RPO in minutes, RTO in hours)
+- RPO in minutes, RTO in hours: Pilot Light - popular, critical systems kept running
   - Small version of the app always running in the cloud - critical core
   - Similar to Backup and Restore, but your most critical systems are already up
   - Example: Do live RDS replication to have the DB, but not running the EC2 instances
@@ -33,10 +33,10 @@
     - The distinction is that Pilot Light cannot process requests without additional action taken first, while Warm Standby can handle traffic (at reduced capacity levels) immediately
       - Pilot Light will require you to turn on servers, possibly deploy additional (non-core) infrastructure, and scale up
       - Warm Standby only requires you to scale up (everything is already deployed and running). Choose between these based on your RTO and RPO needs.
-- Warm Standby - full system up and running but at minimum size (RPO in seconds, RTO in minutes)
+- RPO in seconds, RTO in minutes: Warm Standby - full system up and running but at minimum size
   - ASG with only one EC2 running - in recovery, scale up the ASG
   - More expensive since you have more infrastructure
-- Multi-site/Hot-site - aka active/active (RPO near zero, RTO potentially zero)
+- RPO near zero, RTO potentially zero: Multi-site/Hot-site - aka active/active
   - Very low RTO, but very expensive
   - Duplicate system running, Route53 sends traffic to both
   - Cloud/replica version accesses same live database as on-premise instances
@@ -75,3 +75,10 @@
 - Elastic Beanstalk
   - Saved configurations using eb cli
   - Can use to recreate in another region
+
+DNS routing policies - usually part of DR strategies other than backup and restore
+- Simple - direct connection to a single resource, no DR
+- Failover - for active/passive failover
+- Weighted - multiple resources with specified proportion; good for canary deployments
+- Geolocation, latency, geoproximity - choose based on distance of client
+- Multivalue - pick up to 8 healthy records at random

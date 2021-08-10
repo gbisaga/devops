@@ -1,4 +1,4 @@
-== API Gateway - building a serverless API ==
+### API Gateway - building a serverless API
 - handles API versioning
 - handles different environments (dev, test, prod...)
 - Security (authentication / authorization)
@@ -20,7 +20,7 @@
 	- Use API Gateway stages for ENVIRONMENTS not VERSIONS - easier to manage
 	- Have different "stacks" for different environments. Best case is different accounts for different environments.
 	
-Deployments and Stages (EXAM)
+### Deployments and Stages (EXAM)
 - Changes may not become effective immediately - make a "deployment"
 - Deployed to any number and name of "stages" (dev, test, beta, etc.)
 - each stage has own config parameters
@@ -33,36 +33,36 @@ Deployments and Stages (EXAM)
 - Metrics and logs separate for better monitoring
 - blue/green deployment with Lambda and API Gateway
 
-Mapping templates - modify request/responses - rename, modify body content, add headers, etc
+### Mapping templates - modify request/responses - rename, modify body content, add headers, etc
 - Use Velocity Template Language
 - Hands-on example, changed JSON to XML
 
-Swagger/OpenAPI
+### Swagger/OpenAPI
 - Import Swagger/OpenAPI 3.0 special
 - Request/responses plus AWS extensions
 - YAML or JSON
 - Export from a stage
 
-Caching reduce number of calls to backend
+### Caching reduce number of calls to backend
 - Default TTL 300 sec (0-3600)
 - Defined at the stage level - can Override on specific methods
 - Encrypt option
 - Cache capacity 0.5GB - 237GB
 - Client can request bypass ==> Cache-Control: max-age=0
 
-CloudWatch logs, metrics, XRay tracing
+### CloudWatch logs, metrics, XRay tracing
 - Defined at stage level
 - XRay - can trace requests all the way through the system
 
-API Gateway - CORS
+### API Gateway - CORS
 - Make API gateway 
 - Enable OPTIONS pre-flight - 3 headers Access-Control-Allow-*
 - Creates a mock OPTIONS endpoint
 
-Usage plans
+### Usage plans
 - API keys
 
-API Security - 3 aspects
+### API Security - 3 aspects
 - 1) IAM permissions - attach IAM policy, Gateway verifies IAM permissions. Good to provide access within your own infrastructure
   - "Sig V4" capability with IAM credentials in the headers. Watch for "SIG V4"
 - 2) Lambda or "Custom" Authorization - uses Lambda to validate token in the header. 

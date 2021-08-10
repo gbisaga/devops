@@ -1,7 +1,7 @@
 ### OpsWorks - using Puppet and Chef to provision and configure infrastructure
 - "AWS OpsWorks is a configuration management service that helps you build and operate highly dynamic applications, and propagate changes instantly"
 - 3 options
-  - Chef Automate - not in exam
+  - Chef Automate - creates and uses a standalone server, not in exam
   - Puppet Enterprise - not in exam
   - Stacks - uses Chef cookbooks to deploy application
 - Sounds a lot like other tools - https://tutorialsdojo.com/elastic-beanstalk-vs-cloudformation-vs-opsworks-vs-codedeploy/

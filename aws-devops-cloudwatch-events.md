@@ -11,6 +11,7 @@ CloudWatch events - KEY IDEA - the centerpiece of our DevOps integrations
 	  - Can directly use an Event Pattern JSON document
   - Targets (one or more) - lots of common integrations
     - Popular is Lambda - you can do anything
+	- Several EC2-specific target API calls such as CreateSnapshot, Reboot/Terminate/StopInstances
 	- Launch a batch job
 	- Send to a CloudWatch log group
 	- Launch ECS task
@@ -39,6 +40,7 @@ S3 Notification - similar to CodeCommit Notifications in that it does not direct
 Dashboards
 - Add widgets - line. stacked area, number, text, etc
 - Choose metrics for widgets, customizable
-- KEY IDEA Dashboards can be multi-region so you can mix regions in a single dashboard
+- KEY IDEA Dashboards can be multi-region and multi-account so you can mix regions/accounts in a single dashboard
+  - You select the region when creating data items in a widget
 - KEY IDEA "Correlate" data in a single dashboard - watch for this keyword, it means use a CloudWatch dashboard
 - Can create automatic dashboards with a click, aggregates most common metrics

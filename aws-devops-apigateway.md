@@ -24,6 +24,7 @@
 - Can create API Keys
 - Can create CloudWatch log integration
 - Can create authorizers - Cognito or Lambda
+  - Read about cognito https://k21academy.com/amazon-web-services/aws-solutions-architect/amazon-cognito/
 
 ### Stage variables - like environment variables for the API Gateway stages
 - Use lots of places

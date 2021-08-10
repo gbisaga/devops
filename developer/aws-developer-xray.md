@@ -4,11 +4,11 @@ XRay - revolutionary, underutilized - IMPORTANT FOR Exam
 - Distributed services are really hard, no common view of whole application
 - XRay FTW! Visual analysis of your application
 - Troubleshoot performance bottlenecks
-- Undersand dependencies, find service issues across a request
+- Understand dependencies, find service issues across a request
 - Identify users that are impacted
 - Lambda, EB, ECS, ELB, API, EC2 instances (even onprem)
 - Uses tracing to follow a request:
-  Component added a "trace" > made up of "segments" > make of "sub segments"
+  - Component added a "trace" > made up of "segments" > make of "sub segments"
 - Traces can have annotations
 - Trace: every request, sample of requests (% or rate)
 - IAM and KMS
@@ -16,17 +16,17 @@ XRay - revolutionary, underutilized - IMPORTANT FOR Exam
 
 How to enable?
 - 1) Code must import AWS xRay SDK
-  Very little code modification - bring it in - application SDK then capture AWS calls, HTTP requests, DB calls, Queue calls
+  - Very little code modification - bring it in - application SDK then capture AWS calls, HTTP requests, DB calls, Queue calls
 - 2) Install XRay daemon or enable XRay integration
-  Console has ssripts for EC2 or docker
-  Lambda alraeady runs the daemon for you if you enable it
-  ElasticBeanstalk has an .ebextensions/xray-daemon.config - option setting aws:elasticbeanstalk:xray: XRayEnabled: true
-  Needs IAM rights to write data to XRay - COMMON EXAM QUESTION - runs locally but not on EC2 -> EC2's Role doesn't have the policy
+  - Console has scripts for EC2 or docker
+  - Lambda already runs the daemon for you if you enable it
+  - ElasticBeanstalk has an .ebextensions/xray-daemon.config - option setting aws:elasticbeanstalk:xray: XRayEnabled: true
+  - Needs IAM rights to write data to XRay - COMMON EXAM QUESTION - runs locally but not on EC2 -> EC2's Role doesn't have the policy
 
 XRay IMPORTANT FOR EXAM
 - XRay daemon/agent has config to send traces cross accounts
   - Make sure IAM permissions correct - agent assumes role
-  - Central aaccount for all application tracing
+  - Central account for all application tracing
 - End to end trace > all Segments collected together (each application or service sends)
 - Sampling - reduce amount of requests sent ot XRay, reduce costs - only 5% of traces sent
 - Two kinds of extra data with traces

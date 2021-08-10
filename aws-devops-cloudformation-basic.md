@@ -89,6 +89,7 @@ Conditions:
 - Apply using `Condition: CreateProdResources` in a resource definition
 
 Intrinsic functions - KEY IDEA - MUST KNOW FOR EXAM
+- Can only use in certain parts of template: resource, output, metadata, update policy; or use conditionally (???)
 - `Fn::Ref` - reference a parameter or physical ID of an underlying resource (i-3423ad98f)
 - `Fn::GetAtt` - get any of the attributes of a resource, not just its physical id - e.g. AvailabilityZone, PrivateIP
   - Important for example to specify the AZ of an EC2 value is the same as the AZ of its EC2 instance
@@ -96,7 +97,7 @@ Intrinsic functions - KEY IDEA - MUST KNOW FOR EXAM
 - `Fn::ImportValue exportName`
 - `Fn::Join` - join with a delimiter specified \
 `!Join [ ":", [ a, b, c ]]` ==> `a:b:c`
-- Fn::Sub very handy - either name/value substitution or ${variableName} syntax: \
+- `Fn::Sub` very handy - either name/value substitution or ${variableName} syntax: \
 `!Sub "hello ${name}"`
 - For conditions: `Fn::And`, `Fn::Equals`, `Fn::If`, `Fn::Not`, `Fn::Or`
 
