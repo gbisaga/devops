@@ -1,4 +1,4 @@
-AWS config - paid service, extremely expensive
+### AWS config - paid service, extremely expensive
 - Provides audit trail on compliance of resources
 - Watches configuration and compliance over time
 - Can add customized rules, but rules are optional - on its own, it tracks configuration changes in the resource
@@ -23,7 +23,7 @@ AWS config - paid service, extremely expensive
 	- then specify the scope - what resources you looking at: specific tags, specific resources or resource types - so checking tags on all resources, checking config of only EC2, etc.
 	- extra parameters to pass to the Lambda
 	
-AWS Config Automations
+### AWS Config Automations
 - SNS notifications - not rule level, across all of AWS Config
   - Use case - want overall operational insights to a slack channel about Config as a whole
 - Per-rule use CloudWatch events
@@ -32,6 +32,8 @@ AWS Config Automations
   - Target = Lambda, start Step function, SSM automation, EC2 action like terminating an instance
   - Rule remediation (not as flexible but easier to use and reason about), uses SSM Automations
 
-AWS Config can monitor across multi-account, multi-region aggregator, or organization
+### AWS Config can monitor across multi-account, multi-region aggregator, or organization
 - Aggregated View > Create aggregator (in a master account) > Source accounts (ids or organization) > Regions
-- Needs to authorize aggregation in each account/region
+  - Option: add future regions
+- Needs to authorize aggregation in each account
+  - Authorization not necessary for the master account by its organization accounts

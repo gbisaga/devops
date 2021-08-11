@@ -1,4 +1,4 @@
-AWS Data Protection
+### AWS Data Protection
 - TLS for encryption in transit
   - AWS Certificate Manager (ACM) to manage certificates
   - Load Balancers
@@ -23,12 +23,12 @@ AWS Data Protection
     - PHI - protected health info
 	- PII - personal identifying info
 
-Network Protection
+### Network Protection
 - Direct Connect - private, direct connection
 - Public Internet: Use VPN (on-premise to cloud)
   - Site-to-site VPN w/ IPSec
 - Network ACL - stateless firewall at VPC level
 - WAF - web security rules against common exploits
-  - Deploy on CloudFront, ALB, API Gateway, or AWS AppSync (GraphQL APIs)
+  - Deploy Web ACLs on CloudFront, ALB, API Gateway, or AWS AppSync (GraphQL APIs)
 - Security groups - stateful firewall on instance's underlying hypervisor
 - System firewalls - you can set up your own Linux or Windows firewall

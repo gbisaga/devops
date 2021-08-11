@@ -1,4 +1,4 @@
-Disaster Recovery
+### Disaster Recovery
 - White paper could read - summarized in lecture
 - Disaster: any event w/ negative impact on business continuity or finances
 - DR: preparing for and recovering from a disaster
@@ -14,7 +14,7 @@ Disaster Recovery
     - How much time to come back - what is your downtime
   - The smaller the numbers, the more expensive
 
-DR Strategies
+### DR Strategies
 - KEY IDEA Exam will give scenarios, you have to choose from these
 - RPO in hours, RTO in 24 hours or less: Backup and Restore
   - High RTO, everything recreated; also high RPO because making backups takes time
@@ -43,10 +43,10 @@ DR Strategies
   - EC2 fail over to replicated RDS slave
 - All in the cloud, really same as on-premise - same options
 
-DR tips
+### DR tips
 - Backup with EBS snapshots or backups
 - HA
-  - Route53 be tween regions
+  - Route53 between regions
   - If DirectConnect and network goes down, use Site-2-Site VPN
 - Replication
 - Automation
@@ -56,7 +56,7 @@ DR tips
 - Testing - chaos monkeys
   - Ex. Netflix has "simian army" - randomly terminate app servers, even in production
 
-DR checklist
+### DR checklist
 - Is AMI copied across regions, with key in parameter store
 - Is CloudFormation StackSet working and tested to work in another region?
 - What is RPO/RTO
@@ -64,7 +64,7 @@ DR checklist
 - How can automate w/ CloudWatch events -> trigger Lambda -> perform RDS read replica promotion
 - Is data backed up? appropriate for RPO/RTO? Where is it living, how synchronized and replicated?
 
-Backups and Multi-region DR
+### Backups and Multi-region DR
 - EFS backup options
   - AWS Backup with EFS (frequency, when, retain time)
   - EFS-to-EFS backup automation flow (now AWS Backup)

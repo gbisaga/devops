@@ -12,6 +12,7 @@
     - API Gateway asks for permission to access the lambda function
     - Also LAMBDA_PROXY
       - Lambda can specify a Lambda alias or version - so either a specific version or using an alias you can do canary or A/B testing.
+      - Recommended - else need to write VTL. More unit testable if everything in code.
   - HTTP - Proxy the request to your own service elsewhere
   - Mock - just mock it up
   - AWS Service - 

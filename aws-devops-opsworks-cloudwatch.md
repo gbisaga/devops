@@ -1,4 +1,4 @@
-Integrated with CloudWatch events
+### Integrated with CloudWatch events
 - Option Auto-healing enabled
 - Instances have an agent to communicate with service to restart - this happens automatically
 - Q: How do you get notified?
