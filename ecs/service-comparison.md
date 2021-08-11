@@ -1,0 +1,12 @@
+### Services ECS vs EKS vs Beanstalk
+- ECS
+  - Docker, proprietary
+  - Great integrations
+  - EC2/Fargate
+- Kubernetes
+  - Open source
+- Beanstalk
+  - PaaS on AWS
+  - Many languages
+  - Simple form of single or multi docker containers
+  - Less customized

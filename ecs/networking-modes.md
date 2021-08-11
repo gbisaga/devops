@@ -1,0 +1,15 @@
+### ECS Networking modes
+- None - no external connectivity - no port mappings
+- Bridge (Default on EC2)
+  - Docker virtual network within an EC2 instance
+  - Network overlay, slows down networking performance
+  - Bind container port to specific host port, or dynamic (0)
+- Host
+  - Maximum performance (no virtual network layer)
+  - Container port is equal to the host port
+  - Only one of these per instance
+- AWSVPC
+  - Optional for EC2, required Fargate
+  - Task gets a dedicated ENI (Elast Network Interface)
+  - Unique IP address for each task on same instance
+  - Limited by max # ENIs per instance (depends on instance type, e.g. t2.small=4)

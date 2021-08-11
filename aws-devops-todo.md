@@ -19,3 +19,4 @@ Before the exam
 - Deployment services (OpsWorks vs CloudFormation etc.) - https://cloud.in28minutes.com/aws-certification-elastic-beanstalk-cloud-formation-opswork-codedeploy-differences
 - Read up on AWS Config - what are standard rules and remediations
 - How can I understand everything cross-account? E.g. cross-account log destinations https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CreateDestination.html
+https://pages.awscloud.com/traincert-twitch-power-hour-architecting.html
