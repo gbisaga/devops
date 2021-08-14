@@ -134,8 +134,8 @@ CodePipeline automations
   - Detail
   - What are triggers for the notification
     - actions, stages, pipeline
-	- started, succeeded, canceled, resumed, etc.
-	- also for manual approval
+  	- started, succeeded, canceled, resumed, etc.
+	  - also for manual approval
 - Custom Action provider
   - Invoke Lambda
   - Choose which artifact(s) to send

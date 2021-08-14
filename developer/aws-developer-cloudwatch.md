@@ -3,7 +3,7 @@ Monitoring - users only care if application is working
 - Outages - experience shouldn't be degradad
 - Find out problems before users know
 - Can we prevent issues before they happen?
---Monitoring Services
+- Monitoring Services
   - CloudWatch - metrics, logs, event, alarms
   - XRay - troubleshoot performance and errors, distributed tracing and performance
   - CloudTrail - monitor API calls, audit changes to AWS resources by users

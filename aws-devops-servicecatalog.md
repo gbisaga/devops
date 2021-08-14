@@ -14,4 +14,4 @@ AWS Service Catalog
 - KEY IDEA Integration with other self-service portals like ServiceNow
 - Brand it as your portal - title/logo, colors, etc 
 - Launch product: enter parameters, get stack outputs shown in Service Catalog
-- Notifications
+- SNS Notifications

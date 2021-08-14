@@ -31,9 +31,9 @@ https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/configuring-https-httpred
   - Common design pattern: Decouple application into web and worker tier. Example: processing a video, generating a big zip file, etc. 
   - Can define periodic tasks with cron.yaml extension file. Use a work queue (SQS) to send work to the worker tier in a new environment.
 - Manage RDS with Elastic Beanstalk. Can create RDS database - great for dev or test, but not for prod. Question: how do you decouple RDS coupled in EB to standalone if you need to?
--- Take RDS DB snapshot
--- Enable deletion protection in the RDS
--- Create new environment without an RDS, pointing to existing RDS
--- Blue/green deployment to swap
--- Terminate old environment - RDS won't get deleted because of deletion protection
--- Delete CloudFormation stack (will be in DELETE_FAILED state)
+- Take RDS DB snapshot
+- Enable deletion protection in the RDS
+- Create new environment without an RDS, pointing to existing RDS
+- Blue/green deployment to swap
+- Terminate old environment - RDS won't get deleted because of deletion protection
+- Delete CloudFormation stack (will be in DELETE_FAILED state)

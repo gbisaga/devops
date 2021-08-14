@@ -16,7 +16,7 @@ AWS Systems Manager
   - Patch/maintenance manager
   - State manager
 
-Pieces
+### Pieces
 - SSM - AWS
 - SSM Agent - part of Amazon Linux 2 and some Ubuntu
   - EC2 instances - easy, just needs agent and IAM role, automatically registers
@@ -29,12 +29,12 @@ Pieces
 - SSM lists managed instances - if has running agent with role, they show up automatically
 - Home regions - collects from others
 
-Resource Groups
+### Resource Groups
 - Group resources either by tag or CloudFormation stack based
 - Not automatic like Azure - but is dynamic
 - What can you do with resource groups? Run
 
-Run command
+### Run command
 - Large number of standard "documents" - either supplied by Amazon or created by me/shared with me
 - Groups Command, Automation, Policy, Session
 - Examples
@@ -45,7 +45,7 @@ Run command
 - Rate control - number of targets at time, or percent of instances
 - Error threshold - how many errors (or percent) before you fail it
 
-Parameter store
+### Parameter store
 - Enter a free custom name 
   - Typical /my-app/dev/db-url - name of app + environment + parameter name
   - Important for get parameters by path, recursive
@@ -56,7 +56,7 @@ Parameter store
 - KEY IDEA - simplify architecture, centralize configuration storage
 - Q: How would
 
-Patch Manager
+### Patch Manager
 - Patch baselines - set of default baselines created, one per operating system
 - KEY IDEA Create own baselines - which patches will be applied, where to get them from if not standard location
 - Custom baselines can be set as default for this OS
@@ -76,12 +76,12 @@ Patch Manager
 - Can specify multiple tasks for a window, not just a run command - also automation tasks, Lambda, or Step Function tasks
 - Tracks overall compliance of instances - where they are against baselines
 
-Inventory - collect list of configurations from all instances tracked by SSM
+### Inventory - collect list of configurations from all instances tracked by SSM
 - Run periodically pulling info from instances (specified by tag, individually, resource group
 - Many possible - OS versions, top applications running, AWS components (agents), network config, windows update, instance detailed info
 - Also pulls specific files or windows registry values
 
-SSM Automation
+### SSM Automation
 - Simplifies common maintenance and deployment atsks of instances and other resources
 - Kind of like CloudFormation with JSON 
 - Build workflows to configure and manage
@@ -104,8 +104,11 @@ SSM Automation
   - Approval phase - approve, put golden AMI id into SSM parameter store
   - Notifications - SNS, CloudWatch, email notification
 
-SSM Session manager
+### SSM Session manager
 - Similar to "instance connect" under EC2 - terminal window
 - Go to EC2 or on-prem managed instance (EC2 instance connect doesn't have)
 - In addition to instance connect, keeps a session history - send session history and results into S3 or CloudWatch logs
 - can tunnel ports (no logging)
+
+### SSM Distributor
+- Install packages on all managed instances (rpm, yum, windows, etc)

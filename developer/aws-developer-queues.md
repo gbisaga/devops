@@ -1,4 +1,4 @@
-----
+--
 SQS - queues
 SNS - pub/sub
 Kinesis - streaming, big data
@@ -48,24 +48,24 @@ FIFO queues EXAM
 - Deduplication - provide MessageDeduplicationId with your message - deduplication interval is 5 minutes, within that interval other message is ignored
   - Content-based deduplication - automatically calculates the MessageDeduplicationId as SHA256 of body only (not the attributes)
 - Sequencing - ensure strict ordering specify same MessageGroupId, e.g. to deliver messages for a user, use the user_id as the MessageGroupId
---> KEY POINT: deduplication always based on group id + deduplication id; deduplication id is calculated in content-based deduplication
+-> KEY POINT: deduplication always based on group id + deduplication id; deduplication id is calculated in content-based deduplication
 
 SQS EXAM must-know details
 - SQS Extended Client - Normally message length limit = 256K, SQS extended client = Java library that uses S3+SQS, sends only small "metadata" message in SQS
 - Security
-  -- Encryption in transit using HTTPS
-  -- Server side encryption (SSE) using KMS - set Customer Master Key (CMK) to use
-  -- Data key reuse period (1 min-24 hours, default 5 minutes) - lower = KMS API used more often, more security and more $
-  -- Only encrypts body, not attributes
-  -- IAM policy must allow usage of SQS
-  -- SQS queue access policy - IP limits, time limtis
-  -- No VPC endpoint, only thru Internet
+  - Encryption in transit using HTTPS
+  - Server side encryption (SSE) using KMS - set Customer Master Key (CMK) to use
+  - Data key reuse period (1 min-24 hours, default 5 minutes) - lower = KMS API used more often, more security and more $
+  - Only encrypts body, not attributes
+  - IAM policy must allow usage of SQS
+  - SQS queue access policy - IP limits, time limtis
+  - No VPC endpoint, only thru Internet
 - API
-  -- CreateQuee, DeleteQueue
-  -- PurgeQueue - delete all messages, take up to 60 second
-  -- SendMessage, ReceiveMessage, DeleteMessage
-  -- ChangeMessageVisibility - change the timeout
-  -- Batch APIs for sen, delete, change visibility - reduce costs
+  - CreateQueue, DeleteQueue
+  - PurgeQueue - delete all messages, take up to 60 second
+  - SendMessage, ReceiveMessage, DeleteMessage
+  - ChangeMessageVisibility - change the timeout
+  - Batch APIs for sen, delete, change visibility - reduce costs
 
 SNS - want to send messages to many receivers - pub/sub
 - subscribers - SQS, HTTP(s) (with deliver retries), Lambda, email
@@ -86,9 +86,9 @@ Kinesis - popular EXAM topic
 - streaming processing frameworks - Spark, NiFi
 - automatically replicated to 3 AZ
 - 3 products - used together in a stream
-  -- streams
-  -- analytics - query using SQL, do real-time computation for fraud detection, etc.
-  -- Kinesis firehose - load strings into S3, ElasticSearch, redshift, etc - to store the data somewhere
+  - streams
+  - analytics - query using SQL, do real-time computation for fraud detection, etc.
+  - Kinesis firehose - load strings into S3, ElasticSearch, redshift, etc - to store the data somewhere
 - streams (=kafka topics) divided into order shards/partitions
 - data retention - default 1 day, up to 7 days - massive highway, want to process fast
 - ability to reprocess/replay data - with SQS data is gone.
@@ -104,19 +104,19 @@ Kinesis - popular EXAM topic
 - partition key should be high distributed - help prevent "hot partition" - user_id is good key, very distributed, active. Country id is not since many users in same country.
 - Batching with PutRecords to reduce costs, increase throughput
 - ProvisionedThroughputExceeded to producer if go over the limit
-  -- this is per shard, so make sure you don't have a hot shard
-  -- can retry with exp backoff or drop
+  - this is per shard, so make sure you don't have a hot shard
+  - can retry with exp backoff or drop
 - can use normal consumer library or Kinesis Client Library (KCL)
-  -- uses DynamoDB to checkpoint shard offsets, do consumer groups
-  -- no more KCL consumers than you have shards
-  -- need more consumers -> scale stream up number of shards
+  - uses DynamoDB to checkpoint shard offsets, do consumer groups
+  - no more KCL consumers than you have shards
+  - need more consumers -> scale stream up number of shards
 
 Kinesis security
-  -- IAM policies to control access/authorization
-  -- Encryption in flight using HTTPS
-  -- Encryption at rest using KMS
-  -- Encrypt client side
-  -- VPC endpoints
+  - IAM policies to control access/authorization
+  - Encryption in flight using HTTPS
+  - Encryption at rest using KMS
+  - Encrypt client side
+  - VPC endpoints
 
 Kinesis data analytics
 - autoscaled
