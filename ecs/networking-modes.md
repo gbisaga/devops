@@ -13,3 +13,23 @@
   - Task gets a dedicated ENI (Elast Network Interface)
   - Unique IP address for each task on same instance
   - Limited by max # ENIs per instance (depends on instance type, e.g. t2.small=4)
+
+### Connecting ALB
+- EC2
+  - Typically Bridge mode
+  - Security group must allow ANY DESTINATION PORT from the ALB security group (because of the network overlay)
+- Fargate
+  - Only use awsvpc - each task its own IP with the same port number
+  - Automatically registered with ALB
+  - Security group must allow task's exposed port (e.g. 80) from the ALB's security group
+- Benefits of ALB
+  - Better security - goes thru the ALB, no direct connection from internet to containers
+  - Provide a static URL
+  - ALB is free-tier eligible (new customers only)
+- Target groups needs to be linked to the ECS services
+  - Can be multiple, e.g. one for Fargate and one for EC2
+  - Target type changes depends on the networking mode
+    - AWSVPC has own ENI and IP address, so it requires `TargetType: IP`
+    - Bridge multiplexes, so it requires `TargetType: instance`
+- You can't add load balancing to an existing service - only when creating the service
+- EC2 task definitions will use 0 for host port (i.e. dynamic), whatever container port (e.g. 8000)

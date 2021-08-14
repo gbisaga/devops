@@ -11,3 +11,7 @@ CMD echo "hi"
 - Multistage builds
   - use more than one FROM - all except last are `FROM <img> AS <name>`
   - `CMD copy --from=<name> /from/dir /to/dir`
+
+https://hub.docker.com/r/gkoenig/simplehttp
+docker.io/gkoenig/simplehttp:latest
+port 8000

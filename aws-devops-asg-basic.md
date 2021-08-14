@@ -52,7 +52,14 @@ ASG + Load balancer integration
 - ALB has a security group (important for routing traffic to EC2)
 - Create ALB -> create a Target Group (not in classic)
   - Target Group can point to instances, IP, Lambdas
-  - TG specifies a health check endpoint - by default requires a 200, with default healthy/unhealthy thresholds, customizable.
+  - TG (ALB) specifies a health check endpoint 
+    - By default requires a 200, with default healthy/unhealthy thresholds, customizable
+    - Can change OK status 200-499, use multiple or ranges (e.g. 200-299,302)
+    - KEY IDEA May want simple static response (fast) or include result of DB query (but not every time)
+  - 1/2/5 health ping rule (the 2/5 are configurable, 2-10)
+    - Only requires 1 healthy ping to be considered healthy (can't change)
+    - Then 2 unhealthy to be considered unhealthy
+    - Once unhealthy, takes 5 to be considered healthy again
 - KEY IDEA By itself, a TG cannot scale! It has to be linked to an ASG.
   - TG vs ASG: https://stackoverflow.com/questions/48529074/how-is-target-groups-different-from-auto-scaling-groups-in-aws
   - Classic LB: LB -> ASG
