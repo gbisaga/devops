@@ -1,6 +1,6 @@
 ECS
 - Task is like a pod definition
-- Need to define a Service linking to the Task
+- Normally define a Service linking to the Task
 - Service type - REPLICA vs DAEMON - # of replicas vs one per instance. REPLICA is normal, DAEMON usually for per-instance monitoring task, etc.
 - Minimum healthy percent - 0 for rolling
 - Deployment, rolling or blue/green
@@ -20,27 +20,28 @@ ECS
   - Config file Dockerrun.aws.json at root of source code
   - Docker images prebuilt and stored e.g. in ECR
 
-Summary + EXAM TIPS 
-- ECS runs docker containers, 3 flavors
-  -- ECS Classic 
-     - EC2 instances 
-	 - creates instances with /etc/ecs/ecs.config with cluster name
-	 - EC2 instance special AMI with ECS agent to register instance with cluster. 
-	 - Can run multiple containers of same type 
-	   - Don't specify a host port (only container port)
-	   - Use ALB with dynamic port mapping
-	   - EC2 instance security group allow traffic from ALB on all ports
-     - ECS tasks can have IAM roles - not on the instances
-	 - SG operates at instance level, not task level
-- ECR tightly integrated with IAM
-  - always login (PUSH OR PULL) first: $(aws ecr get-login --no-include-email --region XXX) - generates "docker login" command
-  - to push: docker push 1234567890.dkr.ecr.us-west-2.amazonaws.com/demo:latest/UserGuide/aws-properties-ec2-instance
-  - to pull: docker pull 1234567890.dkr.ecr.us-west-2.amazonaws.com/demo:latest/UserGuide/aws-properties-ec2-instance
-  - If you can't push or pull an image, check IAM!
+Summary + EXAM TIPS - containers, 3 flavors
+- ECS Classic 
+  - EC2 instances 
+  - creates instances with /etc/ecs/ecs.config with cluster name
+  - EC2 instance special AMI with ECS agent to register instance with cluster. 
+  - Can run multiple containers of same type 
+    - Don't specify a host port (only container port)
+	- Use ALB with dynamic port mapping
+	- EC2 instance security group allow traffic from ALB on all ports
+  - ECS tasks can have IAM roles - not on the instances
+  - SG operates at instance level, not task level
 - Fargate
   - Serverless - AWS provisions containers and assigned them ENI
   - Containers provisioned by container spec (CPU/RAM)
   - Tasks can have IAM roles to execute against AWS - uses ECS_ENABLE_TASK_IAM_ROLE config in ecs.config file
+  
+- ECR tightly integrated with IAM
+  - always login (PUSH OR PULL) first: $(aws ecr get-login —no-include-email —region XXX) - generates “docker login” command
+  - to push: docker push 1234567890.dkr.ecr.us-west-2.amazonaws.com/demo:latest/UserGuide/aws-properties-ec2-instance
+  - to pull: docker pull 1234567890.dkr.ecr.us-west-2.amazonaws.com/demo:latest/UserGuide/aws-properties-ec2-instance
+  - If you can’t push or pull an image, check IAM!
+  
 - Integrations
   - XRay - run as 2nd container within task (for fargate)
   - Ready to use AWS image

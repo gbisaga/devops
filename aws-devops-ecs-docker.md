@@ -22,6 +22,8 @@
   - an ECS instance can hold multiple task instances that share a certain amount of CPU and memory
   - a cluster has an ASG (multi-AZ) and one or more instances
   - you can scale a cluster by the ASG normally
+  - either ECS manages ASG capacity or manual
+  - need to create a capacity provider to link the cluster to ASG
   - ECS Instance role is assigned to the EC2 - among other things to pull images from ECR, register with ECS, logging; user data sets up to register with cluster; there's an always-running container that actually registers with ECS
 - ECS task definitions
   - metadata in JSON form

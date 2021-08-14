@@ -7,9 +7,9 @@ AWS Systems Manager
 - Tightly integration with CloudWatch and Config
 - Features
   - Resource groups
-  - Insigheds
+  - Insights
   - Compliance
-  - Pamarmeter store
+  - Parameter store
   - Automation (start/stop EC2s)
   - Run command
   - Session manager
@@ -22,7 +22,7 @@ Pieces
   - EC2 instances - easy, just needs agent and IAM role, automatically registers
   - KEY IDEA - If not controllable with SSM, probably no agent, problem with agent, or instance doesn't have IAM role for SSM
   - Also "hybrid activation" - lets you have on-prem or other servers
-  - EC3 instance id always starts with "i-XXX" - hybrid start with "mi-XXX" (can pretend by not giving it the IAM role)
+  - EC2 instance id always starts with "i-XXX" - hybrid start with "mi-XXX" (can pretend by not giving it the IAM role)
   - Can even tag on-prem instances in SSM
   - Download and install the SSM agent; register agent with activationCode, activationId, and region
     - A given activationCode/activationId has registration limit - max # of on-prem instances that can use it
@@ -46,7 +46,8 @@ Run command
 - Error threshold - how many errors (or percent) before you fail it
 
 Parameter store
-- Enter a free custom name - but /my-app/dev/db-url - name of app + environment + parameter name
+- Enter a free custom name 
+  - Typical /my-app/dev/db-url - name of app + environment + parameter name
   - Important for get parameters by path, recursive
 - Type String, StringList, SecureString (use a KMS key)
 - Each parameter is versioned - audit trail with version number, date, and who
@@ -95,7 +96,9 @@ SSM Automation
 - Has an automation document - big JSON with parameters, each step to perform
 - Shows all the steps into the UI 
 - KEY IDEA Can use CloudWatch events - source = SSM > Automation > Status change -> targets = run Lambda, run command, Inspector assessment template, etc.
-- KEY IDEA White paper "building AMI factory process" - 4  phases
+- KEY IDEA White paper "building AMI factory process" - 4 phases
+  - now recommends AWS Image Builder
+  - “obsolete” https://d1.awsstatic.com/whitepapers/aws-building-ami-factory-process-using-ec2-ssm-marketplace-and-service-catalog.pdf
   - Build phase - above automation - base AMI -> EC2 -> Update/patch -> Golden AMI
   - Validation phase - build EC2 from it, verify with scripts, services, or Amazon Inspector
   - Approval phase - approve, put golden AMI id into SSM parameter store
@@ -105,3 +108,4 @@ SSM Session manager
 - Similar to "instance connect" under EC2 - terminal window
 - Go to EC2 or on-prem managed instance (EC2 instance connect doesn't have)
 - In addition to instance connect, keeps a session history - send session history and results into S3 or CloudWatch logs
+- can tunnel ports (no logging)
