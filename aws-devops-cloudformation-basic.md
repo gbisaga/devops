@@ -39,7 +39,7 @@ Create a stack
 - Can provide a role or use default for login
 - Rollback options
 - Termination policy
-- Specify notifications
+- Specify SNS notifications
 - Monthly cost estimator
 - Once stack running: Events list starts with CREATE_IN_PROGRESS, CREATE_COMPLETE
 - Resources get tags with original stack name and unique id, plus any other tags you define (Product)

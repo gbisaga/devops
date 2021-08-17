@@ -15,6 +15,10 @@
 - Transitions can SUCCEED or FAIL overall state machine execution
 - Tracks each execution - good for troubleshooting - retrace the event history
 
-### CloudWatch event integration
-- Example: Source = Step Functions, Event = status change ERROR -> target = send a message to slack or call Lambda
-- Example: Source = Scheduled every 1 day -> target = Execute step function state machine
+CloudWatch integration
+- Events integration
+  - Example: Source = Step Functions, Event = status change ERROR -> target = send a message to slack or call Lambda
+  - Example: Source = Scheduled every 1 day -> target = Execute step function state machine
+- Logs integration
+  - As of Feb 2020, there is logs integration
+  - Can use logs to generate metrics through subscriptions

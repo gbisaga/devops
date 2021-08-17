@@ -4,7 +4,7 @@
 - Can add customized rules, but rules are optional - on its own, it tracks configuration changes in the resource
 - 1. Configuration tracking
   - S3 bucket received configuration history - can query e.g. with Athena
-  - Notification and CloudWatch events with results
+  - SNS notification and CloudWatch events with results
   - KEY IDEA Needs an IAM role and also a bucket policy to allow config service to do bucket check and delivery
   - AWS Config discovers all resources - instances, roles, SGs, buckets, stacks, etc.
   - Also lists CloudTrail events for that resource (config reads CloudTrail)
@@ -30,7 +30,7 @@
   - KEY IDEA CloudWatch events are the centerpiece of all automation
   - CloudWatch source=event > Config > Config rule compliance change > Specify type and rule name(s) > Specify resource types or ids
   - Target = Lambda, start Step function, SSM automation, EC2 action like terminating an instance
-  - Rule remediation (not as flexible but easier to use and reason about), uses SSM Automations
+  - Also automatic rule remediation (not as flexible but easier to use and reason about), uses SSM Automations
 
 ### AWS Config can monitor across multi-account, multi-region aggregator, or organization
 - Aggregated View > Create aggregator (in a master account) > Source accounts (ids or organization) > Regions

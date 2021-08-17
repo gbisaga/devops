@@ -5,3 +5,4 @@ Special files
 - .ebextension/*.config
 - .elasticbeanstalk/config.yml
 - /Jenkinsfile - Jenkins
+- /template.yml - CodeStar, a CloudFormation template that drives customization

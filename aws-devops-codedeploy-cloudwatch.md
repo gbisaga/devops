@@ -22,6 +22,7 @@ Read: https://docs.aws.amazon.com/whitepapers/latest/introduction-devops-aws/int
 
 -------
 
-Integration with CloudWatch alarms: thousands of types of metrics, per-instance or aggregated.
+Integration with CloudWatch alarms (not events!): thousands of types of metrics, per-instance or aggregated.
 - Can use to stop a Deployment
-- Rollback Deployment
+- Rollback Deployment (if configured)
+

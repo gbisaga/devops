@@ -6,8 +6,8 @@ AWS Health - several ways of using
   - Event log for things that apply to you
   - Click on bell to see
   - Things like operational issues with service (lambda/EC2/ELB/etc), upgrades, VPN redundancy loss, security patching
-- Or set up notification with CloudWatch events
-  - Health > Specifc Health Events 
+- Or set up SNS notification with CloudWatch events
+  - Health > Specific Health Events 
   - github AWS Health AWS_RISK_CREDENTIALS_EXPOSED
   - Can scan github looking for public IAM keys -> CloudWatch event -> Step functions that invoke lambdas to:
     1. Remove role from IAM

@@ -26,27 +26,29 @@ Many Source Control strategies
     - Similar to GitFlow but worse - even more merging
 
 There are 3 ways you can hook up automation to CodeCommit activities:
-1. Notifications - SNS (or AWS Chatbot - e.g. slack) only - literal notification and generally not for taking action based on them (old style)
-    Comments
-    On commits
-    On pull requests
-    Pull request
-    Source updated
-    Merged
-    Status changed
-    Created
-    Branches and tags
-    Deleted
-    Updated
-    Created
+1. Notifications - SNS (or AWS Chatbot - e.g. slack) only 
+   - literal notification and generally not for taking action based on them (old style)
+     - Comments
+     - On commits
+     - On pull requests
+     - Pull request
+     - Source updated
+     - Merged
+     - Status changed
+     - Created
+     - Branches and tags
+     - Deleted
+     - Updated
+     - Created
 
 2. Triggers - SNS or Lambda - supposed to initiate action, usually some automation
+- About code related events, to branches
 - Can also specify particular branch names (up to 10)
 - Can specify "custom data" such as a chat channel name
 - Events:
-    push to existing branch
-    create branch or tag
-    delete branch or tag
+  - push to existing branch
+  - create branch or tag
+  - delete branch or tag
 
 3. More flexible way - see blog below - is CloudWatch events (now called EventBridge) - CW is centerpiece of all devops automations
 - Specify a service name - here CodeCommit

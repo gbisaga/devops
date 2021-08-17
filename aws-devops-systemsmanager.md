@@ -109,3 +109,6 @@
 - Go to EC2 or on-prem managed instance (EC2 instance connect doesn't have)
 - In addition to instance connect, keeps a session history - send session history and results into S3 or CloudWatch logs
 - can tunnel ports (no logging)
+
+### SSM Distributor
+- Install packages on all managed instances (rpm, yum, windows, etc)

@@ -8,8 +8,8 @@
 - Generate SDK and API specs
 - Cache API responses
 - Integrations
-  -- outside VPC, EC2, ALB, any AWS service, proxy HTTP(s)
-  -- inside VPC - Lambda, EC2
+  - outside VPC, EC2, ALB, any AWS service, proxy HTTP(s)
+  - inside VPC - Lambda, EC2
 - Best practices (from webinar)
   - Define stage variables and use them instead of hardcoding - for lambda, for HTTP endpoint (can't use for method though)
   - Control access to your APIs

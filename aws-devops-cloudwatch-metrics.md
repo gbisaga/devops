@@ -31,7 +31,7 @@ CloudWatch metrics
 	- Instances in service, transitioning
 	- Can also enable aggregated metrics for CPU etc for the instances in the ASG
   - ALB
-    - Resonse time
+    - Response time
 	- HTTP response categories (2xx, 3xx, etc.)
 	- Errors of various types (TLS)
 	- Connection counts

@@ -8,10 +8,12 @@
             Default: /EC2/InstanceType <-- Says the default parameter values from there, or the default keys in the store?
 - There are also "public parameters" from AWS - e.g latest AMI for certain combinations, e.g. /aws/service/ami-amazon-linux-latest/XXXX
 
-DependsOn: otherResource
-- Tells one resource not created until another resource created - normally they are created in parallel where possible
-- Good e.g. for an application starting in the app that wants to contact a DB created in another resource
-- Also specifies the deletion order
+### Other special template properties
+- `Code`: CodeCommit initial contents - ZIP file in S3
+- DependsOn: otherResource
+  - Tells one resource not created until another resource created - normally they are created in parallel where possible
+  - Good e.g. for an application starting in the app that wants to contact a DB created in another resource
+  - Also specifies the deletion order
 
 Lambda functions
 - Two ways of defining

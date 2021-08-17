@@ -82,7 +82,7 @@ appspec.yml
   - Lets you customize your deployment e.g. use the same appspec for dev and prod, and differentiate behavior by DEPLOYMENT_GROUP_NAME
 
 Rollback/Redeploy - https://docs.aws.amazon.com/codedeploy/latest/userguide/deployments-rollback-and-redeploy.html
-- Manual or automatic
+- Rollback options: Manual (`Disable rollbacks`) or automatic (on failure or alarm)
 - Manual rollback - go to a previous version, it just redeploys
 - Automatic rollback - under Advanced, set up for a deployment group
   - Rollback when deployment fails - rollback on any deployment on any instance fails

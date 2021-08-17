@@ -3,15 +3,15 @@ Lambda - serverless
 - Serverless now includes anything that's managed
 - AWS Lambda and Step functions - DynamoDB, Cognito, API Gateway, S3, SNS/SQS/Kinesis, Aurora serverless. Now Fargate and SageMaker
 - vs EC2 
-  -- EC2 - SERVERS, limited by RAM/CPU, continuously rnning, scaling means add/remove servers = slower
-  -- Lambda - FUNCTIONS, time-limited, run on-demand; automated, instantaneous scaling
+  - EC2 - SERVERS, limited by RAM/CPU, continuously rnning, scaling means add/remove servers = slower
+  - Lambda - FUNCTIONS, time-limited, run on-demand; automated, instantaneous scaling
 - easy pricing, only pay per request and compute time; more RAM = more CPU and network
 - integrated with whole AWS stack, so it can be used as glue with many other services.
   - built-in integrates with many services: API, Kinesis, DynamoDB, S3, IoT, CloudWatch events, CloudWatchlogs, SNS, Cognito, SQS
   - also custom "partner" event sources via EventBridge
 - all major dev platforms - node, pythong, jvm, c#, golang, C#/powershell
 - example: thumbnail creation; S3 triggers> Lambda > pushes new thumbnail to S3, metadata to DynamoDB
-- another example: serverless cron job --> CloudWatch triggers cron events > Lambda to perform some task
+- another example: serverless cron job -> CloudWatch triggers cron events > Lambda to perform some task
 - pricing: pay per call (first 1M free), plus duration (400GB-seconds of compute time/month free)
   -> it's usually VERY CHEAP to run AWS Lambda
 
@@ -33,15 +33,15 @@ Concurrency and throttling
   - if synchronously (e.g. from console) - return ThrottleError - call is responsible to retry
   - if async - automatically retries 2x, then unprocessed events go to DLQ if you set it up; DLQ can be SNS topic or SQS queue to process later
   Ex: S3 is async trigger - so if problem with the image, executes 2x (can config to 0-2, and max age default 6h) then can go to the DLQ
-  --> Makes it easy to debug code in production
-  --> Make sure Lambda has correct IAM execution role, or it can't write to DLQ
+  -> Makes it easy to debug code in production
+  -> Make sure Lambda has correct IAM execution role, or it can't write to DLQ
 
 Logging, monitoring, and tracing
 - Lambda logs tsored in CloudWatch logs
 - Lambda metrics displayed in CloudWatch metrics
 - Must have execution role authorization writes to CloudWatch
 - Easy to enable with XRay - normally have XRay demon, but run automatically
-  --> Ensure Lambda has corrent IAM role
+  -> Ensure Lambda has corrent IAM role
 
 Lambda limits for EXAM
 - 128-3008MB in 64MB increments
@@ -57,13 +57,13 @@ Lambda versions
 - Each version has its own ARN and can be used at any time.
 - Version = code + configuration (env vars, timeouts, etc.)
 - Aliases 
-  -- Pointers to a particular version. dev, test, prod alias to different Lambda versions. 
-  -- External users often use aliase, not $LATEST or specific versions.
-  -- Blue/green deployment by assigning weights - e.g. 90% points to V1, 10% points to V2
-  -- Aliases have their own ARNs also.
+  - Pointers to a particular version. dev, test, prod alias to different Lambda versions. 
+  - External users often use aliase, not $LATEST or specific versions.
+  - Blue/green deployment by assigning weights - e.g. 90% points to V1, 10% points to V2
+  - Aliases have their own ARNs also.
 
 External dependencies
-- Only way is to package in same zip file - npm and node_modules, pip --target option, java .jar files, etc.
+- Only way is to package in same zip file - npm and node_modules, pip -target option, java .jar files, etc.
 - Upload zip file straight into Lambda if < 50MB, else S3 first
 - Native libraries work - just have to compile for Amazon linux (shows underlying Lambda server environment!)
 - Automatically includes aws-sdk library
@@ -88,7 +88,7 @@ Lambda@Edge
 - Lambda@Edge - Lambda not in a region, it's deployed in every region
 - Four steps to a CloudFront request: (1) Viewer request (user->CloudFront) (2) Origin request (CloudFront to origin), (3) Origin response (origin to CloudFront), View reponse (CloudFront to user).
 - Thru Lambda@Edge, can insert Lambda at any of these points ... so the Lambda could actually be the "origin"
-- Use cases -- Website security, bot mitigation, image transformation
+- Use cases - Website security, bot mitigation, image transformation
 
 SAM - Serverless Application Model - framework to develop and deploy
 - Simple SAM YAML code -> generates complex CloudFormation YAML code
