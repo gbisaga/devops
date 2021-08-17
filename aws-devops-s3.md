@@ -1,4 +1,4 @@
-S3 - see developer course for more
+# S3 - see developer course for more
 - Buckets can define events - don't need to enable anything in particular
 - Different than CloudWatch events
   - KEY IDEA Can set up "events" to SNS, SQS, or Lambda

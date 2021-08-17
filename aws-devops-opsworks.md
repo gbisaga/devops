@@ -5,7 +5,8 @@
   - Puppet Enterprise - not in exam
   - Stacks - uses Chef cookbooks to deploy application
 - Sounds a lot like other tools - https://tutorialsdojo.com/elastic-beanstalk-vs-cloudformation-vs-opsworks-vs-codedeploy/
-
+  - note that SSM can also run chef recipes
+  
 ### Stacks
 - Infrastructure, config, and application 
 - Chef uses cookbooks to provision and config the application

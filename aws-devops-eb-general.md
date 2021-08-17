@@ -57,7 +57,7 @@ Worker environments
 
 Can use docker to create EB application
 - KEY IDEA: can use any environment standard you want, as long as you have a docker image for it. Not just the specific environment options they give you. (COBOL?)
-- KEY IDEA: Dockerrun.aws.json is EB-specific docker configuration
+- KEY IDEA: Dockerrun.aws.json is EB-specific docker configuration, used for multidocker 
 - Two options
   - Docker
   - Multi-container docker - creates an ECS cluster

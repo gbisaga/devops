@@ -1,4 +1,4 @@
-AWS Service Catalog
+# AWS Service Catalog
 - KEY IDEA: "self-service portal" that allows users who aren't AWS experts to launch predefined products (CloudFormation templates) created by adminitrator, e.g. specific EC2 configs, DB config, etc
 - Restricts options for users
 - Products and Portfolios
@@ -13,4 +13,12 @@ AWS Service Catalog
 - KEY IDEA Integration with other self-service portals like ServiceNow
 - Brand it as your portal - title/logo, colors, etc 
 - Launch product: enter parameters, get stack outputs shown in Service Catalog
-- Notifications
+
+### Constraints
+- Various Config types for a product in a portfolio
+  - Launch - role assumed by service instead of user’s
+  - Notification - SNS topic
+  - Tag update - whether end users can apply custom tags
+  - Stack set - choose accounts/regions/role to create stack set
+
+  

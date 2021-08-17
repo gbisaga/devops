@@ -19,7 +19,7 @@ Automations
 - Lots of examples in https://github.com/aws/Trusted-Advisor-Tools
   - Trusted Advisor finds hi/low utilization 
     -> CloudWatch event 
-    -> Lambda to calculate correct instance instance 
+    -> Lambda to calculate correct instance size
     -> Invoke SSM automation document
        - SSM run aws:approve -> SNS -> approver manual approval (similar to CodePipeline but in SSM for AWS automations)
 	   - SSM run ResizeAutomation
