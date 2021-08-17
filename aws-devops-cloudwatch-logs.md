@@ -1,10 +1,10 @@
-CloudWatch logs
+# CloudWatch logs
 - Log groups - typically an AWS service name+object name, e.g. /aws/codebuild/MyProjectName - contains one or more log streams
 - Log streams - e.g. CodeBuild creates with UUID of the build
 - Stream contains individual log records
 - Log groups by default last forever - at log group level can set the retention period (maybe you're aggregating to S3)
 
-Unified CloudWatch Agent
+### Unified CloudWatch Agent
 - Lets you do both metrics and logs
 - 1) Create an EC2 role with the necessary CloudWatch putMetricsData and logs writing permissions, plus SSM
 - 2) Example app: create an apache httpd server, want access_log and error_log logs forwarded to CloudWatch logs
@@ -22,14 +22,14 @@ Unified CloudWatch Agent
 - Config stored in local config file /opt/aws/amazon-cloudwatch-agent/bin/config.json
 - Better: also store the config file in SSM Parameter Store, so it survives recreating the instance (or use in other instances). Max size 4KB (free) or 8KB (advanced)
 
-So how would you use this to determine not too many 404 errors
+### So how would you use this to determine not too many 404 errors
 - Could create a local custom metrics agent
 - Better: create a METRICS FILTER - (1) filters logs (2) create metric(s) (3) create alarms on the metric(s)
   - Define at the log group level - got a funky pattern syntax to match values with wildcard, jq-style JSON matching (since CloudWatch logs are JSON objects)
   - Then create a metric "404NotFound" from the result of the filter
   - Then create an alarm: "404NotFound > 3 for 1 datapoints within 4 minutes"
  
-Exporting logs
+### Exporting logs
 - Can create export to an S3 bucket - do manually on command
 - KEY IDEA - needs permissions - but since it's just plain old CloudWatch, you don't have a role - instead use a bucket policy - principal {"service": "logs.us-east-1.amazonaws.com"}
 - KEY IDEA - two ways, either a periodic export command, or create a CloudWatch logs subscription
@@ -37,7 +37,7 @@ Exporting logs
 - Has a delay
 - A better solution may be a CloudWatch logs subscription
 
-CloudWatch logs subscription
+### CloudWatch logs subscription
 - KEY IDEA Do real-time processing of log events
 - Assigned at the log group level (like Metrics filters, expiration, etc.)
 - KEY IDEA 3 (or 4) basic destinations:
@@ -50,7 +50,7 @@ CloudWatch logs subscription
   - Create a subscription filter from the CLI
   - Subscription filters show up in the UI for the log group
 
-All kinds of logs - KEY IDEA to understand options and distinctions
+### All kinds of logs - KEY IDEA to understand options and distinctions
 - Application logs
   - Produced by your application codebuild/MyProjectName
   - Usually on the local filesystem
@@ -72,8 +72,10 @@ All kinds of logs - KEY IDEA to understand options and distinctions
   - S3 access logs to S3
   - CloudFront access logs to S3
 
-Example VPC flow log record (default, accept)
+### Example VPC flow log record (default, accept)
+```
 ${version} ${account-id} ${interface-id} ${srcaddr} ${dstaddr} ${srcport} ${dstport} ${protocol} ${packets} ${bytes} ${start} ${end} ${action} ${log-status}
 2 361854306654 eni-07bf794daa3063cb9 52.217.169.146 10.1.1.248 443 46184 6 15 5094 1627240405 1627240437 ACCEPT OK
 2 361854306654 eni-07bf794daa3063cb9 37.0.11.249 10.1.1.248 53644 22 6 2 80 1627240503 1627240557 ACCEPT OK
 2 361854306654 eni-07bf794daa3063cb9 10.1.1.248 37.0.11.249 22 53644 6 1 44 1627240503 1627240557 ACCEPT OK
+```
