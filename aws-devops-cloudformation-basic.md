@@ -1,4 +1,4 @@
-Introduction - Infrastructure as Code
+# Introduction - Infrastructure as Code
 - Manual work hard: Reproduce in another region? Another account? Somebody deletes?
 - CloudFormation is declarative way of defining AWS Infrastructure (most are supported)
 - Benefits
@@ -26,7 +26,7 @@ Introduction - Infrastructure as Code
 - Exam is about what features to use to do X operation, and read it
 - Can use 
 
-General info
+### General info
 - CloudFormation vs Terraform https://medium.com/@cep21/after-using-both-i-regretted-switching-from-terraform-to-cloudformation-8a6b043ad97a
 - CloudFormation best practices http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/best-practices.html
 
@@ -34,26 +34,31 @@ https://s3.amazonaws.com/media.whizlabs.com/learn/2020/03/20/ckeditor_30375.png
 https://whizlabs.com/learn/media/2019/01/22/questions_zu7s0t.png
 https://s3.amazonaws.com/media.whizlabs.com/learn/2019/01/22/questions_zu7s0t.png
 
-Create a stack
+### Create a stack
 - Upload template or S3
-- Can provide a role or use default for login
-- Rollback options
-- Termination policy
-- Specify SNS notifications
-- Monthly cost estimator
-- Once stack running: Events list starts with CREATE_IN_PROGRESS, CREATE_COMPLETE
-- Resources get tags with original stack name and unique id, plus any other tags you define (Product)
+  - Can provide a role or use default for login
+  - Rollback options
+  - Termination policy
+  - Specify SNS notifications
+  - Monthly cost estimator
+  - Once stack running: Events list starts with CREATE_IN_PROGRESS, CREATE_COMPLETE
+  - Resources get tags with original stack name and unique id, plus any other tags you define (Product)
+  - CreatePolicy - lets you wait for resource to be up
 
-Update a stack
+### Update a stack
 - Upload new one or edit in designer
-- Cannot change stack name
-- Preview changes; Replacement=TRUE means existing will be deleted, new one created (e.g. for an EC2 - good reason not to be a pet)
+  - Cannot change stack name
+  - Must change template or parameters to cause an update to resources
+  - Preview changes; Replacement=TRUE means existing will be deleted, new one created (e.g. for an EC2 - good reason not to be a pet)
+  - separate UpdateReplacePolicy
 
-Delete a stack
-- Automatically deletes everything, in correct order
-- Resources can have a separate deletion policy - don't delete with the stack
+### Delete a stack
+- By default, deletes everything, in correct order
+  - Resources can have a separate deletion policy 
+  - don't delete with the stack (e.g. database Retain)
+  - separate UpdateReplacePolicy
 
-Parameters
+### Parameters
 - Important for template reuse, and for parameters you can't determine ahead of time (e.g. key pair for an EC2 instance)
 - Ask yourself: Is this configuration likely to change in the future? 
 - Have types: `string`, `number`, `CSV`, `List<Type>`, AWS parameter
@@ -61,34 +66,35 @@ Parameters
 - Use !Ref (or Fn::Ref) to reference a parameter (!Ref also references name/YAML key of resources)
 - Also pseudo-parameters built into CloudFormation - predefined AWS::AccountId, AWS::Region, etc.
 
-Resources
+### Resources
 - Key, 100s of types, AWS::ProductName::Type e.g. AWS::CodeDeploy::Application
 - AWS resource type reference documentation - each key specifies if it requires Replacement, e.g. change of AZ requires Replacement
 - All under Resources block, each has a (1) YAML key (the name) (2) the type (3) properties
 - CANNOT have dynamic number of resources - everything declared, no code generation. CDK
 - Not every resource supported, but most are
 
-Mappings
+### Mappings
 - Fixed, hardcoding variables (dev/prod, regions vs AMIsm etc.) - very low-level
 - Typical two level region + type
-- Use variables when values are really user-specific
+  - Use variables when values are really user-specific or not region specific
+  - Often better to use SSM parameter store, generate automated in pipelines
 - !FindInMap [mapname, top leve key, second level key] (the brackets are literal) or Fn::FindInMap
 
-Outputs
+### Outputs
 - Optional outputs to view
-- If you EXPORT them they're available in other templates - these are a flat namespace across the entire account/region!
-- KEY IDEA: lets each person develop templates according to their own expertise
-- Cannot delete stack if outputs used somewhere else
+  - If you EXPORT them they're available in other templates - these are a flat namespace across the entire account/region!
+  - KEY IDEA: lets each person develop templates according to their own expertise
+  - Cannot delete stack if outputs used somewhere else
 - !ImportValue exportedValueName
 
-Conditions:
+### Conditions:
 - Create resources or not; example
     Conditions:
         CreateProdResources: !Equals [ !Ref EntType, prod ]
 - Logical functions you can compose: AND, OR, NOT
 - Apply using `Condition: CreateProdResources` in a resource definition
 
-Intrinsic functions - KEY IDEA - MUST KNOW FOR EXAM
+### Intrinsic functions - KEY IDEA - MUST KNOW FOR EXAM
 - Can only use in certain parts of template: resource, output, metadata, update policy; or use conditionally (???)
 - `Fn::Ref` - reference a parameter or physical ID of an underlying resource (i-3423ad98f)
 - `Fn::GetAtt` - get any of the attributes of a resource, not just its physical id - e.g. AvailabilityZone, PrivateIP
@@ -101,7 +107,7 @@ Intrinsic functions - KEY IDEA - MUST KNOW FOR EXAM
 `!Sub "hello ${name}"`
 - For conditions: `Fn::And`, `Fn::Equals`, `Fn::If`, `Fn::Not`, `Fn::Or`
 
-User data 
+### User data 
 - Need to pass entire script thru Base64
 - Output user data results to local file - /var/log/cloud-init-output.log
 - UserData:
@@ -118,12 +124,13 @@ User data
   - KEY: Much more readable
   - Result goes to /var/logl/cfn-init.log 
 
-cfn-signal and wait condition
+### cfn-signal and wait condition
 - cfn-init still a problem because stack could complete but script failed
 - Use cfn-signal script after cfn-init (in userdata)
-- Define a wait condition so CloudFormation can move forward
-- Specify the AWS::CloudFormation::WaitCondition that says how many signals (e.g. 2 instances), how long to wait for the signal
-- Can specify bash command completion status (-e $?) or some other bash command
+  - Define a wait condition in CreationPolicy>ResourceSignal so CloudFormation can move forward
+  - Specify the AWS::CloudFormation::WaitCondition that says how many signals (e.g. 2 instances), how long to wait for the signal
+  - Can specify bash command completion status (-e $?) or some other bash command
+  - has timeout in CF template 
 - The EC2 create event will happen when the instance actually created, but the cfn-signal event will still be CREATE_IN_PROGRESS
 - KEY IDEA: Troubleshooting problems
   - Check AMI has CloudFormation helper scripts
@@ -132,23 +139,23 @@ cfn-signal and wait condition
   - Verify instance has a connection to the internet else can't talk to CloudFormation service - in VPC needs access thru a NAT device (private subnet) or Internet gateway (public)
   - OnFailure=ROLLBACK, DO_NOTHING, DELETE - in Stack Creation Options disable rollback on failure -> Get rid of by manually deleting the stack
 
-Nested stacks
+### Nested stacks
 - Isolate common patterns and components, reuse in other stacks
 - Examples: Load Balancer, security group re-used
 - KEY IDEA: To update nested stack, always update the parent/root stack
 - Invoke from parent stack with resource of type AWS::CloudFormation::Stack
 - Can reference using any http reference e.g. GitHub or S3
 
-ChangeSets
+### ChangeSets
 - When update a stack, want to know what will happen
 - Tells you what will happen, but doesn't tell you if it will succeed
 - Created - tell it to "create changeset for current template"
   - Gives you all the changes in UI (just like as part of stack execution) or JSON 
   - Useful, shows an instance will be replaced
 
-Deletion policy
+### Deletion policy
 - Put on any resource or nested stack - also lets you take a snapshot
-- DeletionPolicy: Retain on any instance
-- DeletionPolicy: Snapshot - for EBS volume, RDS, etc. - default for AWS::RDS::DBCluster
-- DeletionPolicy: Delete (default)
+  - DeletionPolicy: Retain on any instance
+  - DeletionPolicy: Snapshot - for EBS volume, RDS, etc. - default for AWS::RDS::DBCluster
+  - DeletionPolicy: Delete (default)
 - Can enable delete protection on stack
