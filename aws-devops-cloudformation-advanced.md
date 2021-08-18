@@ -1,9 +1,12 @@
 ### template parameters
-- string, number, comma delimited list
-- many special AWS types such as AWS::EC2::Image::Id, AWS::EC2::Instance::Id, AWS::EC2::VPC::Id, List<AWS::EC2::VPC::Id>
+- types
+  - string, number, comma delimited list
+  - many special AWS types such as AWS::EC2::Image::Id, AWS::EC2::Instance::Id, AWS::EC2::VPC::Id, List<AWS::EC2::VPC::Id>
+  - all four part, names and ids
   - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/parameters-section-structure.html#aws-specific-parameter-types
 - Can pull parameters from SSM Parameter Store
   - Good for a default central company-wide AMI or other similar policy value, neither hard-coded nor user-entered
+  - benefit you can auto generate in a pipeline 
   - Need to use special Type under AWS::SSM::Parameter
   - Can't use SecureString parameters
     Parameters:
