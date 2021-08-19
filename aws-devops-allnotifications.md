@@ -33,6 +33,8 @@
 
 ### CloudFormation
 - Specify SNS notifications
+- In CloudTrail, only the input parameter key names are logged; no parameter values are logged
+  - Presumably because sometimes the values are sensitive
 
 ### CloudTrail
 - Can also deliver

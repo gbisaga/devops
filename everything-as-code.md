@@ -130,4 +130,3 @@ Nothing new here - just the same stuff application developers have had for years
 	- Anomoly detection - machines are really good at this
 	- So: when you have millions of log lines streaming, how do you know that one of those blips is an error, or a bad user experience, or an attacker?
 	- Distributed tracing - what if you used AI/ML, see what are normal and abnormal paths through your systems
-	

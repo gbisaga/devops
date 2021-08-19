@@ -11,6 +11,9 @@
 - Infrastructure, config, and application 
 - Chef uses cookbooks to provision and config the application
 - Specify custom Chef cookbook pulled from a repo - S3, HTTP, or git
+  - Have to enable custom cookbooks for the stack
+  - Cookbooks are assigned by the layer
+  - Can do anything, including running docker on the EC2s
 - Has a subset of VM configs such as IAM role, root device type, API endpoint region, etc.
 - Contains multiple layers aka blueprints for set a EC2 instances
   - Layer has a bunch of parameters like shutdown timeout, auto-healing 
@@ -20,13 +23,13 @@
   - Each instance has typical EC2 settings
   - Need to start the instances 
   - Have to stop instances to edit their settings
-  - Instances provisioned and managed by OpsWorks
-  - Special kinds of instances - create many, managed by OpsWorks
+  - Instances provisioned by you, but managed by OpsWorks
+  - Three kinds of instances - you pre-create all, managed by OpsWorks
     - Default is 24/7 type (always on)
     - Time-based - OpsWorks starts and stops instances based on a schedule, simplified cron-type UI
-	- Load-based - starts new instances based on layer metrics or up and down on CloudWatch alarms
+	  - Load-based - starts new instances based on layer metrics or up and down on CloudWatch alarms
   - Note that this is NOT autoscaling 
-    - you have to predefine the specific instances you want. 
+    - You have to predefine the specific instances you want. 
     - OpsWorks just starts and stops them.
 - Apps specifies where an application comes from (e.g. github)
 - Deployments - can run specific Chef cookbooks remotely on one or all instances
