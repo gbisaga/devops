@@ -259,7 +259,9 @@
 ### Trusted Advisor
 - Preferences - weekly (no more often) email notifications - separate for billing, operations, and security
 - Note that Trusted Advisor is a GLOBAL service - so region = us-east-1
-- CloudWatch events - example rules
+- Notifications
+  - CloudWatch events - example rules
+  - NO notification to SNS - events only
 
 ### General information on notification and queueing
 - SNS - want to send messages to many receivers - pub/sub

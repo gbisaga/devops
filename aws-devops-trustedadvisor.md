@@ -26,6 +26,7 @@ Automations
   - Trusted Advisor sees exposed access keys
     -> CloudWatch event (source: aws.trustedadvisor, check-name: Exposed Access Keys, status: ERROR)
 	-> Step Function (1) delete key, (2) CloudTrail to pull uses of key, (3) send to SNS for notification
+- NO notification to SNS - events only
 
 CloudWatch alarms
 - Standard metrics created, like service limits - could create an alarm on it

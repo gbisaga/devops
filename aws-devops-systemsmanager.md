@@ -41,7 +41,7 @@
   - AWS Update SSM Agent - update agent to latest or specified version
   - AWS-RunShellScript (or remote, salt, ansible, etc.)
 - Each has parameters, max execution time
-- Run by: instance tags, manual instanace selection, use resource group
+- Run by: instance tags, manual instance selection, use resource group
 - Rate control - number of targets at time, or percent of instances
 - Error threshold - how many errors (or percent) before you fail it
 
