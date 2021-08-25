@@ -1,9 +1,9 @@
-Elastic Beanstalk Deployment - EXAM questions
+# Elastic Beanstalk Deployment - EXAM questions
 - Deployment modes
   - Single instance - one EIP, ASG, SG - great for dev
   - High availability with or without LB - ASG, across multiple AZs, one or more - great for prod
     - with LB for web workloads
-    - without LB, only with ASG for worker processes (e.g. handling messages from SQS)
+    - without LB, only with ASG for worker processes (handling messages from SQS, cron.yml)
 - Deployment options for Updates
   - All at once - deploy all in one go - fastest, but downtime
   - Rolling - update a few instances at a time (bucket), then next bucket when the first is healthy. Application will keep running, but at lower capacity. Can set bucket size (# of instances stopped at a time). No additional cost since no additional instances created.
@@ -11,15 +11,15 @@ Elastic Beanstalk Deployment - EXAM questions
   - Immutable - spins new instances in new ASG & swaps all instances when everything is healthy. Also zero downtime. But others were updating previous instances, this is a new one. More expensive, but quick and easy rollbacks.
 - Uses CloudFormation under the hood
 
-Blue/green - not a direct feature. Zero downtime and release facility with more testing.
+### Blue/green - not a direct feature. Zero downtime and release facility with more testing.
 - Create a new "stage" environment (green), valid independently and roll back if issues
 - Set up Route 53 to redirect a bit of traffic to the stage environment
 - Using Beanstalk, swap URLs when done with the environment test
 
 https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/using-features.deploy-existing-version.html
 
-Exam tips
-- Additional EB CLI makes working with Beanstalk easier - eb create, eb status, eb health, eb events, eb deploy, etc. Good for pipelines.
+### KEY IDEA for exam
+- Additional EB CLI makes working with Beanstalk easier - eb create (deploy application version to env), eb status, eb health, eb events, eb deploy, etc. Good for pipelines.
 - Worker associates with SQS queue, pulls from it and calls localhost:80, where you write handler to process messages
 - Speed optimization: Instead of using package.json/requirements.txt etc and having EC2 machines resolve dependencies, do it yourself first and upload the whole zip file. Faster deployment.
 - Beanstalk with HTTPS - load SSL cert onto LB from console or .ebextensions, files end with .config. SSL certificate can be provisioned from ACM. 
@@ -31,9 +31,9 @@ https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/configuring-https-httpred
   - Common design pattern: Decouple application into web and worker tier. Example: processing a video, generating a big zip file, etc. 
   - Can define periodic tasks with cron.yaml extension file. Use a work queue (SQS) to send work to the worker tier in a new environment.
 - Manage RDS with Elastic Beanstalk. Can create RDS database - great for dev or test, but not for prod. Question: how do you decouple RDS coupled in EB to standalone if you need to?
-- Take RDS DB snapshot
-- Enable deletion protection in the RDS
-- Create new environment without an RDS, pointing to existing RDS
-- Blue/green deployment to swap
-- Terminate old environment - RDS won't get deleted because of deletion protection
-- Delete CloudFormation stack (will be in DELETE_FAILED state)
+  - Take RDS DB snapshot
+  - Enable deletion protection in the RDS
+  - Create new environment without an RDS, pointing to existing RDS
+  - Blue/green deployment to swap
+  - Terminate old environment - RDS won't get deleted because of deletion protection
+  - Delete CloudFormation stack (will be in DELETE_FAILED state)
