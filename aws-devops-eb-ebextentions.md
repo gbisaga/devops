@@ -19,11 +19,13 @@
       - `container_commands` - common use cases
         - modify index.html to have timestamp or version info
         - do database migrations
-  - KEY IDEA: have `leader_only: true` option - only run on the single "leader" instance - only for `container_commands`
+  - KEY IDEA: have `leader_only: true` option 
+    - only run on the single "leader" instance 
+    - only for `container_commands`
 
 Can customize environment using saved configs
 - But also create .ebextensions files IN PROJECT ROOT that give further environment configs
-- File names *.config - really YAML
+- File names *.config - really YAML or JSON
 - option_settings section - autoscaling configs, instance types, custom image, security groups, etc.
   - Two syntaxes - listed key/value array, or e.g. aws:autoscaling:asg
   - just do an `eb deploy` to redeploy
