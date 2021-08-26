@@ -27,7 +27,7 @@ Deployment/Delivery Strategies (general)
   - Con: downtime, hard to roll back
 - Rolling
   - Choose a percent to shift at once - this many users get the changes, you can monitor for no errors
-  - Pro: limited blast radius (only impact limited amount of trafic), easier rollback
+  - Pro: limited blast radius (only impact limited amount of traffic), easier rollback
   - Con: slower deployment, app must support multiple live versions - hard for legacy
 - Blue-Green (aka Red/Black)
   - Build an identical environment
@@ -53,14 +53,17 @@ Define an Application
   - Blue/green only works with EC2
   - CodeDeploy does not provision resources
 
-So steps:
+NOTE: See aws-devops-deployment-options.md document for more deployment details and comparisons!
+
+So steps for EC2 or on-premises:
 - Provision the EC2
 - Make sure it has a role assigned with read access to S3
 - Will want tags to direct CodeDeploy - Environment (Development) and Name (webserver)
 - Create a CodeDeploy project
   - EC2/On-prem, lambda, or ECS
   - Create deployment group - for dev, test, prod
-  - Deployment type - in-place or blue/green
+  - Deployment type - in-place or blue/green (EC2 only)
+  - AllAtOnce, OneAtATime, HalfAtATime
 - Run deployments from the Deployment Groups
   - Can override deployment configuration, rollback behavior
 
@@ -100,6 +103,7 @@ Deploy onto an ASG
 - See asg-cicd document
 
 On-premise instances - https://docs.aws.amazon.com/codedeploy/latest/userguide/instances-on-premises.html
+- Note: No blue/green with on-prem
 - Create on-prem instance, register with CodeDeploy, and TAG IT (important)
   - KEY IDEA #1: Need to have the on-prem instance log in. Could use an IAM user, but you need a separate one for EACH on-prem instance.
   - KEY IDEA #2: Need to register the instances, then TAG the instances to link them with specific deployment groups (dev/test/prod)

@@ -47,4 +47,13 @@
 - CodeDeploy with ASG
   - https://docs.aws.amazon.com/codedeploy/latest/userguide/integrations-aws-auto-scaling.html
 
-
+- CodeDeploy "gotchas":
+  - A deployment group contains individually tagged Amazon EC2 instances, Amazon EC2 instances in Amazon EC2 Auto Scaling groups, or both.
+  - Deployments that use the EC2/On-Premises compute platform manage the way in which traffic is directed to instances by using an in-place or blue/green deployment type. During an in-place deployment, CodeDeploy performs a rolling update across Amazon EC2 instances. During a blue/green deployment, the latest application revision is installed on replacement instances.
+  - If you use an EC2/On-Premises compute platform, be aware that blue/green deployments work with Amazon EC2 instances only.
+  - You CANNOT use canary, linear, or all-at-once [this might be wrong] configuration for EC2/On-Premises compute platform.
+  - You can manage the way in which traffic is shifted to the updated Lambda function versions during deployment by choosing a canary, linear, or all-at-once configuration.
+  - You can deploy an Amazon ECS containerized application as a task set. You can manage the way in which traffic is shifted to the updated task set during deployment by choosing a canary, linear, or all-at-once configuration.
+  - Amazon ECS blue/green deployments are supported using both CodeDeploy and AWS CloudFormation. For blue/green deployments through AWS CloudFormation, you don't create a CodeDeploy application or deployment group.
+  - Your deployable content and the AppSpec file are combined into an archive file (also known as application revision) and then upload it to an Amazon S3 bucket or a GitHub repository. Remember these two locations. AWS Lambda revisions can be stored in Amazon S3 buckets. EC2/On-Premises revisions are stored in Amazon S3 buckets or GitHub repositories.
+  - AWS Lambda and Amazon ECS deployments CANNOT use an in-place deployment type.
