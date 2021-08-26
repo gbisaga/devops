@@ -8,6 +8,10 @@
 - Rolling - update a few instances at a time (bucket)
 - Rolling with additional batches - spin up new instances to move the batch
 - Immutable - new instances in a new ASG, swap out whole ASG when all is healthy
+- New: traffic splitting, for canary
+  - temp ASG on same ALB, gets canary traffic
+  - after time, shift new instances to old ASG
+  - terminate old instances and temp ASG
 
 ### All at once
 - Stop all the instances, deploy new versions to all the instances
@@ -34,17 +38,23 @@
 - New instances on a temporary ASG that are moved to the original one when done
 - High cost, double capacity
 - Positive: very fast rollback - just deletes the new instances
-- (1) create in temporary ASG (2) move to main ASG (3) terminate original instances
+- (1) create in temp ASG (2) move to main ASG (3) terminate original instances and temp ASG
 
-### Blue/Green - is there blue/green? not a direct feature of EB, but you can make it happen
+### Blue/Green - is there blue/green? 
+- not a direct feature of EB, but you can make it happen
 - https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/using-features.CNAMESwap.html
+
+### Canary
 - With all the above options, no chance to do manual verification of environment (although can have automated) or manual deployment approval
-- Create a separate "stage" environment
-- Validate the stage environment
-- Route 53 set up to migrate canary traffic
-- When done, use EB to swap URLs 
-  - EB "swap URLs" command literally and immediately swaps the URLs (CNAME) of two environments
-  - Maybe better would be to use Route53 directly, and do % traffic in old vs new
+  - Create a separate "stage" environment
+  - Validate the stage environment
+  - Route 53 set up to migrate canary traffic
+  - When done, use EB to swap URLs 
+    - EB "swap URLs" command literally and immediately swaps the URLs (CNAME) of two environments
+- or use Route53 directly, and do % traffic in old vs new
+- or new traffic splitting
+  - basically immutable but with delay
+  - split traffic in ALB for period of time
 
 ### Two kinds of rolling update configs:
 - Application deployments and configuration updates

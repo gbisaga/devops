@@ -21,7 +21,9 @@
 - But directly in EB use "saved configuration" - more native to EB
   - eb config save dev-env --cfg initial-configuration
   - creates locally in .elasticbeanstalk\saved_configs\initial-configuration.cfg.yml
-  - OptionSettings section - only the non-default settings - lots of default settings show up in the console
+  - option_settings section - only the non-default settings 
+    - lots of default settings 
+    - show up in the console plus many more
 - eb setenv ENABLE_COOL_NEW_FEATURE=true <-- immediately updates the environment in AWS
 - KEY IDEA: Saved configs are also good for disaster recovery
 
@@ -49,9 +51,10 @@
   - Enable in configuration tab
   - Weekly update window, update level (e.g. minor and patch)
 
-### Worker environments
+### Worker tier environments
 - Two major use cases - a single worker can do both
-  - Long running workload (e.g encoding a video) - example program reads SQS queue to pick up work
+  - Long running workload (e.g encoding a video) 
+    - reads SQS queue to pick up work
     - The SQS is created automatically, or can use an external queue (so it's not deleted)
   - Perform scheduled work using a cron
     - KEY IDEA: cron.yml file
