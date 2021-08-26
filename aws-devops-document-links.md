@@ -18,3 +18,4 @@ https://d1.awsstatic.com/whitepapers/AWS_DevOps.pdf
 OPTIONAL - Development and Test on AWS
 https://d1.awsstatic.com/whitepapers/aws-development-test-environments.pdf
 
+https://awesomeopensource.com/project/open-guides/og-aws

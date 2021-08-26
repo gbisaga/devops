@@ -2,10 +2,14 @@
 - CloudWatch logs - a task definition's container definition can have a log configuration
   - can specify different log drivers - awslogs (CloudWatch), splunk
   - auto-configure fills values automatically for group, region, stream prefix
-  - no special agent for awslogs - in container (doesn’t take disk space)
   - KEY IDEA: task execution role needs to have log permission
   - can also specify CloudWatch logs agent to send files from the instance's file system
-  
+- No special agent for `awslogs`
+  - `awslogs` itself runs in container (EC2 or Fargate)
+  - But when on EC2, it forwards logs to the ECS agent
+  - Therefore the Instance Role (not the Container Role) requires access to CloudWatch logs
+  - This also explains why Fargate doesn't require any special role tweaking
+
 ### CloudWatch metrics
 - Lots of ECS metrics - cluster or service level
 - Have memory and CPU metrics built in

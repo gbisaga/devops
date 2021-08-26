@@ -13,7 +13,9 @@ Fully managed build service (like jenkins) - always serverless, pay for usage to
 
 Create Build project
 - Specify source - can be CodeCommit, S3, github, etc.
-- Specify a branch, tag, or commit - so multiple branches requires multiple CodeBuild projects???
+- Specify a branch, tag, or commit 
+  - So multiple branches requires multiple CodeBuild projects
+  - This obviously encourages simpler branching!
 - Specify "additional configuration" e.g. timeouts up to 8 hours
 - So better suited for something like performance test, can be much longer than Lambda
 - Can specify a VPC if resources are in a VPC

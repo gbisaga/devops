@@ -1,0 +1,23 @@
+Sleuth - Accelerate metrics
+- Deployment rate = Frequency, times/day
+  - Can we deploy frequency vs Do we
+- Lead Time
+  - Code from initial merge to production
+  - Basic: track jira tickets - but don't show whole picture
+  - Could be misleading because of parts of tickets
+- MTTR
+  - Tracked manually, so only look at the worst examples
+  - Many things done quickly, but these don't show up
+- Change Failure Rate
+  - Failed deployments, code rollbacks
+
+Sleuth integrations
+- Deployment rate - Sleuth API - you send the SHA for deployment
+- Change Lead Time - GitHub SHA Tracking - can compare deployment time's API call vs commit
+- MTTR 
+  - CloudWatch, NR, Datadog
+  - Tries to make inferences based on GitHub (commit undos) - Time to next commit and everything healthy again
+  - Better if integrate metrics and alarms
+  - Can help move forward with metrics being forwarded - e.g. 500's in API
+- Change Failure Rate - Code rollback identification
+- Metadata 
