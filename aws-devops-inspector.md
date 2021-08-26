@@ -5,14 +5,15 @@ Amazon Inspector
 - You need to create Assessments, which have a set of EC2 to check. Assessments contain rules packages such as:
   - CVE
   - Security Best Practices 1.0 (e.g. is SSH root login disabled)
+  - No custom rules supported 
 - Two setups for assessments
   - Network assessments - Analyzes network, no agent required
   - Host assessments - Requires Inspector agent, looks inside the host - gets deeper information
 - Can run them once or weekly
 - Detailed configuration
-  - Targets - which instances - by tag
+  - Targets - which instances - by tag, “all”
   - Service can install agent - installs the Inspector agent using SSM Agent (must be installed, instance must have IAM role that allows SSM > Run Command)
-  - Assessment template - a number of predefined rules packages - network reachability, security best practices
+  - Assessment template - 4 predefined rules packages - network reachability, security best practices
   - How often to run assessment (creates CloudWatch scheduled rule to implement)
 - Inspector will never launch an EC2 instance
 - KEY IDEA Why instance might not show up? (1) Inspector agent not installed (2) SSM agent not installed to install it (3) No IAM role
