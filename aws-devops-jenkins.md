@@ -6,9 +6,10 @@ Jenkins on AWS - white paper https://d1.awsstatic.com/whitepapers/DevOps/Jenkins
 - Difficult - multi-AZ master, deploy on EC2'slave
 - All projects need a Jenkinsfile (like buildspec.yml)
 - Lots of plugins
-- Two options:
+- Three options:
   - Master and workers are on the same instance
   - Master separate from your workers - much more scalable
+  - Use master/multi master with CodeBuild plugin - HA, less setup (no slave infrastructure)
 - Master would be an EC2, with slaves in others, maybe in an ASG
 - Can have one master, or a multi-master setup - multi-masters share info using EFS
 
