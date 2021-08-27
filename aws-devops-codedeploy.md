@@ -3,7 +3,9 @@ Deploy code to EC2 instances - you can use ansible, chef, terraform, etc... but 
 - CodeDeploy sends appspec.yml file
 - Application pulled from GitHub or S3 - source code+appspec.yml file 
 - Agent runs deployment instructions and report success/failure
-- If restart EC2, need to restart the agent
+  - If restart EC2, need to restart the agent
+  - NOTE That CodeDeploy does not actually deploy the code! It tells the agent to deploy the code.
+  - So, the EC2's role must be able to pull from S3 where CodeDeploy is deploying from
 - Deployment services
   - CodeDeploy is usually the answer to deployment
     - To EC2, On-prem, ECS, Lambda - most compute type

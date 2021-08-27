@@ -1,7 +1,11 @@
 # Notifications and integrations
 
 ### API Gateway
-- Can create CloudWatch log integration
+- Can create CloudWatch log integration: 2 kinds
+  - Access logging - similar to access logs in Apache, etc.; can specify fields, or JSON/XML
+  - Execution logging - AWS-related logging of each execution
+- Access logging can done instead to Kinesis Data Firehose (but not both)
+- CloudWatch metrics generated
 
 ### ASG
 - CloudWatch alarms drive scaling with ALL dynamic policies
@@ -262,6 +266,13 @@
 - Notifications
   - CloudWatch events - example rules
   - NO notification to SNS - events only
+
+### OpsWorks
+- Q: How do you get notified?
+  - Create CloudWatch event, source=OpsWorks > Instance state change -> target=SNS topic, lambda, etc.
+  - If you want to know specifically when change due to auto-healing, filter on { detail: { initiatedBy: [ "auto-healing" ]}
+  - Or `user` or `auto-scaling`
+  - No SNS
 
 ### General information on notification and queueing
 - SNS - want to send messages to many receivers - pub/sub

@@ -71,17 +71,23 @@
   - package name formats with CVE ID, full package name with dates and versions, etc
   - So: you can approve/reject certain specific patches, certain categories, certain bugs fixed, etc
 - KEY IDEA Patch sources - important bit about custom baselines, lets you specify your own patch source
-- Maintenance windows
-  - when to apply patches - how often, what time of day (schedule cron builder, rate, cron)
-- Specify "target group" - instances to be patched - just like run command, by tags, manual instances, or resource group
-- Specify a run-command - same as documents used for "run command" - AWS-RunPatchBaseline is common
-- Also have rate control and error threshold from run-command
+- Use maintenance window for when to apply patches
+- Tracks overall compliance of instances - where they are against baselines
 - Can do actual install, or scan for compliance
 - Tracks history of patches
-- Can specify multiple tasks for a window, not just a run command - also automation tasks, Lambda, or Step Function tasks
-- Tracks overall compliance of instances - where they are against baselines
 
-### Inventory - collect list of configurations from all instances tracked by SSM
+### Maintenance windows
+- Window says how often, what time of day (schedule cron builder, rate, cron)
+- Specify "target group" - instances to be patched - just like run command, by tags, manual instances, or resource group
+- Specify "tasks"
+  - Typically a run-command - same as documents used for "run command" - AWS-RunPatchBaseline is common
+  - Can also use Automation documents or custom tasks (Lambda or Step function)
+- Also have rate control and error threshold from run-command
+- Can specify multiple tasks for a window, not just a run command - also automation tasks, Lambda, or Step Function tasks
+- Example: Generate an AMI by choosing the Automation document `AWS-CreateImage`
+
+### Inventory 
+- Collect list of configurations from all instances tracked by SSM
 - Run periodically pulling info from instances (specified by tag, individually, resource group
 - Many possible - OS versions, top applications running, AWS components (agents), network config, windows update, instance detailed info
 - Also pulls specific files or windows registry values
