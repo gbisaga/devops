@@ -87,7 +87,7 @@
     - On Load balancers, proxies, web servers
     - Based on user requests being made
   - AWS managed logs
-    - Load balancer access logs to S3
+    - Load balancer access logs to S3 - on the ALB level, not target group
     - CloudTrail logs to S3 and CloudWatch logs
     - VPC flow logs to S3 and CloudWatch logs - you can have multiple of these with different log line formats, filters, aggregation time
     - Route 53 access logs only to CloudWatch logs

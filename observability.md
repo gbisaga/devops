@@ -93,3 +93,65 @@ Aggregating old results vs retention
 - What is the required/appropriate event generation rate? Every msec is expensive, but 30 minutes is probably too slow. Probably want some guidance around these kinds of questions.
 
 New Relic One AWS observability workshop https://newrelic.awsworkshop.io/
+
+"Why observability and monitoring are different" https://www.youtube.com/watch?v=2ivl8Hzp7QQ&ab_channel=HasgeekTV
+
+Three examples:
+- If you have two servers, 55%, is this good?
+- How do you know the #s you're monitoring for are correct?
+- Support ticket on ELB - a year after deployed, finding thru access logs node1 always has higher load than node3
+
+Q: Can we find out before things go sideways?
+Standard A: Monitor. Problem: you monitor what you know, react after it's failed. 
+- It's known failures: cannot monitor/alert for unknown-unknowns. There is nothing that says "monitor everything"
+- Also don't look across distributed systems: monitoring generally a single CPU, single process.
+- Properties we don't usually look at within these distributed systems: accuracy, latency, correctness, consistency.
+  - Example: we have eventual consistency. How eventual is eventual?
+- Monitoring also tell you from now: the hooks and levers have to be in the software. You need to have installed the agent, or monitor, or alert.
+
+Software, by default, is opaque: so you need obversation pre-built into the system.
+- Tracing allows you to see what happened
+- Logs are great, but you can't normally connect them from different services
+- The need
+  - Debugging
+  - Pattern detection - I see a pattern, everytime it goes to service B, it degrades; but not when it goes to C
+- Design for debuggability
+  - Operational (external) failures should be handled; programmatic ones should be debugged
+  - The more software designed for debuggability, less you need to debug it; and the more you can leverage services around it. (C service has no problem, so we can look at B more.)
+- Observability is not failure-centric, unlike monitoring
+  - Just because it's observable, doesn't mean anybody is (or needs to) observe it
+  - But you can, for any number of reasons (debugging, pattern detection)
+
+Stability - Apply Control theory
+- You can't build 1 MB and 1 TB system the same way - all systems have a bounded nature
+- Phone > LB > backend system... put in a sensor and you have a closed loop system
+- Example: Route53 weighted balancing
+- Another example: Request > Envoy > HTTP payment service then Hystrix for feedback
+- A simple feedback system: try HTTP call, if fail make a retry. How long backoff? How many times? Etc.
+  - More complex, circuit breaking - realize a certain endpoint is failing to some critical level -> do transactions asynchronously
+ to that DB.
+  - Feedback helps you build more reliable software
+  - TCP flow control good example of feedback
+  - TCP congestion control takes it one more level - deals with network failures proactively. 
+    - "Slow start" - Exponential growth of trusting the other side
+	- No network is stable - every time there's a packet drop, you fall back to slow start
+  - Caching systems are feedback loop also - LRU, etc.
+  - DDoS protection, WAF
+  - Load balancer - receiver says (somehow) I can't take any more traffic
+  - Progressive streaming - no matter how bad your network is, it works. This is because bandwidth is measured for every segment; then bandwidth is reduced if problems.
+
+Programming language/environment selection
+- Support for tools for testing (mocking, API testing, functional UI testing), linting, CI/CD, observability
+- Use that meets team standards (OO, functional, etc.)
+
+Observability specific - ThoughtWorks https://www.thoughtworks.com/en-us/insights/podcasts/technology-podcasts/oberservability-monitoring
+- Language environment note
+- Coverage (e.g. Fitness functions)
+- Proactive, not reactive
+- Main idea is that it's distributed
+- Use open standard - need to decide if OpenTracing or now OpenTelemetry - or can we use an implementation that will allow this to be changed in the future?
+- Include trace info in logs, if they are not sent together
+
+- Another one - how do you know what SQL is being run?
+- Log collection - different sources
+- CI/CD and cost first - features later

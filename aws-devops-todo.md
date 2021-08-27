@@ -1,15 +1,36 @@
 Thoughts for during the exam
-- Read the question carefully for keywords like "logs", "real-time", "cost effective", "cross-account", "steps", "visualize", "correlate" (dashboard)
+- Read the question carefully for keywords
+  - "logs" - CloudWatch
+  - "real-time" - DynamoDB streams, CloudWatch logs subscription, Kinesis - or hot standby config
+  - "cost effective" - spot instances, pay only on usage (CodeBuild vs Jenkins, Quick Sight)
+  - "cross-account" - organizations, including Resource sharing through Resource Access Manager
+  - "steps", "auditable", "visualize progress" - Step functions
+  - "Correlate data" - CloudWatch or QuickSight dashboard
+  - "versions" - refers to another branch (CodeCommit/CodeBuild/CodePipeline), Lambda aliases, API Gateway stages
+  - "without" - an important exception
+  - "over time" - if a configuration type item, probably AWS Config
+  - "minimal"
+    - "refactoring" - limits to not changing technologies e.g. MySQL to DynamoDB
+    - "provisioning" - not requiring server infrastructure - instead serverless
+    - "downtime" - warm/hot standby
+    - "startup time" - pre-baked AMIs
+    - "administrative overhead" - there's a config item, don't have to implement filtering yourself
+  - Anything that refers to standards in your organization - will probably eliminate an answer
+  - Time-based elements in questions and answers. So if the question says "hot standby", "real-time", etc., it would not include scheduled actions.
 - To ensure we get to all the easy answers, 
-- Write down all numbers, underlining ones not 100% sure of (double underlining for a guess), and review those first. Check off as they're reviewed and fixed.
-- On review, if it's not clear which answer is right, don't guess except as a last resort. Analyze how answers are same or different. If two answers refer to one service and three to another, does one match the number of answers you have to choose?
+  - Write down all numbers, underlining ones not 100% sure of (double underlining for a guess), and review those first. Check off as they're reviewed and fixed.
+  - On review, if it's not clear which answer is right, don't guess except as a last resort. Analyze how answers are same or different. If two answers refer to one service and three to another, does one match the number of answers you have to choose?
+- Look for and eliminate obviously wrong answer elements first
 - If answers are long, find common elements between them (often they will be the head of the answers). This lets you find the differentiators between right and wrong.
 - Look for "only" in answers. Is it ONLY true there, or are there other options?
 - It may be more than one answer that will meet the objectives. If an answer is convoluted, it's *probably* not right, but it might be. Usually common situations have straightforward solutions.
 - If an answer has something you've never heard of in studying, it's probably wrong.
 - If the question is complex, the common parts and differentiators of the answers can help weed out what parts of the question to ignore and what to pay attention to.
-- In a lift-and-shift, look for older technologies and AWS services that would replace them. E.g. generating a tape shipped offsite -> S3 with a lifecycle policy that goes to glacier
-- Compare time-based elements in questions and answers. So if the question says "hot standby", "real-time", etc., it would not include scheduled actions.
+- In a lift-and-shift, look for older technologies and AWS services that would replace them. 
+  - Generating a tape shipped offsite -> S3 with a lifecycle policy that goes to glacier
+  - Jenkins -> replace build steps with CodeBuild
+- If it seems like two answers are right, there's probably some detail you're missing. Read the question again, more carefully.
+- Think about how I would actually implement. If want to work on multiple versions with testing, need to maintain multiple CodeCommit branches, which means multiple CodeBuilds or pipelines
 
 Before the exam
 - Review all the "KEY IDEA", "NOTE", and "??" items

@@ -32,7 +32,7 @@
 ### Resource Groups
 - Group resources either by tag or CloudFormation stack based
 - Not automatic like Azure - but is dynamic
-- What can you do with resource groups? Run
+- What can you do with resource groups? Run commands!
 
 ### Automation - Run command
 - Large number of standard "documents" - either supplied by Amazon or created by me/shared with me
@@ -44,6 +44,7 @@
 - Run by: instance tags, manual instance selection, use resource group
 - Rate control - number of targets at time, or percent of instances
 - Error threshold - how many errors (or percent) before you fail it
+- Note: only runs on managed instances - so you can't find out instances that aren't
 
 ### SSM Parameter store
 - Enter a free custom name 
@@ -53,6 +54,10 @@
 - Each parameter is versioned - audit trail with version number, date, and who
 - Can protect params with IAM individually
 - API calls to retrieve multiple parameters (by name or path), ask for decryption --with-decryption
+- CloudFormation integration
+  - CloudFormation automatically recognizes when you use a "AWS::SSM::Parameter::Value<XXX>" parameter
+  - If UsePreviousValue/Use Existing Value option used, this refers to the name, not the value
+  - I.e. stack updates will always consider the value of the SSM parameter to decide if changed
 - KEY IDEA - simplify architecture, centralize configuration storage
 - Q: How would
 

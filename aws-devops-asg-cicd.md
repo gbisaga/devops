@@ -35,6 +35,7 @@
   - Step 2. Install application
   - Step 3. Reroute traffic to replacement instances
   - Step 4. Terminate original instances
+- Note that it doesn't use ALB health checks to rollback deployment. You have to use the `ValidateService` hook in appspec.yml for this
 - But note: what if you do a deployment but while that is happening, there's an autoscaling event and a new instance is created?
   - It gets the old version, because that is what was current at the time, so you'll have a mix of versions
   - KEY IDEA read https://docs.aws.amazon.com/codedeploy/latest/userguide/integrations-aws-auto-scaling.html

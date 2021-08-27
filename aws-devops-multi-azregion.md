@@ -23,9 +23,9 @@
 - AWS Config Aggregators (multi-region, multi-account) - I did this!
 - RDS cross region read replicas (used for read and DR)
 - Aurora "global" database
-  - Two regions only
-  - One region is master, second region (only one) for read and DR
-  - Easy to "promote" replica to master
+  - Up to five secondary regions
+  - One region is master, secondary regions for read and DR
+  - Easy to "promote" replica to master (RPO 1 second, RTO 1 minute)
 - EBS volume snapshots, AMI, RDS snapshots can be copied to other regions
   - Typical to put name in parameter store so easily reference correct one for region
 - VPC peering - Private traffic between regions

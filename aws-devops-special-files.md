@@ -4,5 +4,8 @@ Special files
 - Dockerrun.AWS.json 
 - .ebextension/*.config
 - .elasticbeanstalk/config.yml
+- Buildfile, Procfile - EB one-time and continuous command files
+- /opt/elasticbeanstalk/hooks/(appdeploy|configdeploy|restartappserver|preinit|postinit) 
+  - EB custom platform hooks https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/custom-platform-hooks.html
 - /Jenkinsfile - Jenkins
 - /template.yml - CodeStar, a CloudFormation template that drives customization
