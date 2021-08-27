@@ -1,4 +1,4 @@
-CloudWatch metrics
+### CloudWatch metrics
 - All metrics from all services that expose them - thousands available in portal
 - Example: EC2 - per instance or aggregated metrics
 - Historically, two levels for standard metrics (e.g. EC2 CPU)
@@ -10,7 +10,7 @@ CloudWatch metrics
   - Can specify high resolution alarms (10 or 30 seconds)
 - CloudWatch retention
   - metrics can go back up to 15 months
-  - but not everything: starts to consolidate - <60 seconds for 3 hours, 60 seconds for 15 days, etc.
+  - but not everything: starts to consolidate - less than 60 seconds for 3 hours, 60 seconds for 15 days, etc.
 - KEY IDEA Important metrics - important to know if you need to create a custom metric or automatically available
   - EC2
     - CPU utilization
@@ -44,13 +44,14 @@ CloudWatch metrics
 - Manually create dashboard with metrics or Create Automated Dashboard with most common metrics
 - Billing metrics (maybe us-east-1 only)
 
-Custom metrics
+### Custom metrics
 - Standard resolution (1 minute granularity) or high resolution (>= 1 second)
 - Can define a value and up to 10 dimensions (i.e. other attributes)
 - Can publish metric with specific timestamps
 - Can publish statistic sets (min, min, etc.) instead of individual metric values - you do statistics first
 
-Exporting metrics - S3, elasticsearch, etc.
+### Exporting metrics - S3, elasticsearch, etc.
 - Doesn't do it natively
+  - Added in 2021 - streaming to Firehose
 - There's an API call get-metric-statistics - get back JSON document with timestamps, max, unit
 - Always think: how do I automate this? Create CloudWatch scheduled event -> target = Lambda call 

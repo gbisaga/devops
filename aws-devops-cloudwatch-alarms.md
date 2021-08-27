@@ -1,4 +1,4 @@
-CloudWatch alarms
+### CloudWatch alarms
 - Create alarms based on metrics
 - Each alarm has a state: OK, Insufficient data, In Alarm
 - Alarm based on any metric, including custom
@@ -14,14 +14,14 @@ CloudWatch alarms
   - Can also create autoscaling action, for an ASG or ECS cluster
   - For EC2 metrics only: also special category of EC2 actions - start, terminate, reboot, etc.
 
-View alarm
+### View alarm
 - Status - starts out in Insufficient Data
 - History - status transitions
 - KEY IDEA Note: CloudWatch alarms is NOT an event source in CloudWatch Events!
   - Only notification you can do is send to SNS topic
   - Plus autoscaling and EC2 actions
 
-Billing alarms
+### Billing alarms
 - Only in us-east-1
 - Set threshold normally, send notification when you spend more than (e.g. $10 in a 5 hour period)
 - Or cumulative
