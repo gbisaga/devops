@@ -12,6 +12,8 @@ For state changes, can be Deployment or Instance - same as triggers
 
 CodeDeploy logs - install CodeDeploy agent and CloudWatch log agent - no automatic connection
 
+NOTE that CodeDeploy is not a target for CloudWatch events/EventBridge
+
 Notifications and Triggers - like CodeCommit
 - Triggers to SNS only (no lambda unlike CodeCommit)
   - Deployment and Instance triggers - same as CloudWatch state change types

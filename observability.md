@@ -152,6 +152,10 @@ Observability specific - ThoughtWorks https://www.thoughtworks.com/en-us/insight
 - Use open standard - need to decide if OpenTracing or now OpenTelemetry - or can we use an implementation that will allow this to be changed in the future?
 - Include trace info in logs, if they are not sent together
 
+Thoughts on creating an observable system
 - Another one - how do you know what SQL is being run?
 - Log collection - different sources
+- Generate logs with significant application events
+- Custom metrics significant to the application? That way you can correlate it after the fact with problem times. But, maybe this can also be done by generating the log messages, and then creating custom metrics from them. (Practice exam question)
+
 - CI/CD and cost first - features later

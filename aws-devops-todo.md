@@ -30,7 +30,13 @@ Thoughts for during the exam
   - Generating a tape shipped offsite -> S3 with a lifecycle policy that goes to glacier
   - Jenkins -> replace build steps with CodeBuild
 - If it seems like two answers are right, there's probably some detail you're missing. Read the question again, more carefully.
-- Think about how I would actually implement. If want to work on multiple versions with testing, need to maintain multiple CodeCommit branches, which means multiple CodeBuilds or pipelines
+- Think about how I would actually implement.
+  - If want to work on multiple versions with testing, need to maintain multiple CodeCommit branches, which means multiple CodeBuilds or pipelines
+  - Draw diagram of what is being proposed. If you can't have paper, make diagram with fingers.
+- For multiple answer questions, usually groups of answers
+  - If 2/5, probably two groups of answers, one with 2 and one with 3
+  - Examine the group with shortest answers first
+  - Find best answer in that group - helps eliminate answers in the other groups
 
 Before the exam
 - Review all the "KEY IDEA", "NOTE", and "??" items
