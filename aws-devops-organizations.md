@@ -68,6 +68,7 @@ Multi-account strategies - different options
   - if organization allowed, need target role
 - CloudFormation StackSets - multi-region, multi-account
 - Centralize logs with automation!
+  - need check???
   - First create CloudWatch log destination
     - Log destinations are part of Landing Zone, which is part of Control Tower https://aws.amazon.com/solutions/implementations/aws-landing-zone/
     - Use CLI - MUST BE IN MANAGEMENT ACCOUNT OF ORGANIZATION -> subscription to Kinesis Firehose -> S3
