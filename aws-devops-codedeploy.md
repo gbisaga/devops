@@ -80,7 +80,18 @@ appspec.yml
   - AfterInstall - configure application, set file permissions, etc.
   - ApplicationStart - start services you stopped during ApplicationStop (e.g. httpd)
   - ValidateService - validate that the service started OK
-  - More hooks if you use a load balancer - BlockTraffic (NO HOOK, but Before/After), and AllowTraffic (same)
+  - BeforeBlockTraffic/AfterBlockTraffic, BeforeAllowTraffic, AfterAllowTraffic - only with load balancer
+  - Note that only these LB hooks are called on rollback and OLD instances
+Before/After), and  (same)
+- hooks for ECS deployments
+  - BeforeInstall - no rollback
+  - AfterInstall
+  - AfterAllowTestTraffic - after sending test traffic, validate
+  - BeforeAllowTraffic
+  - AfterAllowTraffic
+- hooks for Lambda
+  - BeforeAllowTraffic
+  - AfterAllowTraffic
 - In in-place deployment you have access to all the hooks, sequential on the same servers
 - In blue/green, the steps are distributed among the old and new instances, and rollback events also happen
 - There are also 5 environment variables available in hooks: APPLICATION_NAME, DEPLOYMENT_ID, DEPLOYMENT_GROUP_NAME, DEPLOYMENT_GROUP_ID, LIFECYCLE_EVENT

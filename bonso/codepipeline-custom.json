@@ -1,0 +1,30 @@
+{
+    "category": "Build",
+    "provider": "Silly-Build-Provider-Name",
+    "version": "1",
+    "settings": {
+        "entityUrlTemplate": "https://my-build-instance/job/{Config:ProjectName}/",
+        "executionUrlTemplate": "https://my-build-instance/job/{Config:ProjectName}/lastSuccessfulBuild/{ExternalExecutionId}/"
+    },
+    "configurationProperties": [{
+        "name": "ProjectName",
+        "required": true,
+        "key": true,
+        "secret": false,
+        "queryable": false,
+        "description": "Some bogus description",
+        "type": "String"
+    }],
+    "inputArtifactDetails": {
+        "maximumCount": 1,
+        "minimumCount": 1
+    },
+    "outputArtifactDetails": {
+        "maximumCount": 0,
+        "minimumCount": 0
+    },
+    "tags": [{
+      "key": "Project",
+      "value": "ProjectA"
+    }]
+}

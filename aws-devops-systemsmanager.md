@@ -54,6 +54,10 @@
 - Each parameter is versioned - audit trail with version number, date, and who
 - Can protect params with IAM individually
 - API calls to retrieve multiple parameters (by name or path), ask for decryption --with-decryption
+- Also public parameters
+  - Region specific AWS parameters, grouped by service
+  - E.g. latest Amazon Linux 2 AMI
+  - Better than baking into CloudFormation mapping section
 - CloudFormation integration
   - CloudFormation automatically recognizes when you use a "AWS::SSM::Parameter::Value<XXX>" parameter
   - If UsePreviousValue/Use Existing Value option used, this refers to the name, not the value
@@ -105,7 +109,8 @@
   - Recover impaired instances, unreachable due to network, RDP, firewalls without manual steps
 - Example: launch instance, update SW, stop instance, create image, terminate instance -> output fully patched AMI
 - Has an automation document - big JSON with parameters, each step to perform
-- Shows all the steps into the UI 
+  - Two kinds of documents - automation and (run) command/session
+  - Shows all the steps into the UI 
 - KEY IDEA Can use CloudWatch events - source = SSM > Automation > Status change -> targets = run Lambda, run command, Inspector assessment template, etc.
 - KEY IDEA White paper "building AMI factory process" - 4 phases
   - now recommends AWS Image Builder
