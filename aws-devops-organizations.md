@@ -2,7 +2,7 @@
 - Organizations is global service, multiple accounts in the organization
 - Master and member accounts
   - One master account - can't change it
-  - Member accounts - can only be part on one organization, but can be migrated from one organization to another
+  - Member accounts - can only be part of one organization, but can be migrated from one organization to another
 - Consolidated billing across accounts, since payment method
 - Pricing benefits from aggregated usage - volume discount across all accounts
 - API to automate account creation
@@ -61,7 +61,11 @@ Multi-account strategies - different options
   - Cross account invocation (not thru console)
   - Deploy in multiple accounts
 - AWS Config Aggregators (multi-region, multi-account, across entire organization)
-- CloudWatch events -> create an event bus, can read across accounts
+- CloudWatch events
+  - event bus allowing source acct, organization (in condition), or *
+  - won’t forward to third account (no loops)
+  - to send, create target to arm=receiving account event bus
+  - if organization allowed, need target role
 - CloudFormation StackSets - multi-region, multi-account
 - Centralize logs with automation!
   - First create CloudWatch log destination

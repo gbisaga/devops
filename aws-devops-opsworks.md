@@ -27,8 +27,8 @@
   - Three kinds of instances - you pre-create all, managed by OpsWorks
     - Default is 24/7 type (always on)
     - Time-based - OpsWorks starts and stops instances based on a schedule, simplified cron-type UI
-	  - Load-based - starts new instances based on layer metrics or up and down on CloudWatch alarms
-  - Note that this is NOT autoscaling 
+	- Load-based - starts instances based on layer metrics or up and down on CloudWatch alarms
+  - Note that this is NOT autoscaling (even though it’s called that e.g. in CloudWatch event)
     - You have to predefine the specific instances you want. 
     - OpsWorks just starts and stops them.
 - Apps specifies where an application comes from (e.g. github)
