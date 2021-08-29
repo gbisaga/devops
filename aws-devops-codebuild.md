@@ -1,17 +1,19 @@
-Fully managed build service (like jenkins) - always serverless, pay for usage to complete build
+### Fully managed build service (like jenkins) 
+- always serverless, pay for usage to complete build
 - Docker under the hood - reproducible
 - Can provide own docker images
 - Secure
 - Get code from anywhere
 - Build buildspec.yml
-- Logs to CW logs or S3
-- Metrics to monitor CB statistics
-- CW Events for failed builds, trigger notifications
-- CW Alarms to notify 
-- CW Events/Lambda for glue
-- SNS notifications with CB trigger
+- Notifications 
+  - Logs to CW logs or S3
+  - Metrics to monitor CB statistics
+  - CW Events for failed builds, trigger notifications
+  - CW Alarms to notify 
+  - CW Events/Lambda for glue
+  - SNS notifications with CB trigger
 
-Create Build project
+### Create Build project
 - Specify source - can be CodeCommit, S3, github, etc.
 - Specify a branch, tag, or commit 
   - So multiple branches requires multiple CodeBuild projects

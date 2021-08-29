@@ -116,6 +116,7 @@
 - CW Events/Lambda for glue
 - SNS notifications with CB trigger
 - Logs - Under CodeBuild > Logs - set up log groups - only trace of build after it's finished
+  - need to make logs go to CW or S3 else lose logs
   - CloudWatch logs
   - S3
 - Triggering builds
