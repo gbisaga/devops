@@ -12,6 +12,7 @@
   - Global Secondary Indexes - can add later
     - Any field as the partition key and sort key
 	- Also have projection
+	- no strong read consistency (async replication?)
   - Capacity of table - two choices
     - Provisioned (free tier elegible)
       - By default you have to provision capacity for your Table (LSIs inherit) and GSIs (separately)
@@ -25,7 +26,7 @@
 	  - A lot more expensive than provisioned
   - Always encrypted at rest - choose default or specify KMS key
 - DynamoDB Accelerator (DAX) cluster
-  - Cache in front of table
+  - Cache in front of table, API compatible
   - Choose instance size, cluster size (>3 for production)
   - Optional encryption
   - Needs an IAM role to access DynamoDB service
@@ -44,10 +45,13 @@
 
 ### “Global” Tables
 - Replicate a table in another region
+  - name always same
+  - doesn’t send table delete
 - Don't have option to create a global table until you add a Stream to the table
+  - So can’t do it during create!
+  - Table has to be empty before you enable multiple regions (because uses stream to take changes)
 - Add as many regions as you want - great for low latency access in multiple reasons
-- This is two-way replication between regions
-- Table has to be empty before you enable multiple regions
+- This is two-way async replication between regions
 
 ### TTL
 - Create a TTL attribute (can be named anything you want)
@@ -61,3 +65,5 @@
     - Search by date, total storage for a customer, list of all objects with attribute or by date
 - Hook up to Amazon ElasticSearch to get a better search capability
    - DynamoDB -> stream -> lambda -> update ElasticSearch
+   - pay for ES, but may be cheaper in RCUs, and search much more powerful
+

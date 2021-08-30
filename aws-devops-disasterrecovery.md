@@ -24,7 +24,7 @@
   - When you restore, recreate EC2s from AMIs, recreate RDS, etc
   - Lowest cost
 - RPO in minutes, RTO in hours: Pilot Light - popular, critical systems kept running
-  - Small version of the app always running in the cloud - critical core
+  - Small version of the app always running in the cloud -  but only critical core (DB)
   - Similar to Backup and Restore, but your most critical systems are already up
   - Example: Do live RDS replication to have the DB, but not running the EC2 instances
   - Lower RPO (less to backup), lower RTO (less to rebuild during recovery)
@@ -44,7 +44,7 @@
 - All in the cloud, really same as on-premise - same options
 
 ### DR tips
-- Backup with EBS snapshots or backups
+- Backup with EBS snapshots or backups (EC2 API, like from CloudWatch scheduled event)
 - HA
   - Route53 between regions
   - If DirectConnect and network goes down, use Site-2-Site VPN
@@ -57,9 +57,9 @@
   - Ex. Netflix has "simian army" - randomly terminate app servers, even in production
 
 ### DR checklist
+- What is RPO/RTO And what is DR budget
 - Is AMI copied across regions, with key in parameter store
 - Is CloudFormation StackSet working and tested to work in another region?
-- What is RPO/RTO
 - Are Route53 health checks working correctly? Ties to a CloudWatch alarm?
 - How can automate w/ CloudWatch events -> trigger Lambda -> perform RDS read replica promotion
 - Is data backed up? appropriate for RPO/RTO? Where is it living, how synchronized and replicated?
@@ -67,8 +67,8 @@
 ### Backups and Multi-region DR
 - EFS backup options
   - AWS Backup with EFS (frequency, when, retain time)
-  - EFS-to-EFS backup automation flow (now AWS Backup)
-  - EFS -> S3 -> S3 Cross region replication -> EFS
+  - EFS-to-EFS backup automation flow (now AWS Backup - or is it datasync?)
+    - EFS -> S3 -> S3 Cross region replication -> EFS
 - Route53 backup - no specific import/export
   - API ListResourceRecordSets for export
   - write script for imports into Route53 or another DNS provider
@@ -77,10 +77,11 @@
   - Can use to recreate in another region
 - RDS
   - Can do Multi-AZ but this is only in a region
+  - Aurora only - Global to up to 5 regions (brand new)
   - However can create read replicas in another region
   - Take snapshot to another region - first one is full, incremental after
 
-DNS routing policies - usually part of DR strategies other than backup and restore
+### DNS routing policies - usually part of DR strategies other than backup and restore
 - Note that you can create a tree of records 
   - e.g. Latency Alias records at the top with weighted next level, with health checks
   - Route53 will walk the tree

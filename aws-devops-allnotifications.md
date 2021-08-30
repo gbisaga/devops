@@ -2,8 +2,11 @@
 
 - Notifications without SNS - CloudWatch events only
   - Trusted Advisor
+  - GuardDuty
   - OpsWorks
   - AWS health
+- Without CloudWatch events
+  - Inspector (SNS or CW metrics only)
 
 ### API Gateway
 - Can create CloudWatch log integration: 2 kinds
@@ -87,7 +90,7 @@
   - Application logs
     - Produced by your application codebuild/MyProjectName
     - Usually on the local filesystem
-    - Streamed using a Can agent
+    - Streamed using an agent
     - Direct integration with CloudWatch logs for Lambda, ECS/Fargate/ElasticBeanstalk
   - Operating system logs (event logs, system logs)
     - EC2 or on-prem
@@ -98,7 +101,8 @@
     - On Load balancers, proxies, web servers
     - Based on user requests being made
   - AWS managed logs
-    - Load balancer access logs to S3 - on the ALB level, not target group
+    - Load balancer access logs to S3 
+      - on the ALB level, not target group
     - CloudTrail logs to S3 and CloudWatch logs
     - VPC flow logs to S3 and CloudWatch logs - you can have multiple of these with different log line formats, filters, aggregation time
     - Route 53 access logs only to CloudWatch logs
@@ -107,15 +111,16 @@
 
 ### CloudWatch metrics
 - Exporting metrics - S3, elasticsearch, etc.
-- Doesn't export metrics natively
-- There's an API call get-metric-statistics - get back JSON document with timestamps, max, unit
-- Always think: how do I automate this? Create CloudWatch scheduled event -> target = Lambda call 
+  - Doesn't export metrics natively
+  - New in 2021 - metrics stream to Kinesis firehose
+  - There's an API call get-metric-statistics - get back JSON document with timestamps, max, unit
+  - Always think: how do I automate this? Create CloudWatch scheduled event -> target = Lambda call 
 - KEY IDEA Important metrics - important to know if you need to create a custom metric or automatically available
   - EC2 - CPU, disk, network - but no internal info like memory usage or processes
   - EBS - I/O, queue length - no info on disk space usage
   - ASG - info on ASG itself like Min/max/desired and instances; aggregate on instances
-  - ALB - traffic, error rates, connections, capacity
-  - RDS - like EC2 but more info because it's managed (memory, disk)
+  - ALB - traffic, error rates, connections, capacity - not utilization (serverless)
+  - RDS - like EC2 but more info because it's managed (memory, disk space)
 
 ### CodeBuild
 - CW Events for failed builds, trigger notifications
@@ -123,7 +128,7 @@
 - CW Events/Lambda for glue
 - SNS notifications with CB trigger
 - Logs - Under CodeBuild > Logs - set up log groups - only trace of build after it's finished
-  - need to make logs go to CW or S3 else lose logs
+  - need to make logs go to CW or S3 else lost
   - CloudWatch logs
   - S3
 - Triggering builds
@@ -150,7 +155,7 @@
     - push to existing branch
     - create branch or tag
     - delete branch or tag
-- 3. More flexible way - see blog below - is CloudWatch events (now called EventBridge) - CW is centerpiece of all devops automations
+- 3. More flexible way - see blog below - is CloudWatch events (now called EventBridge)
   - Specify a service name - here CodeCommit
   - Then event type - commonly CodeCommit Repository State Change
   - EventBridge also gives you source of any API call via CloudTrail
@@ -161,7 +166,9 @@
 - Triggers to SNS only (no lambda unlike CodeCommit)
   - Deployment and Instance triggers - same as CloudWatch state change types
 - As with CodeCommit, CloudWatch events/EventBridge are MUCH more flexible (many target types, can specify conditions, multiple targets for an event)
-- Integration with CloudWatch alarms (not events!): thousands of types of metrics, per-instance or aggregated.
+- Read Integration with CloudWatch alarms
+  - not events (through it generates events)
+  - thousands of types of metrics, per-instance or aggregated.
   - Can use to stop a Deployment
   - Rollback Deployment (if configured)
 
@@ -175,8 +182,9 @@
     - actions, stages, pipeline
   	- started, succeeded, canceled, resumed, etc.
 	  - also for manual approval
-- Custom Action provider
-  - Invoke Lambda
+- Custom Action providers
+  - 1) use Invoke action type + Lambda
+  - 2) write custom build/test type provider
   - Choose which artifact(s) to send
 - Triggering pipeline from other things in AWS
   - CloudWatch/EventBridge event rule
@@ -217,7 +225,7 @@
 - Pulls three log types (CloudTrail, VPC flow, DNS)
 - Continuous, Customizable
   - Integrations: 
-    - Notifications and CloudWatch -> Lambda Functions
+    - Notifications to CloudWatch -> Lambda Functions
     - Sends new CWE events within 5 minutes, then update every 6 hours (configurable)
 
 ### Health

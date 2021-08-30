@@ -1,7 +1,8 @@
-Cognito - used to give users an identity. Several different products
+### Cognito - used to give users an identity. Several different products
 - Cognito user pools (CUP) - signin for app users, integrated with app gateway
   - Can verify email/phone and add MFA
   - (Confusing) can have federated identities with Facebook, Google, SAML - so do identity pools
+    - diff is CUP has user defined
   - Sends back JWT, can be intgrated with API Gateway
 - Cognito federated identity pools (FIP) - can use user pools as identity provider
   - Federated identity pools, direct access to AWS Resources from the client side

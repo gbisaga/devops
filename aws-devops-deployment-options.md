@@ -5,7 +5,7 @@
   - All at once - fastest but downtime - rollback by redeploy
   - Rolling - rollback by redeploy
   - Rolling with Additional Batch - rollback by redeploy
-  - Immutable - rollback by redeploy
+  - Immutable - rollback by redeploy (maybe faster than rolling)
   - Blue/green (Immutable + swap URL) - rollback by swap URL
 
 ### OpsWorks
@@ -40,18 +40,18 @@
     - same three options (allatonce, oneatatime, halfatatime)
     - requires ELB, but ASG is optional
     - don’t link multiple CodeDeploy deployment groups to a single ASG (e.g. to deploy multiple independent softwares)
-  - ECS
+  - ECS all blue green
     - canary, linear, or allatonce
-  - Lambda
+  - Lambda all BG 
     - also canary, linear, or allatonce
 - CodeDeploy with ASG
   - https://docs.aws.amazon.com/codedeploy/latest/userguide/integrations-aws-auto-scaling.html
 
 - CodeDeploy "gotchas":
   - A deployment group contains individually tagged Amazon EC2 instances, Amazon EC2 instances in Amazon EC2 Auto Scaling groups, or both.
-  - Deployments that use the EC2/On-Premises compute platform manage the way in which traffic is directed to instances by using an in-place or blue/green deployment type. During an in-place deployment, CodeDeploy performs a rolling update across Amazon EC2 instances. During a blue/green deployment, the latest application revision is installed on replacement instances.
+  - Deployments that use the EC2/On-Premises compute platform manage the way in which traffic is directed to instances by using an in-place or blue/green deployment type. During an in-place deployment, CodeDeploy performs a rolling update (half at a time, etc) across Amazon EC2 instances. During a blue/green deployment, the latest application revision is installed on replacement instances.
   - If you use an EC2/On-Premises compute platform, be aware that blue/green deployments work with Amazon EC2 instances only.
-  - You CANNOT use canary, linear, or all-at-once [this might be wrong] configuration for EC2/On-Premises compute platform.
+    - You CANNOT use canary, linear, or all-at-once configuration for EC2/On-Premises compute platform (but other BG are ok)
   - You can manage the way in which traffic is shifted to the updated Lambda function versions during deployment by choosing a canary, linear, or all-at-once configuration.
   - You can deploy an Amazon ECS containerized application as a task set. You can manage the way in which traffic is shifted to the updated task set during deployment by choosing a canary, linear, or all-at-once configuration.
   - Amazon ECS blue/green deployments are supported using both CodeDeploy and AWS CloudFormation. For blue/green deployments through AWS CloudFormation, you don't create a CodeDeploy application or deployment group.

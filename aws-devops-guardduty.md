@@ -1,4 +1,4 @@
-GuardDuty
+### GuardDuty
 - Intelligent threat discovery to protect AWS account against malicious usage
 - ML algorithms, anomaly detection
 - No software to install
@@ -15,7 +15,8 @@ GuardDuty
   - Can pause and resume service
 - Sample generation - RDP brute force, trojan on machine, bitcoin mining detected
 
-Integrations
+### Integrations
 - CloudWatch events
   - Source serviceName: GuardDuty, eventType: GuardDuty Finding (no other parameterization)
   - All events are funneled thru, no filtering
+  

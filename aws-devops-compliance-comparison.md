@@ -4,6 +4,8 @@ KEY IDEA Comparing Compliance solutions
   - Ensure EC2 instance has proper AWS configuration (not open SSH port)
   - Audit and compliance over time (rules optional)
   - Automation and remediation with CloudWatch or directly
+    - lambda custom rules
+    - SSM automation only for remediation
 - Inspector
   - Will not launch instances (must exist) but it can install Inspector agent if SSM agent exists
   - Security vulnerability scan within OS with agent

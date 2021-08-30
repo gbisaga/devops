@@ -1,7 +1,7 @@
-Other AWS services
+### Other AWS services
 - CloudFront - CDN caches regional content around the world - usually linked with S3. Increase read performance. Content delivered to 136 Points of Presence around the world.
   - Popular with with S3 because S3 is regional
-  - Protect against DDoD
+  - Protect against DDoS
   - Can have HTTPS, can use SSL to you application
   - Supports videos/media through RTMP protocol (Real-Time Messaging Protocol)
 - Step functions - orchestrate Lambda or other services (EC2)

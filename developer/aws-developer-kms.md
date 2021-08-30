@@ -1,4 +1,4 @@
-KMS 
+### KMS 
 - Any time you hear "encryption" it's probably KMS - EBS volumes, S3, redshift, RDS, SSM Parameter Store, etc
 - Key store, have some control over it but not all
 - Easy way to control access for your data
@@ -23,7 +23,7 @@ KMS
 	- KMS encrypts using CMK
 	- Returns encrypted secrets
 
-KMS Encryption SDK - need to know when to use it
+### KMS Encryption SDK - need to know when to use it
 - What if you want to encrypt over 4KB? E.g. EBS volumes
 - Need to use Envelope Encryption! Use the SDK
 - NOTE: Different from S3 encryption SDK

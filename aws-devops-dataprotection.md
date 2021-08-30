@@ -1,11 +1,12 @@
 ### AWS Data Protection
 - TLS for encryption in transit
-  - AWS Certificate Manager (ACM) to manage certificates
+  - AWS Certificate Manager (ACM) to manage certificates (IAM certificate store is old name?)
   - Load Balancers
     - ELB, ALB, NLB provide SSL termination
     - Can have multiple certificates per ALB
     - Optional encryption between ALB and EC2 instances (normally HTTP)
-  - CloudFront with SSL certificates
+  - CloudFront with SSL certificates in ACM
+    - can require https
   - All AWS services expose HTTPS
   - You could (but SHOULDN'T) use plain HTTP API - everything else HTTPS
 - Encryption at rest
