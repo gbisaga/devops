@@ -1,4 +1,4 @@
-Kinesis - similar but different API to Kafka
+### Kinesis - similar but different API to Kafka
 - Automatically replicated (highly available) to 3 AZs
 - 3 major services in Kinesis
   - Streams - low latency streaming
@@ -28,7 +28,7 @@ Kinesis - similar but different API to Kafka
   - Note that this is like the high level consumers in Kafka, but it uses DynamoDB to store offsets automatically
   - Only one KCL application per shard
 
-KEY IDEA Kinesis Firehose (aka a "delivery stream" vs a "data stream")
+### KEY IDEA Kinesis Firehose (aka a "delivery stream" vs a "data stream")
 - near real time (60 second)
 - KEY IDEA deliver data to Redshift, S3, ElasticSearch, Splunk
 - automatic scaling
@@ -40,6 +40,10 @@ KEY IDEA Kinesis Firehose (aka a "delivery stream" vs a "data stream")
   - Streams is you write custom code to consume, real time, you must manage scaling, data storage for 1-7 days
   - Firehose is fully managed, to S3/Splunk/Redshift/ElasticSearch, near real time (>= 1 min), autoscaling, no data storage
 
-Kinesis Analytics - high level analysis using SQL
+### Kinesis agent
+- standalone Java application 
+- stream log file to kinesis, like CloudWatch log agent does
+
+### Kinesis Analytics - high level analysis using SQL
 - Managed, autoscaling, real time
 - Create streams from real-time queries
