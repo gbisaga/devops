@@ -1,21 +1,33 @@
-CodePipeline is the definition of your CI and CD
+### CodePipeline is the definition of your CI and CD
 - Best practices and use cases: https://docs.aws.amazon.com/codepipeline/latest/userguide/best-practices.html - understand at high level
-  Read shows how to use all together: https://aws.amazon.com/blogs/devops/implementing-gitflow-using-aws-codepipeline-aws-codecommit-aws-codebuild-and-aws-codedeploy/
+  - Read shows how to use all together: https://aws.amazon.com/blogs/devops/implementing-gitflow-using-aws-codepipeline-aws-codecommit-aws-codebuild-and-aws-codedeploy/
 - Used to automate the whole flow from source to build to deployment
-- Visual workflow
-- Sources: GitHub, CodeCommit, S3
-- Build tools: CodeBuild, Jenkins, etc
-- Load testing: 3rd party tools
-- Deploy: CodeDeploy, Beanstalk, CloudFormation, ECS, ...
+  - Visual workflow
+  - Sources: GitHub, CodeCommit, S3
+  - Build tools: CodeBuild, Jenkins, etc
+  - Load testing: 3rd party tools
+  - Deploy
+    - Infrastructure - CloudFormation
+    - Code - CodeDeploy, ECS
+    - Service specific - S3, ECS, EB, Service Catalog, Alexa, many others
+    - CF is most flexible
+    
 - Stages
   - Sequential actions hooked together
   - Can have approval steps
-  - Each stage can create artifacts, passed on via S3
-  - Trigger starts > Source (CodeCommit) > Build (CodeBuild) > Deploy (CodeDeploy) - artifacts between Each
+  - Each stage can create artifacts
+    - passed on in S3 default bucket
+  - Example
+    - Trigger starts
+    - Source (CodeCommit)
+    - Build (CodeBuild)
+    - Deploy (CodeDeploy) 
+    - artifacts between Each
 
 Key principles of CI/CD
 - Automation - do the boring stuff, make sure it works in a "clean" environment
-- Everything as code (no manual adjustments) - including the pipeline itself
+- Everything as code (no manual adjustments) 
+- including the pipeline itself (usually CF)
 - Test, test, test
 - Consistency
 - Integrate frequently - a lot safer, smaller sets of changes - finding the issue 
@@ -24,6 +36,7 @@ Pipeline
 - KEY IDEA #1: Have to specify a repo and branch, so need one pipeline for each branch
 - KEY IDEA #2: Detection option, CloudWatch events (recommended, because it happens immediately) or CodePipeline to check periodically.
   - Creates a CloudWatch event rule for the purpose, target is the CodePipeline pipeline with the service role created. Rule is e.g.
+  
     {
         "source": [
             "aws.codecommit"
@@ -47,8 +60,12 @@ Pipeline
             ]
         }
     }
+    
 - Creates a service role
-- Each pipeline starts with specific predefined stages (not as flexible as gitlab, but after creating you can add as many stages as you want with the visual editor). Must have at least two stages, with EITHER a build or deployment stage (or both)
+- In console
+  - Starts with specific predefined
+  - add as many stages as you want with the visual editor)
+  - Must have at least two stages, with EITHER a build or deployment stage (or both)
   - Source stage - pull code
   - Build stage - optional, can skip if no build activity is required
   - Deploy stage - deploy e.g. with CodeDeploy
@@ -63,7 +80,7 @@ Pipeline
 - Deploy stage - use a provider - many like CodeDeploy, CloudFormation, Beanstalk, Alexa, ECS
   - Note that you can deploy into a different region - specify the region(s) and trigger deploys into those regions from one pipeline
 
-Once created, the pipeline is "running" (i.e. waiting to be triggered). You can stop it from running or edit it.
+### Once created, the pipeline is "running" (i.e. waiting to be triggered). You can stop it from running or edit it.
 - Edit, add more stages
 - Each stage has action groups
   - Each action group has one or more actions
@@ -76,21 +93,29 @@ Once created, the pipeline is "running" (i.e. waiting to be triggered). You can 
     - Invoke - run anything you want (e.g. via Lambda)
     - Source
     - Test
+    - Custom 
+      - implement your own worker with sdk
+      - install only from CLI 
+      - just shows up in provider list
+      - probably how all others implemented 
+      - 0 or more input and output artifacts
+      - URL templates for more info in console
+      - example: custom on-prem test tool
 - Each stage specifies one or more artifacts
 - Save and "Release Change" - this causes pipeline to re-trigger
 
-CodePipeline and S3 - KEY IDEAS
+### CodePipeline and S3 - KEY IDEAS
 - CodePipeline uses S3 constantly for reading and writing artifacts
-- #1 Per-pipeline (default) or central
-- #2 Always encrypted, but can either use account default or a customer managed KMS key
-- #3 At every stage of the pipeline, we create artifacts in the S3 folder; either standard or custom names
-- #4 Also concept of CodeBuild artifacts - separate from CodePipeline artifacts
+  - #1 Per-pipeline (default) or central
+  - #2 Always encrypted, but can either use account default or a customer managed KMS key
+  - #3 At every stage of the pipeline, we create artifacts in the S3 folder; either standard or custom names
+  - #4 Also concept of CodeBuild artifacts - separate from CodePipeline artifacts
 - Can also upload to other S3 buckets - create an action to upload to desired location
 
-Manual Approval steps
+### Manual Approval steps
 - Add ActionGroup before the deploy itself (need to be a group because need it to be Sequential, not parallel)
 
-All integrations - high level use cases - read best practices document
+### All integrations - high level use cases - read best practices document
 - Manual approval - want review
 - CodeBuild - build or test code
 - Jenkins - integrate with 3rd party build service
@@ -112,16 +137,17 @@ Custom action jobs with Lambda - https://docs.aws.amazon.com/codepipeline/latest
 
 Automated Integration API Testing https://aws.amazon.com/blogs/devops/automating-your-api-testing-with-aws-codebuild-aws-codepipeline-and-postman/
 
-CodePipeline/CloudFormation actions
+### CodePipeline/CloudFormation actions
 - Use CodePipeline to deploy CloudFormation
 - But can also create CodePipeline using CloudFormation - READ THESE EXAMPLES https://docs.aws.amazon.com/codepipeline/latest/userguide/tutorials-cloudformation.html
 - Can mix and match - READ AND DEPLOY project - DevOps best practices https://github.com/aws-samples/codepipeline-nested-cfn
 - Advantage: can reproduce as many times as you want. Note for example CodePipeline source references a particular branch - would have to create another one for each branch. Two options:
   - Clone pipeline with clone command
   - Use CloudFormation to create multiple (better!)
+    - maybe on branch creation CE event
 - As DevOps always have to think: how do I scale this
 
-Security
+### Security
 - User IAM security - to be able to invoke the pipeline
 - Pipeline has a service role (under Settings) 
   - NOTE that users don't need these permissions, they only need to be able to invoke the pipeline

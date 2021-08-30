@@ -3,6 +3,7 @@
 - Notifications without SNS - CloudWatch events only
   - Trusted Advisor
   - OpsWorks
+  - AWS health
 
 ### API Gateway
 - Can create CloudWatch log integration: 2 kinds
@@ -202,6 +203,8 @@
   - 3) Install unified CloudWatch agent - used to be a CloudWatch logs agent and a metrics system and script, etc. - now all in one
   - KEY IDEA monitor host metrics to become custom metrics (per-core CPU, memory, disk) - good because standard CloudWatch metrics (1) are not per-core (2) don't collect memory
 
+### ECS
+
 ### Elastic Beanstalk
 - Can do SNS notifications - EB auto-creates and subscribes an email address. 
 - Worker environments
@@ -249,6 +252,11 @@
   - KEY IDEA S3 notifications vs CloudWatch S3 events
     - Notifications always object level (not bucket), only most popular actions, simpler integration
     - CloudWatch event rules bucket or object level, can do almost anything, more complex because goes thru CloudTrail and CloudTrail needs to be enabled for the specific bucket(s) you want
+- access logs to S3
+  - like apache, more http oriented
+  - best effort delivery only
+  - can be very delayed
+  - use mainly for general traffic analysis 
 
 ### Service Catalog
 - SNS Notifications

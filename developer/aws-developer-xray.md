@@ -25,15 +25,15 @@
   - Lambda already runs the daemon for you if you enable it
   - ElasticBeanstalk has an .ebextensions/xray-daemon.config 
   - option setting aws:elasticbeanstalk:xray: XRayEnabled: true
-  - Needs IAM rights to write data to XRay - COMMON EXAM QUESTION - runs locally but not on EC2 -> EC2's Role doesn't have the policy
-  - Default daemon local host:2000
-  
+  - Needs IAM rights to write data to XRay - COMMON EXAM QUESTION - if runs locally but not on EC2/ECS -> EC2/ECS task's Role doesn't have the policy
+  - Default daemon localhost:2000
+
 ### XRay KEY IDEA FOR EXAM
 - XRay daemon/agent has config to send traces cross accounts
   - Make sure IAM permissions correct - agent assumes role
   - Central account for all application tracing
 - End to end trace > all Segments collected together (each application or service sends)
-- Sampling - reduce amount of requests sent ot XRay, reduce costs - only 5% of traces sent
+- Sampling - reduce amount of requests sent to XRay, reduce costs - only 5% of traces sent
 - Two kinds of extra data with traces
   - Annotations - K/V pairs used to index traces and use filters
   - Metadata - also K/V pairs, but not indexed, not for searching
@@ -51,4 +51,5 @@
     - Config on EB console or use Beanstalk .ebextensions
   - from ECS/EKS/Fargate (docker)
     - Create docker image with daemon
+    - Or run as a sidecar
 	- Port mappings and network settings correct

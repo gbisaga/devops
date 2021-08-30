@@ -11,7 +11,7 @@
 
 ### Also need container management platform - AWS has three
 - EKS - not in exam
-- ECS
+- ECS “classic”
 - Fargate
 
 ### ECS details

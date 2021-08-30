@@ -1,12 +1,16 @@
-ECS
+# ECS
 - Task is like a pod definition
 - Normally define a Service linking to the Task definition
-- Service type - REPLICA vs DAEMON - # of replicas vs one per instance. REPLICA is normal, DAEMON usually for per-instance monitoring task, etc.
+- Service type 
+  - REPLICA vs DAEMON 
+  - # of replicas vs one per instance. REPLICA is normal
+  - DAEMON usually for per-instance monitoring task, etc.
 - Minimum healthy percent - 0 for rolling
 - Deployment, rolling or blue/green
 - Task Placement - Strategy for assigning tasks to instances. Typically "AZ balanced spread"
 - Task defs have revisions, 1-n
-- ECS with load balancer - use ephemeral ports, ALB with Dynamic Port Forwarding knows how to find ephemeral ports
+- ECS with load balancer 
+  - use ephemeral ports, ALB with Dynamic Port Forwarding knows how to find ephemeral ports
   - To use ephemeral ports, don't specify a "host" port - just a containerPort, with hostPort=0
   - Point service to revision 2
 - ECS/XRay integration - options
@@ -14,6 +18,7 @@ ECS
   - Run as a sidecar container - run as container in each task
   - Fargate only supports sidecar since you don't have control over instances
 - set AWS_XRAY_DAEMON_ADDRESS environment variable with "xray-daemon" like "xray-daemon:2000" (and define a container link
+- agent configure with with /etc/ecs/ecs.config
 
 ### EXAM QUESTION: Elastic Beanstalk 
   - in single and multi docker container mode (i.e. one or multiple containers per EC2 instance)
@@ -26,7 +31,7 @@ ECS
 ### Summary + EXAM TIPS - containers, 3 flavors
 - ECS Classic 
   - EC2 instances 
-  - creates instances with /etc/ecs/ecs.config with cluster name
+  - creates instances with cluster name in env and config file (ECS_CLUSTER)
   - EC2 instance special AMI with ECS agent to register instance with cluster. 
   - Can run multiple containers of same type 
     - Don't specify a host port (only container port)

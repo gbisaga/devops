@@ -1,4 +1,4 @@
-Amazon Inspector
+### Amazon Inspector
 - Identify behavior of resources, analyze security issues
 - Install an agent on EC2, run assessments, analyze results... and build automations
 - Integrated with SSM to run commands to install the Inspector agent
@@ -21,7 +21,7 @@ Amazon Inspector
   - View in UI or download report
   - Use to improve security
 
-How to automate?
+### How to automate?
 - 1) Make the inspector a target for CloudWatch events
   - the Inspector schedule option does exactly that, a timed event
   - but could do it on some other trigger

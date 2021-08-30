@@ -29,6 +29,9 @@
 - ecsworkshop.com/introduction/cicd
   - CodePipeline > use CodeBuild to build docker image to ECR > use CloudFormation to deploy ECS cluster
 - KEY IDEA: instead of direct deploys use CodeDeploy to do blue/green to ECS service
-- ECR image tags - "latest" is not immutable, will override. Should use either image tag:
+- ECR image tags - "LATEST" is not immutable, will override. Should use either image tag:
   - version tag - 1 to 6, etc
   - use sha256 digest as the image tag
+- —force-new-deployment - use with LATEST:
+  - use case 1: deploy new LATEST Docker
+  - use case 2: deploy LATEST ECS platform

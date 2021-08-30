@@ -23,6 +23,7 @@
 - AWS Config Aggregators (multi-region, multi-account) - I did this!
 - RDS cross region read replicas (used for read and DR)
 - Aurora "global" database
+  - Aurora only - not in other RDS
   - Up to five secondary regions
   - One region is master, secondary regions for read and DR
   - Easy to "promote" replica to master (RPO 1 second, RTO 1 minute)
@@ -32,7 +33,14 @@
 - Route53 - always multi-region, global network of DNS servers
 - S3 cross-region replication - good for DR, low-latency in another region, aggregate for analytics
 - CloudFront for global CDN at all edge locations (many, more than # regions)
-- Lambda@Edge for global Lambda function at all Edge locations
+  - Lambda@Edge for global Lambda function at all Edge locations
+    - part of CloudFront
+    - 4 hooks - viewer request/response, origin request/response (only on misses)
+  - brand new CloudFront functions (4/2021)
+    - JS-only, no network access 
+    - super fast - millions/sec
+    - viewer request/response only
+    - not in test
 
 ### Multi-region with Route53
 - KEY IDEA Health check is center of it -> automated DNS failovers
@@ -55,7 +63,9 @@
 ### Multi-region CloudFormation StackSets: Deploying an application across multiple regions and accounts
 - Create/update/delete stacks across multi-account, region, organizational units
 - KEY IDEA When you see "global deployment" think StackSets and CodePipeline (see below)
-- Two user/roles involved: Administrator to create StackSet, trusted account to modify and delete (I don't understand this???)
+- Two user/roles involved
+  - Administrator to create StackSet
+  - Author of template (“trusted acct”??)
 - When you update a StackSet, all associated stacks are updated
 - Can set maximum concurrent actions (how many account/regions at a time, # or %), failure tolerance before rollback (# or %)
 - Can add new stack instances or delete instances to existing StackSets
@@ -68,4 +78,6 @@
 - KEY IDEA Do multi-region deployment built into CodePipeline - https://aws.amazon.com/blogs/devops/using-aws-codepipeline-to-perform-multi-region-deployments/
 - CodePipeline in one region invokes CodeDeploy locally but also in other regions
 - Artifact store (versioned S3 bucket) needs to be created in the other regions so CodeDeploy can access them
-- CodePipeline has specific Action steps for each region - specify the region in each action
+  - CodePipeline has specific Action steps for each region 
+  - Specify the region in each action
+
