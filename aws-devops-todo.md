@@ -19,9 +19,11 @@
   - Anything that refers to standards in your organization - will probably eliminate an answer
   - Time-based elements in questions and answers. So if the question says "hot standby", "real-time", etc., it would not include scheduled actions.
   - "EMR" - think "expensive" - so for example need notification more quickly, or use Athena instead
+  - “CPU” or “network bound”
 - To ensure we get to all the easy answers, 
   - Write down all numbers, underlining ones not 100% sure of (double underlining for a guess), and review those first. Check off as they're reviewed and fixed.
-  - On review, if it's not clear which answer is right, don't guess except as a last resort. Analyze how answers are same or different. If two answers refer to one service and three to another, does one match the number of answers you have to choose?
+  - On review, if it's not clear which answer is right, don't guess except as a last resort. 
+- Analyze how answers are same or different. If two answers refer to one service and three to another, probably one from each group.
 - Look for and eliminate obviously wrong answer elements first
 - Keys in answers
   - If answers are long, find common elements between them (often they will be the head of the answers). This lets you find the differentiators between right and wrong.
