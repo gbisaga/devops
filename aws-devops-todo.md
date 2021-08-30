@@ -1,4 +1,4 @@
-Thoughts for during the exam
+### Thoughts for during the exam
 - Read the question carefully for keywords
   - "logs" - CloudWatch
   - "real-time" - DynamoDB streams, CloudWatch logs subscription, Kinesis - or hot standby config
@@ -15,16 +15,20 @@ Thoughts for during the exam
     - "downtime" - warm/hot standby
     - "startup time" - pre-baked AMIs
     - "administrative overhead" - there's a config item, don't have to implement filtering yourself
+    - "geographically isolated" - might mean "another region" (not just AZ)
   - Anything that refers to standards in your organization - will probably eliminate an answer
   - Time-based elements in questions and answers. So if the question says "hot standby", "real-time", etc., it would not include scheduled actions.
+  - "EMR" - think "expensive" - so for example need notification more quickly, or use Athena instead
 - To ensure we get to all the easy answers, 
   - Write down all numbers, underlining ones not 100% sure of (double underlining for a guess), and review those first. Check off as they're reviewed and fixed.
   - On review, if it's not clear which answer is right, don't guess except as a last resort. Analyze how answers are same or different. If two answers refer to one service and three to another, does one match the number of answers you have to choose?
 - Look for and eliminate obviously wrong answer elements first
-- If answers are long, find common elements between them (often they will be the head of the answers). This lets you find the differentiators between right and wrong.
-- Look for "only" in answers. Is it ONLY true there, or are there other options?
-- It may be more than one answer that will meet the objectives. If an answer is convoluted, it's *probably* not right, but it might be. Usually common situations have straightforward solutions.
-- If an answer has something you've never heard of in studying, it's probably wrong.
+- Keys in answers
+  - If answers are long, find common elements between them (often they will be the head of the answers). This lets you find the differentiators between right and wrong.
+  - Look for "only" in answers. Is it ONLY true there, or are there other options?
+  - It may be more than one answer that will meet the objectives. If an answer is convoluted, it's *probably* not right, but it might be. Usually common situations have straightforward solutions.
+  - If an answer has something you've never heard of in studying, it's probably wrong.
+  - If it mentions SES, it is pretty much always wrong (SNS instead)
 - If the question is complex, the common parts and differentiators of the answers can help weed out what parts of the question to ignore and what to pay attention to.
 - In a lift-and-shift, look for older technologies and AWS services that would replace them. 
   - Generating a tape shipped offsite -> S3 with a lifecycle policy that goes to glacier
@@ -33,12 +37,20 @@ Thoughts for during the exam
 - Think about how I would actually implement.
   - If want to work on multiple versions with testing, need to maintain multiple CodeCommit branches, which means multiple CodeBuilds or pipelines
   - Draw diagram of what is being proposed. If you can't have paper, make diagram with fingers.
-- For multiple answer questions, usually groups of answers
-  - If 2/5, probably two groups of answers, one with 2 and one with 3
-  - Examine the group with shortest answers first
-  - Find best answer in that group - helps eliminate answers in the other groups
+- For multiple answer questions
+  - First thing to do: ask yourself which category the question belongs to
+  - Category 1: need to select more than one working together
+    - "What steps should the team take to satisfy this requirement?"
+    - Example: DNS Failover record + DNS Health checks
+    - Some of these have groups of answers
+      - If 2/5, probably two groups of answers, one with 2 and one with 3
+      - Examine the group with shortest answers first
+    -   Find best answer in that group - helps eliminate answers in the other groups
+  - Category 2: But sometimes just more than one way to do it - alternate solutions
+    - "Which of the following solutions can help you achieve this requirement?"
+- Steps in the answer aren't necessarily in order - only if they explicitly mention ordering
 
-Before the exam
+### Before the exam
 - Review all the "KEY IDEA", "NOTE", and "??" items
 - Read blue/green https://d0.awsstatic.com/whitepapers/AWS_Blue_Green_Deployments.pdf (this should help the deployment modes table)
 - Find all the services with notifications and list together in a document

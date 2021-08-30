@@ -75,8 +75,15 @@
 - Elastic Beanstalk
   - Saved configurations using eb cli
   - Can use to recreate in another region
+- RDS
+  - Can do Multi-AZ but this is only in a region
+  - However can create read replicas in another region
+  - Take snapshot to another region - first one is full, incremental after
 
 DNS routing policies - usually part of DR strategies other than backup and restore
+- Note that you can create a tree of records 
+  - e.g. Latency Alias records at the top with weighted next level, with health checks
+  - Route53 will walk the tree
 - Simple - direct connection to a single resource, no DR
 - Failover - for active/passive failover
 - Weighted - multiple resources with specified proportion; good for canary deployments

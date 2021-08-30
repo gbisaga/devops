@@ -1,5 +1,9 @@
 # Notifications and integrations
 
+- Notifications without SNS - CloudWatch events only
+  - Trusted Advisor
+  - OpsWorks
+
 ### API Gateway
 - Can create CloudWatch log integration: 2 kinds
   - Access logging - similar to access logs in Apache, etc.; can specify fields, or JSON/XML
@@ -33,7 +37,9 @@
   - SNS notifications - not rule level, across all of AWS Config
     - Use case - want overall operational insights to a slack channel about Config as a whole
     - Per-rule use CloudWatch events
-  - Also automatic rule remediation (not as flexible but easier to use and reason about), uses SSM Automations
+  - Also automatic rule remediation (not as flexible but easier to use and reason about)
+    - Uses SSM Automations ONLY!
+    - Lambda used for custom rules, but not for remediations
 
 ### CloudFormation
 - Specify SNS notifications
@@ -229,6 +235,9 @@
   - Run as soon as AMI is created by SSM automation
   - Also do timed to make sure AMI is still secure
 
+### Macie
+- CloudWatch events only
+
 ### S3
 - S3 Notification - similar to CodeCommit Notifications in that it does not directly involve CloudWatch events
   - Created on a per-bucket
@@ -266,6 +275,8 @@
 - Notifications
   - CloudWatch events - example rules
   - NO notification to SNS - events only
+- Has automatic email notifications - but only take place weekly!
+  - So, for any rapid response, CloudWatch events are the only solution!
 
 ### OpsWorks
 - Q: How do you get notified?

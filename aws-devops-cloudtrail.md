@@ -12,6 +12,9 @@
 - Can also deliver
   - SNS notification for every log file - create automation
   - KEY IDEA CloudTrail to CloudWatch logs - NOTE need an IAM role
+- Two kinds: data events and management (aka control plane) events
+  - Data events are about resource operations
+  - High volume, so data events disabled in trails by default
 
 ### KEY IDEA What's inside a CloudTrail file?
 - JSON file - an array of Record

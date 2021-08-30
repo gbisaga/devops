@@ -7,7 +7,8 @@
 - No special agent for `awslogs`
   - `awslogs` itself runs in container (EC2 or Fargate)
   - But when on EC2, it forwards logs to the ECS agent
-  - Therefore the Instance Role (not the Container Role) requires access to CloudWatch logs
+    - Therefore the Instance Role (not the Container Role) requires access to CloudWatch logs
+    - Also "prevents your container logs from taking up disk space on your container instances" - awslogs forwards directly to the daemon (not in a container)
   - This also explains why Fargate doesn't require any special role tweaking
 
 ### CloudWatch metrics
